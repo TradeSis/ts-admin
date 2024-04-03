@@ -63,7 +63,7 @@ include_once(__DIR__ . '/../header.php');
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Inserir Produtos</h5>
+                        <h5 class="modal-title">Inserir Fornecedor</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -100,7 +100,7 @@ include_once(__DIR__ . '/../header.php');
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Alterar Produto</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Alterar Fornecedor</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 
                     </div>
@@ -109,7 +109,7 @@ include_once(__DIR__ . '/../header.php');
                             <div class="row">
                                 <div class="col-md">
                                     <label class="form-label ts-label">Cnpj</label>
-                                    <input type="text" class="form-control ts-input" name="Cnpj" id="Cnpj">
+                                    <input type="text" class="form-control ts-input" name="Cnpj" id="Cnpj" disabled>
                                 </div>
                                 <div class="col-md">
                                     <label class="form-label ts-label">Fornecedor</label>

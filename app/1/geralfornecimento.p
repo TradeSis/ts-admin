@@ -12,7 +12,9 @@ def temp-table ttentrada no-undo serialize-name "dadosEntrada"   /* JSON ENTRADA
     field buscaFornecimento  AS CHAR.
 
 def temp-table ttgeralfornecimento  no-undo serialize-name "geralfornecimento"  /* JSON SAIDA */
-    like geralfornecimento.
+    like geralfornecimento
+    FIELD nomePessoa AS CHAR
+    FIELD nomeProduto AS CHAR.
 
 def temp-table ttsaida  no-undo serialize-name "conteudoSaida"  /* JSON SAIDA CASO ERRO */
     field tstatus        as int serialize-name "status"
@@ -40,8 +42,30 @@ THEN DO:
          then true /* TODOS */
          else geralfornecimento.idFornecimento = vidFornecimento)
          no-lock.
+         
+         FIND geralpessoas WHERE geralpessoas.cpfCnpj = geralfornecimento.Cnpj NO-LOCK NO-ERROR.
+         IF NOT AVAIL geralpessoas
+         THEN DO:
+            RUN montasaida (400,"geralpessoas.cpfCnpj nao encontrado").
+            RETURN.
+         END.
+         
+         FIND geralprodutos WHERE geralprodutos.idGeralProduto = geralfornecimento.idGeralProduto NO-LOCK NO-ERROR.
+         IF NOT AVAIL geralprodutos
+         THEN DO:
+            RUN montasaida (400,"geralprodutos.idGeralProduto nao encontrado").
+            RETURN.
+         END.
 
-        RUN criaFornecimento.
+         //RUN criaFornecimento.
+         create ttgeralfornecimento.
+         ttgeralfornecimento.idFornecimento = geralfornecimento.idFornecimento.
+         ttgeralfornecimento.Cnpj = geralfornecimento.Cnpj.
+         ttgeralfornecimento.refProduto = geralfornecimento.refProduto.
+         ttgeralfornecimento.idGeralProduto = geralfornecimento.idGeralProduto.
+         ttgeralfornecimento.valorCompra = geralfornecimento.valorCompra.
+         ttgeralfornecimento.nomePessoa = geralpessoas.nomePessoa.
+         ttgeralfornecimento.nomeProduto = geralprodutos.nomeProduto.
 
     end.
 END.
@@ -104,3 +128,20 @@ PROCEDURE criaFornecimento.
     BUFFER-COPY geralfornecimento TO ttgeralfornecimento.
 
 END.
+
+procedure montasaida.
+    DEF INPUT PARAM tstatus AS INT.
+    DEF INPUT PARAM tdescricaoStatus AS CHAR.
+
+    create ttsaida.
+    ttsaida.tstatus = tstatus.
+    ttsaida.descricaoStatus = tdescricaoStatus.
+
+    hsaida  = temp-table ttsaida:handle.
+
+    lokJson = hsaida:WRITE-JSON("LONGCHAR", vlcSaida, TRUE).
+    put unformatted string(vlcSaida).
+
+END PROCEDURE.
+
+
