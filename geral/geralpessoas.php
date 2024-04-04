@@ -70,7 +70,7 @@ include_once(__DIR__ . '/../header.php');
                     <form method="post" id="form-inserirPessoas">
                             <div class="row">
                                 <div class="col-md">
-                                    <div class="row mt-3">
+                                    <div class="row">
                                         <div class="col-md-2">
                                             <label class="form-label ts-label">Tipo de Pessoa</label>
                                             <select class="form-select ts-input" name="tipoPessoa">
@@ -140,25 +140,49 @@ include_once(__DIR__ . '/../header.php');
                                         </div>
                                     </div><!--fim row 4-->
                                     <div class="row mt-3">
+                                    <!-- lucas 04042024 - Alterado para select: crt, regimeTrib e caracTrib -->
                                         <div class="col-md">
                                             <label class="form-label ts-label">crt</label>
-                                            <input type="text" class="form-control ts-input" name="crt">
+                                            <select class="form-select ts-input" name="crt">
+                                                <option value="">Selecione</option>
+                                                <option value="1">Simples Nacional</option>
+                                                <option value="2" title="SN com excesso sublimite de receita bruta">SN com excesso</option>
+                                                <option value="3">Regime Normal</option>
+                                            </select>
                                         </div>
                                         <div class="col-md">
                                             <label class="form-label ts-label">regimeTrib</label>
-                                            <input type="text" class="form-control ts-input" name="regimeTrib">
+                                            <select class="form-select ts-input" name="regimeTrib">
+                                                <option value="">Selecione</option>
+                                                <option data-crt="1" value="SN">SN</option>
+                                                <option data-crt="2" value="SN">SN</option>
+                                                <option data-crt="3" value="LR">LR</option>
+                                                <option data-crt="3" value="LP">LP</option>
+                                            </select>
                                         </div>
                                         <div class="col-md">
-                                            <label class="form-label ts-label">cnae</label>
-                                            <input type="text" class="form-control ts-input" name="cnae">
+                                            <label class="form-label ts-label">caracTrib</label>
+                                            <select class="form-select ts-input" name="caracTrib">
+                                                <option value="0">Industrial</option>
+                                                <option value="1">Distribuidor</option>
+                                                <option value="2">Atacadista</option>
+                                                <option value="3">Varejista</option>
+                                                <option value="4">Produtor Rural Pessoa Juridica</option>
+                                                <option value="6">Produtor Rural Pessoa Fisica</option>
+                                                <option value="7">Pessoa Juridica não Contribuinte do ICMS</option>
+                                                <option value="8">Pessoa Fisica não Contribuinte do ICMS</option>
+                                                <option value="9">Armazém Geral</option>
+                                            </select>
                                         </div>
+                                    </div>
+                                    <div class="row mt-3">
                                         <div class="col-md">
                                             <label class="form-label ts-label">regimeEspecial</label>
                                             <input type="text" class="form-control ts-input" name="regimeEspecial">
                                         </div>
                                         <div class="col-md">
-                                            <label class="form-label ts-label">caracTrib</label>
-                                            <input type="text" class="form-control ts-input" name="caracTrib">
+                                            <label class="form-label ts-label">cnae</label>
+                                            <input type="text" class="form-control ts-input" name="cnae">
                                         </div>
                                         <div class="col-md">
                                             <label class="form-label ts-label">origem</label>
@@ -258,25 +282,48 @@ include_once(__DIR__ . '/../header.php');
                                         </div>
                                     </div><!--fim row 4-->
                                     <div class="row mt-3">
+                                        <!-- lucas 04042024 - Alterado para select: crt, regimeTrib e caracTrib -->
                                         <div class="col-md">
                                             <label class="form-label ts-label">crt</label>
-                                            <input type="text" class="form-control ts-input" id="crt" name="crt">
+                                            <select class="form-select ts-input" name="crt" id="crt">
+                                                <option value="1">Simples Nacional</option>
+                                                <option value="2" title="SN com excesso sublimite de receita bruta">SN com excesso</option>
+                                                <option value="3">Regime Normal</option>
+                                            </select>
                                         </div>
                                         <div class="col-md">
                                             <label class="form-label ts-label">regimeTrib</label>
-                                            <input type="text" class="form-control ts-input" id="regimeTrib" name="regimeTrib">
+                                            <select class="form-select ts-input" name="regimeTrib" id="regimeTrib">
+                                                <option value="">Selecione</option>
+                                                <option value="SN">SN</option>
+                                                <option value="SN">SN</option>
+                                                <option value="LR">LR</option>
+                                                <option value="LP">LP</option>
+                                            </select>
                                         </div>
                                         <div class="col-md">
-                                            <label class="form-label ts-label">cnae</label>
-                                            <input type="text" class="form-control ts-input" id="cnae" name="cnae">
+                                            <label class="form-label ts-label">caracTrib</label>
+                                            <select class="form-select ts-input" name="caracTrib" id="caracTrib">
+                                                <option value="0">Industrial</option>
+                                                <option value="1">Distribuidor</option>
+                                                <option value="2">Atacadista</option>
+                                                <option value="3">Varejista</option>
+                                                <option value="4">Produtor Rural Pessoa Juridica</option>
+                                                <option value="6">Produtor Rural Pessoa Fisica</option>
+                                                <option value="7">Pessoa Juridica não Contribuinte do ICMS</option>
+                                                <option value="8">Pessoa Fisica não Contribuinte do ICMS</option>
+                                                <option value="9">Armazém Geral</option>
+                                            </select>
                                         </div>
+                                    </div>
+                                    <div class="row mt-3">
                                         <div class="col-md">
                                             <label class="form-label ts-label">regimeEspecial</label>
                                             <input type="text" class="form-control ts-input" id="regimeEspecial" name="regimeEspecial">
                                         </div>
                                         <div class="col-md">
-                                            <label class="form-label ts-label">caracTrib</label>
-                                            <input type="text" class="form-control ts-input" name="caracTrib" id="caracTrib">
+                                            <label class="form-label ts-label">cnae</label>
+                                            <input type="text" class="form-control ts-input" id="cnae" name="cnae">
                                         </div>
                                         <div class="col-md">
                                             <label class="form-label ts-label">origem</label>
@@ -450,6 +497,24 @@ include_once(__DIR__ . '/../header.php');
             }
         });
 
+        // lucas 04042024 - Select inserir de crt e regimeTrib
+        var vregimeTrib = $('select[name="regimeTrib"] option');
+        $('select[name="regimeTrib"]').attr('disabled', 'disabled');
+        $('select[name="crt"]').on('change', function () {
+            var crt = this.value;
+            if(crt == ''){
+                var novoSelect = '0;'
+                $('select[name="regimeTrib"]').html(novoSelect);
+                $('select[name="regimeTrib"]').attr('disabled', 'disabled');
+            }else{
+                var novoSelect = vregimeTrib.filter(function () {
+                return $(this).data('crt') == crt;
+                });
+                $('select[name="regimeTrib"]').html(novoSelect);
+                $('select[name="regimeTrib"]').removeAttr('disabled');
+            }
+
+        });
     </script>
 
     <!-- LOCAL PARA COLOCAR OS JS -FIM -->
