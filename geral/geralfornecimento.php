@@ -44,7 +44,9 @@ include_once(__DIR__ . '/../header.php');
                     <tr class="ts-headerTabelaLinhaCima">
                         <th>Cnpj</th>
                         <th>Fornecedor</th>
+                        <th>idProduto</th>
                         <th>refProduto</th>
+                        <th>eanProduto</th>
                         <th>Produto</th>
                         <th>Valor</th>
                         <th colspan="2">AÃ§Ã£o</th>
@@ -86,6 +88,28 @@ include_once(__DIR__ . '/../header.php');
                                     <input type="text" class="form-control ts-input" name="valorCompra">
                                 </div>
                             </div>
+                            <div class="row mt-2">
+                                <div class="col-md">
+                                    <label class="form-label ts-label">Origem</label>
+                                    <select class="form-select ts-input" name="origem">
+                                        <option value="0">0 - Nacional, exceto as indicadas nos códigos 3 a 5</option>
+                                        <option value="1">1 - Estrangeira - Importação direta, exceto a indicada no código 6</option>
+                                        <option value="2">2- Estrangeira - Adquirida no mercado interno, exceto a indicada no código 7</option>
+                                        <option value="3" title="mercadoria ou bem com Conteúdo de Importação superior a 40%">3 - Nacional, superior a 40%..</option>
+                                        <option value="4" title="cuja produção tenha sido feita em conformidade com os processos produtivos básicos de que tratam o
+Decreto-Lei no 288/1967 , e as Leis nos 8.248/1991, 8.387/1991, 10.176/2001 e 11.484/2007">4 - Nacional, processos produtivos</option>
+                                        <option value="5" title="mercadoria ou bem com Conteúdo de Importação inferior ou igual a 40%">5 - Nacional, inferior ou igual a 40%</option>
+                                        <option value="6" title="Importação direta, sem similar nacional, constante em lista de Resolução Camex e gás natural">6- Estrangeira - Importação direta</option>
+                                        <option value="7" title="Adquirida no mercado interno, sem similar nacional, constante em lista de Resolução Camex
+e gás natural">7 - Estrangeira - Adquirida no mercado interno</option>
+                                        <option value="8" title="mercadoria ou bem com Conteúdo de Importação superior a 70% (setenta por cento)">8 - Nacional, superior a 70% (setenta por cento)</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label ts-label">cfop</label>
+                                    <input type="text" class="form-control ts-input" name="cfop">
+                                </div>
+                            </div>
                     </div><!--body-->
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success">Cadastrar</button>
@@ -117,22 +141,50 @@ include_once(__DIR__ . '/../header.php');
                                 </div>
                             </div>
                             <div class="row mt-2">
-                                <div class="col-md-1">
-                                    <label class="form-label ts-label">ID</label>
-                                    <input type="text" class="form-control ts-input" name="idGeralProduto" id="idGeralProduto">
+                                <div class="col-md-2">
+                                    <label class="form-label ts-label">IdGeralProduto</label>
+                                    <input type="text" class="form-control ts-input" name="idGeralProduto" id="idGeralProduto" disabled>
                                     <input type="hidden" class="form-control ts-input" name="idFornecimento" id="idFornecimento">
                                 </div>
                                 <div class="col-md">
                                     <label class="form-label ts-label">Produto</label>
                                     <input type="text" class="form-control ts-input" name="nomeProduto" id="nomeProduto" disabled>
                                 </div>
-                                <div class="col-md-2">
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md">
                                     <label class="form-label ts-label">refProduto</label>
                                     <input type="text" class="form-control ts-input" name="refProduto" id="refProduto">
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md">
+                                    <label class="form-label ts-label">eanProduto</label>
+                                    <input type="text" class="form-control ts-input" name="eanProduto" id="eanProduto" disabled>
+                                </div>
+                                <div class="col-md">
                                     <label class="form-label ts-label">valorCompra</label>
                                     <input type="text" class="form-control ts-input" name="valorCompra" id="valorCompra">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md">
+                                    <label class="form-label ts-label">Origem</label>
+                                    <select class="form-select ts-input" name="origem" id="origem">
+                                        <option value="0">0 - Nacional, exceto as indicadas nos códigos 3 a 5</option>
+                                        <option value="1">1 - Estrangeira - Importação direta, exceto a indicada no código 6</option>
+                                        <option value="2">2- Estrangeira - Adquirida no mercado interno, exceto a indicada no código 7</option>
+                                        <option value="3" title="mercadoria ou bem com Conteúdo de Importação superior a 40%">3 - Nacional, superior a 40%..</option>
+                                        <option value="4" title="cuja produção tenha sido feita em conformidade com os processos produtivos básicos de que tratam o
+Decreto-Lei no 288/1967 , e as Leis nos 8.248/1991, 8.387/1991, 10.176/2001 e 11.484/2007">4 - Nacional, processos produtivos</option>
+                                        <option value="5" title="mercadoria ou bem com Conteúdo de Importação inferior ou igual a 40%">5 - Nacional, inferior ou igual a 40%</option>
+                                        <option value="6" title="Importação direta, sem similar nacional, constante em lista de Resolução Camex e gás natural">6- Estrangeira - Importação direta</option>
+                                        <option value="7" title="Adquirida no mercado interno, sem similar nacional, constante em lista de Resolução Camex
+e gás natural">7 - Estrangeira - Adquirida no mercado interno</option>
+                                        <option value="8" title="mercadoria ou bem com Conteúdo de Importação superior a 70% (setenta por cento)">8 - Nacional, superior a 70% (setenta por cento)</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label ts-label">cfop</label>
+                                    <input type="text" class="form-control ts-input" name="cfop" id="cfop">
                                 </div>
                             </div>
                     </div><!--body-->
@@ -181,8 +233,10 @@ include_once(__DIR__ . '/../header.php');
                         linha = linha + "<tr>";
                         linha = linha + "<td>" + object.Cnpj + "</td>";
                         linha = linha + "<td>" + object.nomePessoa + "</td>";
+                        linha = linha + "<td>" + object.idGeralProduto + "</td>";
                         linha = linha + "<td>" + object.refProduto + "</td>";
-                        linha = linha + "<td>" + object.nomeProduto + "</td>";
+                        linha = linha + "<td>" + object.eanProduto + "</td>";
+                        linha = linha + "<td>" + object.nomeProduto + "</td>";   
                         linha = linha + "<td>" + object.valorCompra + "</td>";
 
                         linha = linha + "<td>" + "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarFornecedorModal' data-idFornecimento='" + object.idFornecimento + "'><i class='bi bi-pencil-square'></i></button> "
@@ -221,6 +275,9 @@ include_once(__DIR__ . '/../header.php');
                         $('#valorCompra').val(data.valorCompra);
                         $('#nomePessoa').val(data.nomePessoa);
                         $('#nomeProduto').val(data.nomeProduto);
+                        $('#eanProduto').val(data.eanProduto);1
+                        $('#origem').val(data.origem);
+                        $('#cfop').val(data.cfop);
                         $('#alterarFornecedorModal').modal('show');
                     }
                 });

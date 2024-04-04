@@ -14,14 +14,17 @@ def temp-table ttsaida  no-undo serialize-name "conteudoSaida"  /* JSON SAIDA CA
     field tstatus        as int serialize-name "status"
     field descricaoStatus      as char.
 
+def VAR vidfornecimento AS INT. 
 def var vmensagem as char.
 
 hEntrada = temp-table ttentrada:HANDLE.
 lokJSON = hentrada:READ-JSON("longchar",vlcentrada, "EMPTY") no-error.
 find first ttentrada no-error.
 
-RUN admin/database/geralfornecimento.p (INPUT "POST", 
+vidfornecimento = ?.
+RUN admin/database/geralfornecimento.p (INPUT "POST",
                                            input table ttentrada, 
+                                           output vidfornecimento,
                                            output vmensagem).
 
 IF vmensagem <> ? 

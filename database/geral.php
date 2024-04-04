@@ -198,7 +198,9 @@ if (isset($_GET['operacao'])) {
 			'Cnpj' => $_POST['Cnpj'],
 			'refProduto' => $_POST['refProduto'],
 			'idGeralProduto' => $_POST['idGeralProduto'],
-			'valorCompra' => $_POST['valorCompra']
+			'valorCompra' => $_POST['valorCompra'],
+			'origem' => $_POST['origem'],
+			'cfop' => $_POST['cfop']
 		);
 		$fornecedor = chamaAPI(null, '/admin/geralfornecimento', json_encode($apiEntrada), 'PUT');
 		return $fornecedor;
@@ -212,7 +214,9 @@ if (isset($_GET['operacao'])) {
 			'Cnpj' => $_POST['Cnpj'],
 			'refProduto' => $_POST['refProduto'],
 			'idGeralProduto' => $_POST['idGeralProduto'],
-			'valorCompra' => $_POST['valorCompra']
+			'valorCompra' => $_POST['valorCompra'],
+			'origem' => $_POST['origem'],
+			'cfop' => $_POST['cfop']
 		);
 		$fornecedor = chamaAPI(null, '/admin/geralfornecimento', json_encode($apiEntrada), 'POST');
 		return $fornecedor;
