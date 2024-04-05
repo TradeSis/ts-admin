@@ -140,22 +140,23 @@ include_once(__DIR__ . '/../header.php');
                             <div class="row mt-3">
                                 <!-- lucas 04042024 - Alterado para select: crt, regimeTrib e caracTrib -->
                                 <div class="col-md">
-                                    <label class="form-label ts-label">crt</label>
-                                    <select class="form-select ts-input" name="crt">
-                                        <option value="">Selecione</option>
-                                        <option value="1">1- Simples Nacional</option>
-                                        <option value="2" title="SN com excesso sublimite de receita bruta">2 - SN com excesso</option>
-                                        <option value="3">3- Regime Normal</option>
-                                    </select>
-                                </div>
-                                <div class="col-md">
                                     <label class="form-label ts-label">regimeTrib</label>
                                     <select class="form-select ts-input" name="regimeTrib">
                                         <option value="">Selecione</option>
-                                        <option data-crt="1" value="SN">SN</option>
-                                        <option data-crt="2" value="SN">SN</option>
-                                        <option data-crt="3" value="LR">LR</option>
-                                        <option data-crt="3" value="LP">LP</option>
+                                        <option value="SN" value="SN">SN - Simples Nacional</option>
+                                        <option value="LR">LR - Lucro Real</option>
+                                        <option value="LP">LP - Lucro Presumido</option>
+                                    </select>
+                                </div>
+                                <div class="col-md">
+                                    <label class="form-label ts-label">crt</label>
+                                    <select class="form-select ts-input" name="crt">
+                                        <option value="">Selecione</option>
+                                        <option data-datacrt="SN" value="1">1 - Simples Nacional</option>
+                                        <option data-datacrt="SN" value="2">2 - SN com excesso sublimite de receita bruta</option>
+
+                                        <option data-datacrt="LR" value="3">3 - Regime Normal. (v2.0)</option>
+                                        <option data-datacrt="LP" value="3">3 - Regime Normal. (v2.0)</option>
                                     </select>
                                 </div>
                                 <div class="col-md">
@@ -274,27 +275,29 @@ include_once(__DIR__ . '/../header.php');
                             <div class="row mt-3">
                                 <!-- lucas 04042024 - Alterado para select: crt, regimeTrib e caracTrib -->
                                 <div class="col-md">
-                                    <label class="form-label ts-label">crt</label>
-                                    <select class="form-select ts-input" name="crt" id="crt">
-                                        <option value="1">1- Simples Nacional</option>
-                                        <option value="2" title="SN com excesso sublimite de receita bruta">2 - SN com excesso</option>
-                                        <option value="3">3 - Regime Normal</option>
-                                    </select>
-                                </div>
-                                <div class="col-md">
                                     <label class="form-label ts-label">regimeTrib</label>
                                     <select class="form-select ts-input" name="regimeTrib" id="regimeTrib">
                                         <option value="">Selecione</option>
-                                        <option value="SN">SN</option>
-                                        <option value="SN">SN</option>
-                                        <option value="LR">LR</option>
-                                        <option value="LP">LP</option>
+                                        <option value="SN" value="SN">SN - Simples Nacional</option>
+                                        <option value="LR">LR - Lucro Real</option>
+                                        <option value="LP">LP - Lucro Presumido</option>
+                                    </select>
+                                </div>
+                                <div class="col-md">
+                                    <label class="form-label ts-label">crt</label>
+                                    <select class="form-select ts-input" name="crt" id="crt">
+                                        <option value="">Selecione</option>
+                                        <option value="1">1 - Simples Nacional</option>
+                                        <option value="2">2 - SN com excesso sublimite de receita bruta</option>
+
+                                        <option value="3">3 - Regime Normal. (v2.0)</option>
+                                        <option value="3">3 - Regime Normal. (v2.0)</option>
                                     </select>
                                 </div>
                                 <div class="col-md">
                                     <label class="form-label ts-label">caracTrib</label>
                                     <select class="form-select ts-input" name="caracTrib" id="caracTrib">
-                                    <option value="0">0 - Industrial</option>
+                                        <option value="0">0 - Industrial</option>
                                         <option value="1">1 - Distribuidor</option>
                                         <option value="2">2 - Atacadista</option>
                                         <option value="3">3 - Varejista</option>
@@ -482,22 +485,13 @@ include_once(__DIR__ . '/../header.php');
         });
 
         // lucas 04042024 - Select inserir de crt e regimeTrib
-        var vregimeTrib = $('select[name="regimeTrib"] option');
-        //$('select[name="regimeTrib"]').attr('disabled', 'disabled');
-        $('select[name="crt"]').on('change', function() {
-            var crt = this.value;
-            if (crt == '') {
-                var novoSelect = '0;'
-                $('select[name="regimeTrib"]').html(novoSelect);
-                $('select[name="regimeTrib"]').attr('disabled', 'disabled');
-            } else {
-                var novoSelect = vregimeTrib.filter(function() {
-                    return $(this).data('crt') == crt;
-                });
-                $('select[name="regimeTrib"]').html(novoSelect);
-                $('select[name="regimeTrib"]').removeAttr('disabled');
-            }
-
+        var vcrt = $('select[name="crt"] option');
+        $('select[name="regimeTrib"]').on('change', function() {
+            var regimeTrib = this.value;
+            var novoSelect = vcrt.filter(function() {
+                return $(this).data('datacrt') == regimeTrib;
+            });
+            $('select[name="crt"]').html(novoSelect);
         });
     </script>
 
