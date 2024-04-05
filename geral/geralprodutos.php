@@ -74,7 +74,8 @@ $marcas = buscaMarcas();
                         <th>Marca</th>
                         <th>Att Trib.</th>
                         <th>Imendes</th>
-                        <th>Grupo</th>
+                        <th>idGrupo</th>
+                        <th>nomeGrupo</th>
                         <th>prodZFM</th>
                         <th colspan="2">Ação</th>
                     </tr>
@@ -235,7 +236,7 @@ $marcas = buscaMarcas();
                     var linha = "";
                     for (var $i = 0; $i < json.length; $i++) {
                         var object = json[$i];
-
+                        
                         linha = linha + "<tr>";
                         linha = linha + "<td>" + (object.idGeralProduto ? object.idGeralProduto : "--") + "</td>";
                         linha = linha + "<td>" + (object.eanProduto ? object.eanProduto : "--") + "</td>";
@@ -244,6 +245,7 @@ $marcas = buscaMarcas();
                         linha = linha + "<td>" + (object.dataAtualizacaoTributaria ? formatarData(object.dataAtualizacaoTributaria) : "--") + "</td>";
                         linha = linha + "<td>" + (object.codImendes ? object.codImendes : "--") + "</td>";
                         linha = linha + "<td>" + (object.idGrupo ? object.idGrupo : "--") + "</td>";
+                        linha = linha + "<td>" + (object.nomeGrupo ? object.nomeGrupo : "--") + "</td>";
                         linha = linha + "<td>" + (object.prodZFM ? object.prodZFM : "--") + "</td>";
 
                         linha = linha + "<td>" + "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarProdutoModal' data-idGeralProduto='" + object.idGeralProduto + "'><i class='bi bi-pencil-square'></i></button> "

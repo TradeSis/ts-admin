@@ -13,7 +13,8 @@ def temp-table ttentrada no-undo serialize-name "dadosEntrada"   /* JSON ENTRADA
     field filtroDataAtualizacao  AS CHAR.
 
 def temp-table ttgeralprodutos  no-undo serialize-name "geralprodutos"  /* JSON SAIDA */
-    like geralprodutos.
+    like geralprodutos
+    FIELD nomeGrupo LIKE fiscalgrupo.nomeGrupo.
 
 def temp-table ttsaida  no-undo serialize-name "conteudoSaida"  /* JSON SAIDA CASO ERRO */
     field tstatus        as int serialize-name "status"
@@ -21,6 +22,7 @@ def temp-table ttsaida  no-undo serialize-name "conteudoSaida"  /* JSON SAIDA CA
 
 def VAR vidGeralProduto like ttentrada.idGeralProduto.
 def VAR veanProduto AS INT64.
+DEF VAR vnomeGrupo AS CHAR.
 
 hEntrada = temp-table ttentrada:HANDLE.
 lokJSON = hentrada:READ-JSON("longchar",vlcentrada, "EMPTY") no-error.
@@ -106,7 +108,15 @@ put unformatted string(vlcSaida).
 
 PROCEDURE criaProdutos.
 
+vnomeGrupo = ?.
+FIND fiscalgrupo WHERE fiscalgrupo.idGrupo =  geralprodutos.idGrupo NO-ERROR.
+IF AVAIL fiscalgrupo
+THEN DO:
+  vnomeGrupo = fiscalGrupo.nomeGrupo.  
+END.
+
     create ttgeralprodutos.
     BUFFER-COPY geralprodutos TO ttgeralprodutos.
+    ttgeralprodutos.nomeGrupo = vnomeGrupo.
 
 END.

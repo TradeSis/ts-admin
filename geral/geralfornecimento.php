@@ -49,6 +49,8 @@ include_once(__DIR__ . '/../header.php');
                         <th>eanProduto</th>
                         <th>Produto</th>
                         <th>Valor</th>
+                        <th>cfop</th>
+                        <th>origem</th>
                         <th colspan="2">Ação</th>
                     </tr>
                 </thead>
@@ -230,14 +232,21 @@ e g�s natural">7 - Estrangeira - Adquirida no mercado interno</option>
                     for (var $i = 0; $i < json.length; $i++) {
                         var object = json[$i];
 
+                        vnomeFantasia = object.nomeFantasia
+                        if(object.nomeFantasia == null){
+                            vnomeFantasia = object.nomePessoa
+                        }
+
                         linha = linha + "<tr>";
                         linha = linha + "<td>" + object.Cnpj + "</td>";
-                        linha = linha + "<td>" + object.nomePessoa + "</td>";
+                        linha = linha + "<td>" + vnomeFantasia + "</td>";
                         linha = linha + "<td>" + object.idGeralProduto + "</td>";
                         linha = linha + "<td>" + object.refProduto + "</td>";
-                        linha = linha + "<td>" + object.eanProduto + "</td>";
+                        linha = linha + "<td>" + (object.eanProduto ? object.eanProduto : "--")+ "</td>";
                         linha = linha + "<td>" + object.nomeProduto + "</td>";   
                         linha = linha + "<td>" + object.valorCompra + "</td>";
+                        linha = linha + "<td>" + object.cfop + "</td>";
+                        linha = linha + "<td>" + object.origem + "</td>";
 
                         linha = linha + "<td>" + "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarFornecedorModal' data-idFornecimento='" + object.idFornecimento + "'><i class='bi bi-pencil-square'></i></button> "
                         linha = linha + "</tr>";

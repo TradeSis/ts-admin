@@ -85,6 +85,7 @@ if (isset($_GET['operacao'])) {
 			'regimeEspecial' => $_POST['regimeEspecial'],
 			'caracTrib' => $_POST['caracTrib'],
 			'origem' => $_POST['origem'],
+			'nomeFantasia' => $_POST['nomeFantasia']
 		);
 		$pessoas = chamaAPI(null, '/admin/geralpessoas', json_encode($apiEntrada), 'PUT');
 		return $pessoas;
@@ -114,6 +115,7 @@ if (isset($_GET['operacao'])) {
 			'regimeEspecial' => $_POST['regimeEspecial'],
 			'caracTrib' => $_POST['caracTrib'],
 			'origem' => $_POST['origem'],
+			'nomeFantasia' => $_POST['nomeFantasia']
 		);
 		$pessoas = chamaAPI(null, '/admin/geralpessoas', json_encode($apiEntrada), 'POST');
 		return $pessoas;

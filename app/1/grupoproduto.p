@@ -14,7 +14,7 @@ def temp-table ttentrada no-undo serialize-name "fiscalgrupo"   /* JSON ENTRADA 
 
 def temp-table ttfiscalgrupo  no-undo serialize-name "fiscalgrupo"  /* JSON SAIDA */
     LIKE fiscalgrupo.
-
+    
 def temp-table ttsaida  no-undo serialize-name "conteudoSaida"  /* JSON SAIDA CASO ERRO */
     field tstatus        as int serialize-name "status"
     field descricaoStatus      as char.
@@ -83,6 +83,7 @@ PROCEDURE criaGrupos.
 
     create ttfiscalgrupo.
     BUFFER-COPY fiscalgrupo TO ttfiscalgrupo.
+    
   
 
 END.

@@ -84,6 +84,10 @@ include_once(__DIR__ . '/../header.php');
                                     <label class="form-label ts-label">Nome</label>
                                     <input type="text" class="form-control ts-input" name="nomePessoa" required>
                                 </div>
+                                <div class="col-md">
+                                    <label class="form-label ts-label">Nome Fantasia</label>
+                                    <input type="text" class="form-control ts-input" name="nomeFantasia" required>
+                                </div>
                             </div><!--fim row 1-->
                             <div class="row mt-3">
                                 <div class="col-md">
@@ -166,7 +170,7 @@ include_once(__DIR__ . '/../header.php');
                                         <option value="1">1 - Distribuidor</option>
                                         <option value="2">2 - Atacadista</option>
                                         <option value="3">3 - Varejista</option>
-                                        <option value="4">4 - Produtor Rural Pessoa Juridica</option>
+                                        <option value="4">4 - Produtor Rural Fantasia Juridica</option>
                                         <option value="6">6 - Produtor Rural Pessoa Fisica</option>
                                         <option value="7">7 - Pessoa Juridica não Contribuinte do ICMS</option>
                                         <option value="8">8 - Pessoa Fisica não Contribuinte do ICMS</option>
@@ -211,13 +215,17 @@ include_once(__DIR__ . '/../header.php');
                                         <option value="F">FÃ­sica</option>
                                     </select>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label class="form-label ts-label">Cpf/Cnpj</label>
                                     <input type="text" class="form-control ts-input" id="cpfCnpj" name="cpfCnpj">
                                 </div>
                                 <div class="col-md">
                                     <label class="form-label ts-label">Nome</label>
                                     <input type="text" class="form-control ts-input" name="nomePessoa" id="nomePessoa">
+                                </div>
+                                <div class="col-md">
+                                    <label class="form-label ts-label">Nome Fantasia</label>
+                                    <input type="text" class="form-control ts-input" name="nomeFantasia" id="nomeFantasia">
                                 </div>
                             </div><!--fim row 1-->
                             <div class="row mt-3">
@@ -358,10 +366,16 @@ include_once(__DIR__ . '/../header.php');
                     var linha = "";
                     for (var $i = 0; $i < json.length; $i++) {
                         var object = json[$i];
+                        
+                        vnomeFantasia = object.nomeFantasia
+                        if(object.nomeFantasia == null){
+                            vnomeFantasia = object.nomePessoa
+                        }
 
                         linha = linha + "<tr>";
                         linha = linha + "<td>" + object.cpfCnpj + "</td>";
-                        linha = linha + "<td>" + object.nomePessoa + "</td>";
+                        linha = linha + "<td>" + vnomeFantasia + "</td>";
+                        
                         linha = linha + "<td>" + object.IE + "</td>";
                         linha = linha + "<td>" + object.pais + "</td>";
                         linha = linha + "<td>" + object.endereco + "</td>";
@@ -398,6 +412,7 @@ include_once(__DIR__ . '/../header.php');
                     $('#cpfCnpj').val(data.cpfCnpj);
                     $('#tipoPessoa').val(data.tipoPessoa);
                     $('#nomePessoa').val(data.nomePessoa);
+                    $('#nomeFantasia').val(data.nomeFantasia);
                     $('#IE').val(data.IE);
                     $('#municipio').val(data.municipio);
                     $('#pais').val(data.pais);

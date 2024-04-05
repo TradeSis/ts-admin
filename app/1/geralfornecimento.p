@@ -15,7 +15,8 @@ def temp-table ttgeralfornecimento  no-undo serialize-name "geralfornecimento"  
     like geralfornecimento
     FIELD nomePessoa AS CHAR
     FIELD nomeProduto AS CHAR
-    FIELD eanProduto AS INT64.
+    FIELD eanProduto AS INT64
+    FIELD nomeFantasia AS CHAR.
 
 def temp-table ttsaida  no-undo serialize-name "conteudoSaida"  /* JSON SAIDA CASO ERRO */
     field tstatus        as int serialize-name "status"
@@ -70,6 +71,7 @@ THEN DO:
          ttgeralfornecimento.nomePessoa = geralpessoas.nomePessoa.
          ttgeralfornecimento.nomeProduto = geralprodutos.nomeProduto.
          ttgeralfornecimento.eanProduto = geralprodutos.eanProduto.
+         ttgeralfornecimento.nomeFantasia = geralpessoas.nomeFantasia.
          
 
     end.
