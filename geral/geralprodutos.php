@@ -67,7 +67,7 @@ $marcas = buscaMarcas();
         <div class="table mt-2 ts-divTabela ts-tableFiltros text-center">
             <table class="table table-sm table-hover">
                 <thead class="ts-headertabelafixo">
-                    <tr class="ts-headerTabelaLinhaCima">
+                    <tr>
                         <th>ID</th>
                         <th>eanProduto</th>
                         <th>nomeProduto</th>
@@ -207,6 +207,8 @@ $marcas = buscaMarcas();
             </div>
         </div>
 
+        <?php include 'modalFornecedor_Alterar.php'; ?>
+
     </div><!--container-fluid-->
 
     <!-- LOCAL PARA COLOCAR OS JS -->
@@ -238,15 +240,15 @@ $marcas = buscaMarcas();
                         var object = json[$i];
                         
                         linha = linha + "<tr>";
-                        linha = linha + "<td>" + (object.idGeralProduto ? object.idGeralProduto : "--") + "</td>";
-                        linha = linha + "<td>" + (object.eanProduto ? object.eanProduto : "--") + "</td>";
-                        linha = linha + "<td>" + (object.nomeProduto ? object.nomeProduto : "--") + "</td>";
-                        linha = linha + "<td>" + (object.idMarca ? object.idMarca : "--") + "</td>";
-                        linha = linha + "<td>" + (object.dataAtualizacaoTributaria ? formatarData(object.dataAtualizacaoTributaria) : "--") + "</td>";
-                        linha = linha + "<td>" + (object.codImendes ? object.codImendes : "--") + "</td>";
-                        linha = linha + "<td>" + (object.idGrupo ? object.idGrupo : "--") + "</td>";
-                        linha = linha + "<td>" + (object.nomeGrupo ? object.nomeGrupo : "--") + "</td>";
-                        linha = linha + "<td>" + (object.prodZFM ? object.prodZFM : "--") + "</td>";
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.idGeralProduto ? object.idGeralProduto : "--") + "</td>";
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.eanProduto ? object.eanProduto : "--") + "</td>";
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.nomeProduto ? object.nomeProduto : "--") + "</td>";
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.idMarca ? object.idMarca : "--") + "</td>";
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.dataAtualizacaoTributaria ? formatarData(object.dataAtualizacaoTributaria) : "--") + "</td>";
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.codImendes ? object.codImendes : "--") + "</td>";
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.idGrupo ? object.idGrupo : "--") + "</td>";
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.nomeGrupo ? object.nomeGrupo : "--") + "</td>";
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.prodZFM ? object.prodZFM : "--") + "</td>";
 
                         linha = linha + "<td>" + "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarProdutoModal' data-idGeralProduto='" + object.idGeralProduto + "'><i class='bi bi-pencil-square'></i></button> "
                         linha = linha + "</tr>";
@@ -255,6 +257,70 @@ $marcas = buscaMarcas();
                 }
             });
         }
+
+        $(document).on('click', '.ts-click', function() {
+            var idGeralProduto = $(this).attr("data-idGeralProduto");
+
+            var collapseId = 'collapse_' + idGeralProduto;
+
+            var conteudoCollapse = "<tr class='collapse-row bg-light'><td colspan='15'><div class='collapse show' id='" + collapseId + "'>" +
+                "<table class='table table-sm table-hover table-warning ts-tablecenter'>" +
+                "<thead>" +
+                "<tr>" +
+                "<th>Cnpj</th>" +
+                "<th>Fornecedor</th>" +
+                "<th>idProduto</th>" +
+                "<th>refProduto</th>" +
+                "<th>Valor</th>" +
+                "<th>cfop</th>" +
+                "<th>origem</th>" +
+                "<th>Ação</th>" +
+                "</tr>" +
+                "</thead>" +
+                "<tbody id='produto_" + idGeralProduto + "' class='fonteCorpo'></tbody>" +
+                "</table>" +
+                "</div></td></tr>";
+
+            if ($('#' + collapseId).length === 0) {
+                $('.collapse-row').remove();
+                $(this).closest('tr').after(conteudoCollapse);
+
+
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '<?php echo URLROOT ?>/admin/database/geral.php?operacao=buscarGeralFornecimento',
+                    data: {
+                        idGeralProduto: idGeralProduto,
+                    },
+                    success: function(data) {
+                        var linha = "";
+                        for (var i = 0; i < data.length; i++) {
+                            var object = data[i];
+
+                            vnomeFantasia = object.nomeFantasia
+                            if(object.nomeFantasia == null){
+                                vnomeFantasia = object.nomePessoa
+                            }
+                            linha = linha + "<tr>";
+                            linha = linha + "<td>" + object.Cnpj + "</td>";
+                            linha = linha + "<td>" + vnomeFantasia + "</td>";
+                            linha = linha + "<td>" + object.idGeralProduto + "</td>";
+                            linha = linha + "<td>" + object.refProduto + "</td>";
+                            linha = linha + "<td>" + object.valorCompra + "</td>";
+                            linha = linha + "<td>" + object.cfop + "</td>";
+                            linha = linha + "<td>" + object.origem + "</td>";
+                            linha = linha + "<td>" + "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarFornecedorModal' data-idFornecimento='" + object.idFornecimento + "'><i class='bi bi-pencil-square'></i></button> "
+                            linha = linha + "</tr>";
+                        }
+                        $("#produto_" + idGeralProduto).html(linha);
+                    }
+                });
+            } else {
+                $('#' + collapseId).collapse('toggle');
+                $(this).closest('tr').nextAll('.collapse-row').remove();
+            }
+        });
 
         function formatarData(data) {
             var d = new Date(data);
@@ -361,7 +427,45 @@ $marcas = buscaMarcas();
                     success: refreshPage,
                 });
             });
+            $("#form-alterarFornecedor").submit(function(event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    url: "../database/geral.php?operacao=geralFornecedorAlterar",
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: refreshPage,
+                });
+            });
 
+        });
+
+        $(document).on('click', 'button[data-bs-target="#alterarFornecedorModal"]', function () {
+            var idFornecimento = $(this).attr("data-idFornecimento");
+            //alert(idFornecimento)
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '../database/geral.php?operacao=buscarGeralFornecimento',
+                data: {
+                    idFornecimento: idFornecimento
+                },
+                success: function (data) {
+                    $('#idFornecimento').val(data.idFornecimento);
+                    $('#Cnpj').val(data.Cnpj);
+                    $('#refProduto').val(data.refProduto);
+                    $('#idGeralProduto').val(data.idGeralProduto);
+                    $('#valorCompra').val(data.valorCompra);
+                    $('#nomePessoa').val(data.nomePessoa);
+                    $('#nomeProduto').val(data.nomeProduto);
+                    $('#eanProduto').val(data.eanProduto); 1
+                    $('#origem').val(data.origem);
+                    $('#cfop').val(data.cfop);
+                    $('#alterarFornecedorModal').modal('show');
+                }
+            });
         });
 
         function refreshPage() {

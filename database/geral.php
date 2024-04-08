@@ -174,6 +174,7 @@ if (isset($_GET['operacao'])) {
 	if ($operacao == "buscarGeralFornecimento") {
 
 		$idFornecimento = isset($_POST["idFornecimento"]) ? $_POST["idFornecimento"] : null;
+		$idGeralProduto = isset($_POST["idGeralProduto"]) ? $_POST["idGeralProduto"] : null;
     	$buscaFornecimento = isset($_POST["buscaFornecimento"]) ? $_POST["buscaFornecimento"] : null;
 
 		if ($buscaFornecimento == "") {
@@ -182,9 +183,13 @@ if (isset($_GET['operacao'])) {
 		if ($idFornecimento == "") {
 			$idFornecimento = null;
 		}
+		if ($idGeralProduto == "") {
+			$idGeralProduto = null;
+		}
 
 		$apiEntrada = array(
 			'idFornecimento' => $idFornecimento,
+			'idGeralProduto' => $idGeralProduto,
 			'buscaFornecimento' => $buscaFornecimento
 		);
 
