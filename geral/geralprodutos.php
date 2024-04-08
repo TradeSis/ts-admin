@@ -32,18 +32,7 @@ $marcas = buscaMarcas();
                 <h2 class="ts-tituloPrincipal">Produtos</h2>
             </div>
 
-            <div class="col-2 pt-2">
-                <!-- FILTROS -->
-                <form method="post">
-                    <select class="form-select ts-input" name="filtroDataAtualizacao" id="filtroDataAtualizacao">
-                        <option value="">Todos</option>
-                        <option value="dataAtualizada">Atualizados</option>
-                        <option value="dataNaoAtualizada">Nao Atualizados</option>
-                    </select>
-                </form>
-            </div>
-
-            <div class="col-1">
+            <div class="col-3">
                 <form id="form-atualizarProdutos" method="post">
                     <div class="col-md-3">
                         <input type="hidden" class="form-control ts-input" name="idGeralProduto" id="idGeralProduto" value="null">
@@ -72,7 +61,6 @@ $marcas = buscaMarcas();
                         <th>eanProduto</th>
                         <th>nomeProduto</th>
                         <th>Marca</th>
-                        <th>Att Trib.</th>
                         <th>Imendes</th>
                         <th>idGrupo</th>
                         <th>nomeGrupo</th>
@@ -197,9 +185,6 @@ $marcas = buscaMarcas();
                             </div>
                     </div><!--body-->
                     <div class="modal-footer">
-                        <div class="col align-self-start pl-0">
-                            <button type='button' class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#atualizaProdutoModal' data-id="idProdutoAtualiza">Atualizar fiscal</button>
-                        </div>
                         <button type="submit" class="btn btn-success">Salvar</button>
                     </div>
                     </form>
@@ -214,10 +199,10 @@ $marcas = buscaMarcas();
     <?php include_once ROOT . "/vendor/footer_js.php"; ?>
 
     <script>
-        buscar($("#buscaProduto").val(), $("#filtroDataAtualizacao").val());
+        buscar($("#buscaProduto").val());
 
-        function buscar(buscaProduto, filtroDataAtualizacao) {
-            //alert(filtroDataAtualizacao)
+        function buscar(buscaProduto) {
+            
             $.ajax({
                 type: 'POST',
                 dataType: 'html',
@@ -226,7 +211,6 @@ $marcas = buscaMarcas();
                     $("#dados").html("Carregando...");
                 },
                 data: {
-                    filtroDataAtualizacao: filtroDataAtualizacao,
                     buscaProduto: buscaProduto
                 },
                 success: function(msg) {
@@ -242,7 +226,6 @@ $marcas = buscaMarcas();
                         linha = linha + "<td>" + (object.eanProduto ? object.eanProduto : "--") + "</td>";
                         linha = linha + "<td>" + (object.nomeProduto ? object.nomeProduto : "--") + "</td>";
                         linha = linha + "<td>" + (object.idMarca ? object.idMarca : "--") + "</td>";
-                        linha = linha + "<td>" + (object.dataAtualizacaoTributaria ? formatarData(object.dataAtualizacaoTributaria) : "--") + "</td>";
                         linha = linha + "<td>" + (object.codImendes ? object.codImendes : "--") + "</td>";
                         linha = linha + "<td>" + (object.idGrupo ? object.idGrupo : "--") + "</td>";
                         linha = linha + "<td>" + (object.nomeGrupo ? object.nomeGrupo : "--") + "</td>";
@@ -267,33 +250,14 @@ $marcas = buscaMarcas();
         }
 
         $("#buscar").click(function() {
-            buscar($("#buscaProduto").val(), $("#filtroDataAtualizacao").val());
-        })
-
-        $("#filtroDataAtualizacao").change(function() {
-            buscar($("#buscaProduto").val(), $("#filtroDataAtualizacao").val());
+            buscar($("#buscaProduto").val());
         })
 
         document.addEventListener("keypress", function(e) {
             if (e.key === "Enter") {
-                buscar($("#buscaProduto").val(), $("#filtroDataAtualizacao").val());
+                buscar($("#buscaProduto").val());
             }
         });
-
-        $(document).on('click', 'button[data-bs-target="#atualizaProdutoModal"]', function() {
-
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                url: '../database/geral.php?operacao=atualizar',
-                data: {
-                    idGeralProduto: idProdutoAtualiza
-                }
-            });
-            window.location.reload();
-
-        });
-
 
         $(document).on('click', 'button[data-bs-target="#alterarProdutoModal"]', function() {
             var idGeralProduto = $(this).attr("data-idGeralProduto");
@@ -307,7 +271,6 @@ $marcas = buscaMarcas();
                 success: function(data) {
                     console.log(JSON.stringify(data, null, 2));
                     $('#idGeralProduto').val(data.idGeralProduto);
-                    idProdutoAtualiza = data.idGeralProduto;
                     $('#eanProduto').val(data.eanProduto);
                     $('#nomeProduto').val(data.nomeProduto);
                     $('#idMarca').val(data.idMarca);

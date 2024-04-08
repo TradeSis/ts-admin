@@ -24,8 +24,19 @@ include_once(__DIR__ . '/../header.php');
         </div>
         <div class="row d-flex align-items-center justify-content-center mt-1 pt-1 ">
 
-            <div class="col-6 col-lg-6">
+            <div class="col-4 col-lg-4">
                 <h2 class="ts-tituloPrincipal">Fornecimento</h2>
+            </div>
+
+            <div class="col-2 pt-2">
+                <!-- FILTROS -->
+                <form method="post">
+                    <select class="form-select ts-input" name="filtroDataAtualizacao" id="filtroDataAtualizacao">
+                        <option value="">Todos</option>
+                        <option value="dataAtualizada">Atualizados</option>
+                        <option value="dataNaoAtualizada">Nao Atualizados</option>
+                    </select>
+                </form>
             </div>
      
             <div class="col-6 col-lg-6">
@@ -51,6 +62,7 @@ include_once(__DIR__ . '/../header.php');
                         <th>Valor</th>
                         <th>cfop</th>
                         <th>origem</th>
+                        <th>Att Trib.</th>
                         <th colspan="2">AÃ§Ã£o</th>
                     </tr>
                 </thead>
@@ -191,6 +203,9 @@ e gás natural">7 - Estrangeira - Adquirida no mercado interno</option>
                             </div>
                     </div><!--body-->
                     <div class="modal-footer">
+                        <div class="col align-self-start pl-0">
+                            <button type='button' class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#atualizaFornecedorModal' data-id="idFornecedorAtualiza">Atualizar fiscal</button>
+                        </div>
                         <button type="submit" class="btn btn-success">Salvar</button>
                     </div>
                     </form>
@@ -205,14 +220,14 @@ e gás natural">7 - Estrangeira - Adquirida no mercado interno</option>
     <?php include_once ROOT . "/vendor/footer_js.php"; ?>
 
     <script>
-        buscar($("#buscaFornecimento").val());
+        buscar($("#buscaFornecimento").val(), $("#filtroDataAtualizacao").val());
 
         function limpar() {
             buscar(null, null, null, null);
             window.location.reload();
         }
 
-        function buscar(buscaFornecimento) {
+        function buscar(buscaFornecimento, filtroDataAtualizacao) {
             //alert (buscaFornecimento);
             $.ajax({
                 type: 'POST',
@@ -222,6 +237,7 @@ e gás natural">7 - Estrangeira - Adquirida no mercado interno</option>
                     $("#dados").html("Carregando...");
                 },
                 data: {
+                    filtroDataAtualizacao: filtroDataAtualizacao,
                     buscaFornecimento: buscaFornecimento
                 },
                 success: function(msg) {
@@ -247,6 +263,7 @@ e gás natural">7 - Estrangeira - Adquirida no mercado interno</option>
                         linha = linha + "<td>" + object.valorCompra + "</td>";
                         linha = linha + "<td>" + object.cfop + "</td>";
                         linha = linha + "<td>" + object.origem + "</td>";
+                        linha = linha + "<td>" + (object.dataAtualizacaoTributaria ? formatarData(object.dataAtualizacaoTributaria) : "--") + "</td>";
 
                         linha = linha + "<td>" + "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarFornecedorModal' data-idFornecimento='" + object.idFornecimento + "'><i class='bi bi-pencil-square'></i></button> "
                         linha = linha + "</tr>";
@@ -256,14 +273,42 @@ e gás natural">7 - Estrangeira - Adquirida no mercado interno</option>
             });
         }
 
+        function formatarData(data) {
+            var d = new Date(data);
+            var dia = d.getDate().toString().padStart(2, '0');
+            var mes = (d.getMonth() + 1).toString().padStart(2, '0');
+            var ano = d.getFullYear();
+            var hora = d.getHours().toString().padStart(2, '0');
+            var minutos = d.getMinutes().toString().padStart(2, '0');
+            return dia + '/' + mes + '/' + ano + ' ' + hora + ':' + minutos;
+        }
+
         $("#buscar").click(function() {
-            buscar($("#buscaFornecimento").val());
+            buscar($("#buscaFornecimento").val(), $("#filtroDataAtualizacao").val());
+        })
+
+        $("#filtroDataAtualizacao").change(function() {
+            buscar($("#buscaFornecimento").val(), $("#filtroDataAtualizacao").val());
         })
 
         document.addEventListener("keypress", function(e) {
             if (e.key === "Enter") {
-                buscar($("#buscaFornecimento").val());
+                buscar($("#buscaFornecimento").val(), $("#filtroDataAtualizacao").val());
             }
+        });
+        
+        $(document).on('click', 'button[data-bs-target="#atualizaFornecedorModal"]', function() {
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '../database/geral.php?operacao=atualizar',
+            data: {
+                idFornecimento: idFornecedorAtualiza
+            }
+        });
+        window.location.reload();
+
         });
 
         $(document).on('click', 'button[data-bs-target="#alterarFornecedorModal"]', function() {
@@ -278,6 +323,7 @@ e gás natural">7 - Estrangeira - Adquirida no mercado interno</option>
                     },
                     success: function(data) {
                         $('#idFornecimento').val(data.idFornecimento);
+                        idFornecedorAtualiza = data.idFornecimento;
                         $('#Cnpj').val(data.Cnpj);
                         $('#refProduto').val(data.refProduto);
                         $('#idGeralProduto').val(data.idGeralProduto);

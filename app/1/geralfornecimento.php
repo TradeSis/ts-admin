@@ -79,7 +79,9 @@ if ($BANCO == "PROGRESS") {
     
      if (!isset($fornecedor["geralfornecimento"][1]) && ($jsonEntrada['idFornecimento'] != null)) {  // Verifica se tem mais de 1 registro
       $fornecedor = $fornecedor["geralfornecimento"][0]; // Retorno sem array
-    } else {
+    } else if($jsonEntrada['filtroDataAtualizacao'] != null){
+      $fornecedor = $fornecedor["geralfornecimento"];
+    }else {
       $fornecedor = $fornecedor["geralfornecimento"];  
     }
 

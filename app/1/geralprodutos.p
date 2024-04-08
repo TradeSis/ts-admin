@@ -61,28 +61,6 @@ THEN DO:
     end.
 END.
 
-IF ttentrada.filtroDataAtualizacao = "dataAtualizada"
-THEN DO:
-     for each geralprodutos where
-        geralprodutos.dataAtualizacaoTributaria <> ?
-        no-lock.
-       
-       RUN criaProdutos.
-    
-    end.
-END. 
-
-IF ttentrada.filtroDataAtualizacao = "dataNaoAtualizada"
-THEN DO:
-     for each geralprodutos where
-        geralprodutos.dataAtualizacaoTributaria = ?
-        no-lock.
-       
-       RUN criaProdutos.
-    
-    end.
-END.
-
 
 find first ttgeralprodutos no-error.
 
