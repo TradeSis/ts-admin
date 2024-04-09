@@ -93,6 +93,7 @@ hsaida  = TEMP-TABLE ttcidades:handle.
 
 lokJson = hsaida:WRITE-JSON("LONGCHAR", vlcSaida, TRUE).
 put unformatted string(vlcSaida).
+return string(vlcSaida).
 
 PROCEDURE criaCidades.
 

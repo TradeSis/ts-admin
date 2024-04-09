@@ -83,3 +83,4 @@ hsaida  = TEMP-TABLE ttestados:handle.
 
 lokJson = hsaida:WRITE-JSON("LONGCHAR", vlcSaida, TRUE).
 put unformatted string(vlcSaida).
+return string(vlcSaida).
