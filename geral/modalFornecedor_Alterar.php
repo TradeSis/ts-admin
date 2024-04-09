@@ -22,22 +22,22 @@
                             <div class="row mt-2">
                                 <div class="col-md-2">
                                     <label class="form-label ts-label">IdGeralProduto</label>
-                                    <input type="text" class="form-control ts-input" name="idGeralProduto" id="idGeralProduto" disabled>
+                                    <input type="text" class="form-control ts-input" name="idGeralProduto" id="idGeralProdutoFOR" disabled>
                                     <input type="hidden" class="form-control ts-input" name="idFornecimento" id="idFornecimento">
                                 </div>
                                 <div class="col-md">
                                     <label class="form-label ts-label">Produto</label>
-                                    <input type="text" class="form-control ts-input" name="nomeProduto" id="nomeProduto" disabled>
+                                    <input type="text" class="form-control ts-input" name="nomeProduto" id="nomeProdutoFOR" disabled>
                                 </div>
                             </div>
                             <div class="row mt-2">
                                 <div class="col-md">
                                     <label class="form-label ts-label">refProduto</label>
-                                    <input type="text" class="form-control ts-input" name="refProduto" id="refProduto">
+                                    <input type="text" class="form-control ts-input" name="refProduto" id="refProdutoFOR">
                                 </div>
                                 <div class="col-md">
                                     <label class="form-label ts-label">eanProduto</label>
-                                    <input type="text" class="form-control ts-input" name="eanProduto" id="eanProduto" disabled>
+                                    <input type="text" class="form-control ts-input" name="eanProduto" id="eanProdutoFOR" disabled>
                                 </div>
                                 <div class="col-md">
                                     <label class="form-label ts-label">valorCompra</label>

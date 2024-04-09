@@ -455,12 +455,12 @@ $marcas = buscaMarcas();
                 success: function (data) {
                     $('#idFornecimento').val(data.idFornecimento);
                     $('#Cnpj').val(data.Cnpj);
-                    $('#refProduto').val(data.refProduto);
-                    $('#idGeralProduto').val(data.idGeralProduto);
+                    $('#refProdutoFOR').val(data.refProduto);
+                    $('#idGeralProdutoFOR').val(data.idGeralProduto);
                     $('#valorCompra').val(data.valorCompra);
                     $('#nomePessoa').val(data.nomePessoa);
-                    $('#nomeProduto').val(data.nomeProduto);
-                    $('#eanProduto').val(data.eanProduto); 1
+                    $('#nomeProdutoFOR').val(data.nomeProduto);
+                    $('#eanProdutoFOR').val(data.eanProduto); 
                     $('#origem').val(data.origem);
                     $('#cfop').val(data.cfop);
                     $('#alterarFornecedorModal').modal('show');
