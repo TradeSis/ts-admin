@@ -68,6 +68,9 @@ e gás natural">7 - Estrangeira - Adquirida no mercado interno</option>
                             </div>
                     </div><!--body-->
                     <div class="modal-footer">
+                        <div class="col align-self-start pl-0">
+                            <button type='button' class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#atualizaFornecedorModal' data-id="idFornecedorAtualiza">Atualizar fiscal</button>
+                        </div>
                         <button type="submit" class="btn btn-success">Salvar</button>
                     </div>
                     </form>
