@@ -10,7 +10,8 @@ def var hsaida   as handle.             /* HANDLE SAIDA */
 def temp-table ttentrada no-undo serialize-name "dadosEntrada"   /* JSON ENTRADA */
     field idFornecimento  like geralfornecimento.idFornecimento
     field buscaFornecimento  AS CHAR
-    field filtroDataAtualizacao  AS CHAR.
+    field filtroDataAtualizacao  AS CHAR
+    field idGeralProduto  like geralfornecimento.idGeralProduto.
 
 def temp-table ttgeralfornecimento  no-undo serialize-name "geralfornecimento"  /* JSON SAIDA */
     like geralfornecimento
@@ -37,8 +38,7 @@ then do:
     if vidFornecimento = ? then vidFornecimento = 0.
 end.
 
-
-IF ttentrada.idFornecimento <> ? OR (ttentrada.idFornecimento = ? AND ttentrada.buscaFornecimento = ? AND ttentrada.filtroDataAtualizacao = ?)
+IF ttentrada.idFornecimento <> ? OR (ttentrada.idFornecimento = ? AND ttentrada.buscaFornecimento = ? AND ttentrada.filtroDataAtualizacao = ? AND ttentrada.idGeralProduto = ?)
 THEN DO:
     for each geralfornecimento where
         (if vidFornecimento = 0
@@ -50,6 +50,44 @@ THEN DO:
 
     end.
 END.
+
+IF ttentrada.idGeralProduto <> ?
+THEN DO:
+    for each geralfornecimento where geralfornecimento.idGeralProduto = ttentrada.idGeralProduto
+     no-lock.
+     
+     FIND geralpessoas WHERE geralpessoas.cpfCnpj = geralfornecimento.Cnpj NO-LOCK NO-ERROR.
+     IF NOT AVAIL geralpessoas
+     THEN DO:
+        RUN montasaida (400,"geralpessoas.cpfCnpj nao encontrado").
+        RETURN.
+     END.
+     
+     FIND geralprodutos WHERE geralprodutos.idGeralProduto = geralfornecimento.idGeralProduto NO-LOCK NO-ERROR.
+     IF NOT AVAIL geralprodutos
+     THEN DO:
+        RUN montasaida (400,"geralprodutos.idGeralProduto nao encontrado").
+        RETURN.
+     END.
+
+     //RUN criaFornecimento.
+     create ttgeralfornecimento.
+     ttgeralfornecimento.idFornecimento = geralfornecimento.idFornecimento.
+     ttgeralfornecimento.Cnpj = geralfornecimento.Cnpj.
+     ttgeralfornecimento.refProduto = geralfornecimento.refProduto.
+     ttgeralfornecimento.idGeralProduto = geralfornecimento.idGeralProduto.
+     ttgeralfornecimento.valorCompra = geralfornecimento.valorCompra.
+     ttgeralfornecimento.origem = geralfornecimento.origem.
+     ttgeralfornecimento.cfop = geralfornecimento.cfop.
+     ttgeralfornecimento.nomePessoa = geralpessoas.nomePessoa.
+     ttgeralfornecimento.nomeProduto = geralprodutos.nomeProduto.
+     ttgeralfornecimento.eanProduto = geralprodutos.eanProduto.
+     ttgeralfornecimento.nomeFantasia = geralpessoas.nomeFantasia.
+     
+
+    end.
+END.
+
 
 IF ttentrada.buscaFornecimento <> ? AND ttentrada.filtroDataAtualizacao = ?
 THEN DO:
