@@ -10,10 +10,12 @@ def var hsaida   as handle.             /* HANDLE SAIDA */
 def temp-table ttentrada no-undo serialize-name "fiscalgrupo"   /* JSON ENTRADA */
     field idGrupo  like fiscalgrupo.idGrupo
     field codigoGrupo  like fiscalgrupo.codigoGrupo
-    FIELD buscaGrupoProduto AS CHAR.
+    FIELD buscaGrupoProduto AS CHAR
+    FIELD idGeralProduto LIKE geralprodutos.idGeralProduto.
 
 def temp-table ttfiscalgrupo  no-undo serialize-name "fiscalgrupo"  /* JSON SAIDA */
-    LIKE fiscalgrupo.
+    LIKE fiscalgrupo
+    field idGeralProduto   like geralprodutos.idGeralProduto.
     
 def temp-table ttsaida  no-undo serialize-name "conteudoSaida"  /* JSON SAIDA CASO ERRO */
     field tstatus        as int serialize-name "status"
@@ -33,7 +35,7 @@ then do:
     if vcodigoGrupo = ? then vcodigoGrupo = "". 
 end.
  
-IF ttentrada.codigoGrupo <> ? OR (ttentrada.codigoGrupo = ? AND ttentrada.buscaGrupoProduto = ?)
+IF ttentrada.codigoGrupo <> ? OR (ttentrada.codigoGrupo = ? AND ttentrada.buscaGrupoProduto = ? AND ttentrada.idGeralProduto = ?)
 THEN DO:
       for EACH fiscalgrupo WHERE
       (if vcodigoGrupo = ""
@@ -46,7 +48,7 @@ THEN DO:
     end. 
 END.
 
-IF ttentrada.buscaGrupoProduto <> ? 
+IF ttentrada.buscaGrupoProduto <> ?
 THEN DO: 
       for each fiscalgrupo WHERE 
         fiscalgrupo.codigoGrupo = ttentrada.buscaGrupoProduto OR 
@@ -57,6 +59,57 @@ THEN DO:
 
     end.
 END.
+
+IF ttentrada.idGeralProduto <> ? 
+THEN DO:
+
+    FIND geralprodutos WHERE geralprodutos.idGeralProduto = ttentrada.idGeralProduto NO-LOCK no-error.
+    IF NOT AVAIL geralprodutos
+    THEN DO:
+        create ttsaida.
+        ttsaida.tstatus = 400.
+        ttsaida.descricaoStatus = "geralprodutos fiscal nao encontrado".
+
+        hsaida  = temp-table ttsaida:handle.
+
+        lokJson = hsaida:WRITE-JSON("LONGCHAR", vlcSaida, TRUE).
+        message string(vlcSaida).
+        return.
+    END.
+            
+    FIND produtos WHERE produtos.idGeralProduto = ttentrada.idGeralProduto NO-LOCK no-error.
+    IF NOT AVAIL produtos
+    THEN DO:
+        create ttsaida.
+        ttsaida.tstatus = 400.
+        ttsaida.descricaoStatus = "produtos fiscal nao encontrado".
+
+        hsaida  = temp-table ttsaida:handle.
+
+        lokJson = hsaida:WRITE-JSON("LONGCHAR", vlcSaida, TRUE).
+        message string(vlcSaida).
+        return.
+    END.
+
+    FIND fiscalgrupo WHERE fiscalgrupo.idGrupo = geralprodutos.idGrupo NO-LOCK NO-ERROR.
+    IF NOT AVAIL fiscalgrupo 
+    THEN DO:
+       create ttsaida.
+        ttsaida.tstatus = 400.
+        ttsaida.descricaoStatus = "fiscalgrupo fiscal nao encontrado".
+
+        hsaida  = temp-table ttsaida:handle.
+
+        lokJson = hsaida:WRITE-JSON("LONGCHAR", vlcSaida, TRUE).
+        message string(vlcSaida).
+        return.
+    END.
+
+    create ttfiscalgrupo.
+    BUFFER-COPY fiscalgrupo TO ttfiscalgrupo.
+    ttfiscalgrupo.idGeralProduto = geralprodutos.idGeralProduto.
+            
+END. 
 
 find first ttfiscalgrupo no-error.
 
@@ -84,6 +137,5 @@ PROCEDURE criaGrupos.
     create ttfiscalgrupo.
     BUFFER-COPY fiscalgrupo TO ttfiscalgrupo.
     
-  
 
 END.

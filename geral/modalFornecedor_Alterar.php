@@ -43,6 +43,10 @@
                                     <label class="form-label ts-label">valorCompra</label>
                                     <input type="text" class="form-control ts-input" name="valorCompra" id="valorCompra">
                                 </div>
+                                <div class="col-md">
+                                    <label class="form-label ts-label">Att Trib.</label>
+                                    <input type="text" class="form-control ts-input" name="dataAtualizacaoTributaria" id="dataAtualizacaoTributaria" readonly>
+                                </div>
                             </div>
                             <div class="row mt-2">
                                 <div class="col-md">

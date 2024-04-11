@@ -203,7 +203,7 @@ e gás natural">7 - Estrangeira - Adquirida no mercado interno</option>
             var hora = d.getHours().toString().padStart(2, '0');
             var minutos = d.getMinutes().toString().padStart(2, '0');
             return dia + '/' + mes + '/' + ano + ' ' + hora + ':' + minutos;
-        }
+        } 
 
         $("#buscar").click(function() {
             buscar($("#buscaFornecimento").val(), $("#filtroDataAtualizacao").val());
@@ -255,6 +255,9 @@ e gás natural">7 - Estrangeira - Adquirida no mercado interno</option>
                         $('#eanProdutoFOR').val(data.eanProduto);
                         $('#origem').val(data.origem);
                         $('#cfop').val(data.cfop);
+                        vdataFormatada = (data.dataAtualizacaoTributaria ? formatarData(data.dataAtualizacaoTributaria) : "");
+                        $('#dataAtualizacaoTributaria').val(vdataFormatada);
+
                         $('#alterarFornecedorModal').modal('show');
                     }
                 });

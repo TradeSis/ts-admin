@@ -83,7 +83,7 @@ THEN DO:
      ttgeralfornecimento.nomeProduto = geralprodutos.nomeProduto.
      ttgeralfornecimento.eanProduto = geralprodutos.eanProduto.
      ttgeralfornecimento.nomeFantasia = geralpessoas.nomeFantasia.
-     
+     ttgeralfornecimento.dataAtualizacaoTributaria = geralfornecimento.dataAtualizacaoTributaria.
 
     end.
 END.

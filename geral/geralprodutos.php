@@ -166,10 +166,10 @@ $marcas = buscaMarcas();
                                 </div>
                             </div>
                             <div class="row mt-2">
-                                <div class="col-md">
+                                <!-- <div class="col-md">
                                     <label class="form-label ts-label">dataAtualizacaoTributaria</label>
                                     <input type="datetime-local" class="form-control ts-input" name="dataAtualizacaoTributaria" id="dataAtualizacaoTributaria">
-                                </div>
+                                </div> -->
                                 <div class="col-md">
                                     <label class="form-label ts-label">codImendes</label>
                                     <input type="text" class="form-control ts-input" name="codImendes" id="codImendes">
@@ -256,6 +256,7 @@ $marcas = buscaMarcas();
                 "<th>Valor</th>" +
                 "<th>cfop</th>" +
                 "<th>origem</th>" +
+                "<th>Att Trib.</th>" +
                 "<th>Ação</th>" +
                 "</tr>" +
                 "</thead>" +
@@ -284,6 +285,7 @@ $marcas = buscaMarcas();
                             if(object.nomeFantasia == null){
                                 vnomeFantasia = object.nomePessoa
                             }
+                            
                             linha = linha + "<tr>";
                             linha = linha + "<td>" + object.Cnpj + "</td>";
                             linha = linha + "<td>" + vnomeFantasia + "</td>";
@@ -292,6 +294,7 @@ $marcas = buscaMarcas();
                             linha = linha + "<td>" + object.valorCompra + "</td>";
                             linha = linha + "<td>" + object.cfop + "</td>";
                             linha = linha + "<td>" + object.origem + "</td>";
+                            linha = linha + "<td>" + (object.dataAtualizacaoTributaria ? formatarData(object.dataAtualizacaoTributaria) : "--") + "</td>";
                             linha = linha + "<td>" + "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarFornecedorModal' data-idFornecimento='" + object.idFornecimento + "'><i class='bi bi-pencil-square'></i></button> "
                             linha = linha + "</tr>";
                         }
@@ -425,6 +428,9 @@ $marcas = buscaMarcas();
                     $('#eanProdutoFOR').val(data.eanProduto); 
                     $('#origem').val(data.origem);
                     $('#cfop').val(data.cfop);
+                    vdataFormatada = (data.dataAtualizacaoTributaria ? formatarData(data.dataAtualizacaoTributaria) : "");
+                    $('#dataAtualizacaoTributaria').val(vdataFormatada);
+
                     $('#alterarFornecedorModal').modal('show');
                 }
             });
