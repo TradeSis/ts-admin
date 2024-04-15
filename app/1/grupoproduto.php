@@ -32,7 +32,7 @@ if (isset($operacao["conteudoSaida"][0])) { // Conteudo Saida - Caso de erro
     $operacao = $operacao["conteudoSaida"][0];
 } else {
   
-   if (!isset($operacao["fiscalgrupo"][1]) && ($jsonEntrada['codigoGrupo'] != null) && ($jsonEntrada['buscaGrupoProduto'] != null)) {  // Verifica se tem mais de 1 registro
+   if (!isset($operacao["fiscalgrupo"][1]) && ($jsonEntrada['codigoGrupo'] != null) && ($jsonEntrada['buscaGrupoProduto'] != null) && ($jsonEntrada['idGeralProduto'] != null)) {  // Verifica se tem mais de 1 registro
     $operacao = $operacao["fiscalgrupo"][0]; // Retorno sem array
   } elseif($jsonEntrada['codigoGrupo'] != null){
     $operacao = $operacao["fiscalgrupo"][0];

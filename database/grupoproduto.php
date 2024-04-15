@@ -84,7 +84,8 @@ if (isset($_GET['operacao'])) {
 
 		$apiEntrada = array(
 			'codigoGrupo' => $codigoGrupo,
-			'buscaGrupoProduto' => $buscaGrupoProduto
+			'buscaGrupoProduto' => $buscaGrupoProduto,
+			'idGeralProduto' => null
 		);
 		$grupoproduto = chamaAPI(null, '/admin/grupoproduto', json_encode($apiEntrada), 'GET');
 
