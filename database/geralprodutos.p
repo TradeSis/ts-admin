@@ -30,10 +30,6 @@ if ttentrada.prodZFM = "" or ttentrada.prodZFM = ?
 then do:
     ttentrada.prodZFM = "N".
 end.
-if ttentrada.dataAtualizacaoTributaria <> ? 
-then do:
-    ttentrada.dataAtualizacaoTributaria = DATETIME(ttentrada.dataAtualizacaoTributaria).  
-END.
 
 
 if vAcao = "PUT"
@@ -71,7 +67,6 @@ THEN DO:
         geralprodutos.eanProduto   = ttentrada.eanProduto.
         geralprodutos.nomeProduto   = ttentrada.nomeProduto.
         geralprodutos.idMarca   = ttentrada.idMarca.
-        geralprodutos.dataAtualizacaoTributaria   = ttentrada.dataAtualizacaoTributaria.
         geralprodutos.codImendes   = ttentrada.codImendes.
         geralprodutos.idGrupo   = ttentrada.idGrupo.
         geralprodutos.prodZFM   = ttentrada.prodZFM.
@@ -99,10 +94,6 @@ THEN DO:
         if ttentrada.idMarca <> ?
         then do:
             geralprodutos.idMarca = ttentrada.idMarca.
-        end.
-        if ttentrada.dataAtualizacaoTributaria <> ?
-        then do:
-            geralprodutos.dataAtualizacaoTributaria = ttentrada.dataAtualizacaoTributaria.
         end.
         if ttentrada.idGrupo <> ?
         then do:

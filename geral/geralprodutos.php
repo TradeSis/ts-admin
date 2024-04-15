@@ -32,18 +32,7 @@ $marcas = buscaMarcas();
                 <h2 class="ts-tituloPrincipal">Produtos</h2>
             </div>
 
-            <div class="col-2 pt-2">
-                <!-- FILTROS -->
-                <form method="post">
-                    <select class="form-select ts-input" name="filtroDataAtualizacao" id="filtroDataAtualizacao">
-                        <option value="">Todos</option>
-                        <option value="dataAtualizada">Atualizados</option>
-                        <option value="dataNaoAtualizada">Nao Atualizados</option>
-                    </select>
-                </form>
-            </div>
-
-            <div class="col-1">
+            <div class="col-3">
                 <form id="form-atualizarProdutos" method="post">
                     <div class="col-md-3">
                         <input type="hidden" class="form-control ts-input" name="idGeralProduto" id="idGeralProduto" value="null">
@@ -67,14 +56,14 @@ $marcas = buscaMarcas();
         <div class="table mt-2 ts-divTabela ts-tableFiltros text-center">
             <table class="table table-sm table-hover">
                 <thead class="ts-headertabelafixo">
-                    <tr class="ts-headerTabelaLinhaCima">
+                    <tr>
                         <th>ID</th>
                         <th>eanProduto</th>
                         <th>nomeProduto</th>
                         <th>Marca</th>
-                        <th>Att Trib.</th>
                         <th>Imendes</th>
-                        <th>Grupo</th>
+                        <th>idGrupo</th>
+                        <th>nomeGrupo</th>
                         <th>prodZFM</th>
                         <th colspan="2">Ação</th>
                     </tr>
@@ -177,10 +166,10 @@ $marcas = buscaMarcas();
                                 </div>
                             </div>
                             <div class="row mt-2">
-                                <div class="col-md">
+                                <!-- <div class="col-md">
                                     <label class="form-label ts-label">dataAtualizacaoTributaria</label>
                                     <input type="datetime-local" class="form-control ts-input" name="dataAtualizacaoTributaria" id="dataAtualizacaoTributaria">
-                                </div>
+                                </div> -->
                                 <div class="col-md">
                                     <label class="form-label ts-label">codImendes</label>
                                     <input type="text" class="form-control ts-input" name="codImendes" id="codImendes">
@@ -196,15 +185,14 @@ $marcas = buscaMarcas();
                             </div>
                     </div><!--body-->
                     <div class="modal-footer">
-                        <div class="col align-self-start pl-0">
-                            <button type='button' class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#atualizaProdutoModal' data-id="idProdutoAtualiza">Atualizar fiscal</button>
-                        </div>
                         <button type="submit" class="btn btn-success">Salvar</button>
                     </div>
                     </form>
                 </div>
             </div>
         </div>
+
+        <?php include 'modalFornecedor_Alterar.php'; ?>
 
     </div><!--container-fluid-->
 
@@ -213,10 +201,10 @@ $marcas = buscaMarcas();
     <?php include_once ROOT . "/vendor/footer_js.php"; ?>
 
     <script>
-        buscar($("#buscaProduto").val(), $("#filtroDataAtualizacao").val());
+        buscar($("#buscaProduto").val());
 
-        function buscar(buscaProduto, filtroDataAtualizacao) {
-            //alert(filtroDataAtualizacao)
+        function buscar(buscaProduto) {
+            
             $.ajax({
                 type: 'POST',
                 dataType: 'html',
@@ -225,7 +213,6 @@ $marcas = buscaMarcas();
                     $("#dados").html("Carregando...");
                 },
                 data: {
-                    filtroDataAtualizacao: filtroDataAtualizacao,
                     buscaProduto: buscaProduto
                 },
                 success: function(msg) {
@@ -235,17 +222,16 @@ $marcas = buscaMarcas();
                     var linha = "";
                     for (var $i = 0; $i < json.length; $i++) {
                         var object = json[$i];
-
+                        
                         linha = linha + "<tr>";
-                        linha = linha + "<td>" + (object.idGeralProduto ? object.idGeralProduto : "--") + "</td>";
-                        linha = linha + "<td>" + (object.eanProduto ? object.eanProduto : "--") + "</td>";
-                        linha = linha + "<td>" + (object.nomeProduto ? object.nomeProduto : "--") + "</td>";
-                        linha = linha + "<td>" + (object.idMarca ? object.idMarca : "--") + "</td>";
-                        linha = linha + "<td>" + (object.dataAtualizacaoTributaria ? formatarData(object.dataAtualizacaoTributaria) : "--") + "</td>";
-                        linha = linha + "<td>" + (object.codImendes ? object.codImendes : "--") + "</td>";
-                        linha = linha + "<td>" + (object.idGrupo ? object.idGrupo : "--") + "</td>";
-                        linha = linha + "<td>" + (object.prodZFM ? object.prodZFM : "--") + "</td>";
-
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.idGeralProduto ? object.idGeralProduto : "--") + "</td>";
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.eanProduto ? object.eanProduto : "--") + "</td>";
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.nomeProduto ? object.nomeProduto : "--") + "</td>";
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.idMarca ? object.idMarca : "--") + "</td>";
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.codImendes ? object.codImendes : "--") + "</td>";
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.idGrupo ? object.idGrupo : "--") + "</td>";
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.nomeGrupo ? object.nomeGrupo : "--") + "</td>";
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.prodZFM ? object.prodZFM : "--") + "</td>";
                         linha = linha + "<td>" + "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarProdutoModal' data-idGeralProduto='" + object.idGeralProduto + "'><i class='bi bi-pencil-square'></i></button> "
                         linha = linha + "</tr>";
                     }
@@ -253,6 +239,73 @@ $marcas = buscaMarcas();
                 }
             });
         }
+
+        $(document).on('click', '.ts-click', function() {
+            var idGeralProduto = $(this).attr("data-idGeralProduto");
+
+            var collapseId = 'collapse_' + idGeralProduto;
+
+            var conteudoCollapse = "<tr class='collapse-row bg-light'><td colspan='15'><div class='collapse show' id='" + collapseId + "'>" +
+                "<table class='table table-sm table-hover table-warning ts-tablecenter'>" +
+                "<thead>" +
+                "<tr>" +
+                "<th>Cnpj</th>" +
+                "<th>Fornecedor</th>" +
+                "<th>idProduto</th>" +
+                "<th>refProduto</th>" +
+                "<th>Valor</th>" +
+                "<th>cfop</th>" +
+                "<th>origem</th>" +
+                "<th>Att Trib.</th>" +
+                "<th>Ação</th>" +
+                "</tr>" +
+                "</thead>" +
+                "<tbody id='produto_" + idGeralProduto + "' class='fonteCorpo'></tbody>" +
+                "</table>" +
+                "</div></td></tr>";
+
+            if ($('#' + collapseId).length === 0) {
+                $('.collapse-row').remove();
+                $(this).closest('tr').after(conteudoCollapse);
+
+
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '<?php echo URLROOT ?>/admin/database/geral.php?operacao=buscarGeralFornecimento',
+                    data: {
+                        idGeralProduto: idGeralProduto,
+                    },
+                    success: function(data) {
+                        var linha = "";
+                        for (var i = 0; i < data.length; i++) {
+                            var object = data[i];
+
+                            vnomeFantasia = object.nomeFantasia
+                            if(object.nomeFantasia == null){
+                                vnomeFantasia = object.nomePessoa
+                            }
+                            
+                            linha = linha + "<tr>";
+                            linha = linha + "<td>" + object.Cnpj + "</td>";
+                            linha = linha + "<td>" + vnomeFantasia + "</td>";
+                            linha = linha + "<td>" + object.idGeralProduto + "</td>";
+                            linha = linha + "<td>" + object.refProduto + "</td>";
+                            linha = linha + "<td>" + object.valorCompra + "</td>";
+                            linha = linha + "<td>" + object.cfop + "</td>";
+                            linha = linha + "<td>" + object.origem + "</td>";
+                            linha = linha + "<td>" + (object.dataAtualizacaoTributaria ? formatarData(object.dataAtualizacaoTributaria) : "--") + "</td>";
+                            linha = linha + "<td>" + "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarFornecedorModal' data-idFornecimento='" + object.idFornecimento + "'><i class='bi bi-pencil-square'></i></button> "
+                            linha = linha + "</tr>";
+                        }
+                        $("#produto_" + idGeralProduto).html(linha);
+                    }
+                });
+            } else {
+                $('#' + collapseId).collapse('toggle');
+                $(this).closest('tr').nextAll('.collapse-row').remove();
+            }
+        });
 
         function formatarData(data) {
             var d = new Date(data);
@@ -265,33 +318,14 @@ $marcas = buscaMarcas();
         }
 
         $("#buscar").click(function() {
-            buscar($("#buscaProduto").val(), $("#filtroDataAtualizacao").val());
-        })
-
-        $("#filtroDataAtualizacao").change(function() {
-            buscar($("#buscaProduto").val(), $("#filtroDataAtualizacao").val());
+            buscar($("#buscaProduto").val());
         })
 
         document.addEventListener("keypress", function(e) {
             if (e.key === "Enter") {
-                buscar($("#buscaProduto").val(), $("#filtroDataAtualizacao").val());
+                buscar($("#buscaProduto").val());
             }
         });
-
-        $(document).on('click', 'button[data-bs-target="#atualizaProdutoModal"]', function() {
-
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                url: '../database/geral.php?operacao=atualizar',
-                data: {
-                    idGeralProduto: idProdutoAtualiza
-                }
-            });
-            window.location.reload();
-
-        });
-
 
         $(document).on('click', 'button[data-bs-target="#alterarProdutoModal"]', function() {
             var idGeralProduto = $(this).attr("data-idGeralProduto");
@@ -305,7 +339,6 @@ $marcas = buscaMarcas();
                 success: function(data) {
                     console.log(JSON.stringify(data, null, 2));
                     $('#idGeralProduto').val(data.idGeralProduto);
-                    idProdutoAtualiza = data.idGeralProduto;
                     $('#eanProduto').val(data.eanProduto);
                     $('#nomeProduto').val(data.nomeProduto);
                     $('#idMarca').val(data.idMarca);
@@ -359,7 +392,48 @@ $marcas = buscaMarcas();
                     success: refreshPage,
                 });
             });
+            $("#form-alterarFornecedor").submit(function(event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    url: "../database/geral.php?operacao=geralFornecedorAlterar",
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: refreshPage,
+                });
+            });
 
+        });
+
+        $(document).on('click', 'button[data-bs-target="#alterarFornecedorModal"]', function () {
+            var idFornecimento = $(this).attr("data-idFornecimento");
+            //alert(idFornecimento)
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '../database/geral.php?operacao=buscarGeralFornecimento',
+                data: {
+                    idFornecimento: idFornecimento
+                },
+                success: function (data) {
+                    $('#idFornecimento').val(data.idFornecimento);
+                    $('#Cnpj').val(data.Cnpj);
+                    $('#refProdutoFOR').val(data.refProduto);
+                    $('#idGeralProdutoFOR').val(data.idGeralProduto);
+                    $('#valorCompra').val(data.valorCompra);
+                    $('#nomePessoa').val(data.nomePessoa);
+                    $('#nomeProdutoFOR').val(data.nomeProduto);
+                    $('#eanProdutoFOR').val(data.eanProduto); 
+                    $('#origem').val(data.origem);
+                    $('#cfop').val(data.cfop);
+                    vdataFormatada = (data.dataAtualizacaoTributaria ? formatarData(data.dataAtualizacaoTributaria) : "");
+                    $('#dataAtualizacaoTributaria').val(vdataFormatada);
+
+                    $('#alterarFornecedorModal').modal('show');
+                }
+            });
         });
 
         function refreshPage() {

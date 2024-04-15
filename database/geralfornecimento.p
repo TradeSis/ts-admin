@@ -6,8 +6,10 @@ def temp-table ttentrada no-undo serialize-name "geralfornecimento"   /* JSON EN
   
 def input param vAcao as char.
 DEF INPUT PARAM TABLE FOR ttentrada.
+def output param vidfornecimento like geralfornecimento.idfornecimento.
 def output param vmensagem as char.
 
+vidfornecimento = ?.
 vmensagem = ?.
 
 find first ttentrada no-error.
@@ -49,10 +51,13 @@ THEN DO:
     end.
     do on error undo:
         create geralfornecimento.
+        vidfornecimento = geralfornecimento.idfornecimento.
         geralfornecimento.Cnpj   = ttentrada.Cnpj.
         geralfornecimento.refProduto   = ttentrada.refProduto.
         geralfornecimento.idGeralProduto   = ttentrada.idGeralProduto.
         geralfornecimento.valorCompra   = ttentrada.valorCompra.
+        geralfornecimento.origem   = ttentrada.origem.
+        geralfornecimento.cfop   = ttentrada.cfop.
     end.
 END.
 IF vAcao = "POST" 
@@ -73,8 +78,10 @@ THEN DO:
 
     do on error undo:   
         find geralfornecimento where geralfornecimento.idFornecimento = ttentrada.idFornecimento exclusive no-error.
-        geralfornecimento.idGeralProduto   = ttentrada.idGeralProduto.
+        //geralfornecimento.idGeralProduto   = ttentrada.idGeralProduto.
         geralfornecimento.valorCompra   = ttentrada.valorCompra.
+        geralfornecimento.origem   = ttentrada.origem.
+        geralfornecimento.cfop   = ttentrada.cfop.
     end.
     
 END.

@@ -85,6 +85,7 @@ if (isset($_GET['operacao'])) {
 			'regimeEspecial' => $_POST['regimeEspecial'],
 			'caracTrib' => $_POST['caracTrib'],
 			'origem' => $_POST['origem'],
+			'nomeFantasia' => $_POST['nomeFantasia']
 		);
 		$pessoas = chamaAPI(null, '/admin/geralpessoas', json_encode($apiEntrada), 'PUT');
 		return $pessoas;
@@ -114,6 +115,7 @@ if (isset($_GET['operacao'])) {
 			'regimeEspecial' => $_POST['regimeEspecial'],
 			'caracTrib' => $_POST['caracTrib'],
 			'origem' => $_POST['origem'],
+			'nomeFantasia' => $_POST['nomeFantasia']
 		);
 		$pessoas = chamaAPI(null, '/admin/geralpessoas', json_encode($apiEntrada), 'POST');
 		return $pessoas;
@@ -172,7 +174,9 @@ if (isset($_GET['operacao'])) {
 	if ($operacao == "buscarGeralFornecimento") {
 
 		$idFornecimento = isset($_POST["idFornecimento"]) ? $_POST["idFornecimento"] : null;
+		$idGeralProduto = isset($_POST["idGeralProduto"]) ? $_POST["idGeralProduto"] : null;
     	$buscaFornecimento = isset($_POST["buscaFornecimento"]) ? $_POST["buscaFornecimento"] : null;
+		$filtroDataAtualizacao = isset($_POST["filtroDataAtualizacao"]) && $_POST["filtroDataAtualizacao"] !== ""  ? $_POST["filtroDataAtualizacao"]  : null;
 
 		if ($buscaFornecimento == "") {
 			$buscaFornecimento = null;
@@ -180,10 +184,15 @@ if (isset($_GET['operacao'])) {
 		if ($idFornecimento == "") {
 			$idFornecimento = null;
 		}
+		if ($idGeralProduto == "") {
+			$idGeralProduto = null;
+		}
 
 		$apiEntrada = array(
 			'idFornecimento' => $idFornecimento,
-			'buscaFornecimento' => $buscaFornecimento
+			'buscaFornecimento' => $buscaFornecimento,
+			'filtroDataAtualizacao' => $filtroDataAtualizacao,
+			'idGeralProduto' => $idGeralProduto,
 		);
 
 		$fornecedor = chamaAPI(null, '/admin/geralfornecimento', json_encode($apiEntrada), 'GET');
@@ -198,7 +207,9 @@ if (isset($_GET['operacao'])) {
 			'Cnpj' => $_POST['Cnpj'],
 			'refProduto' => $_POST['refProduto'],
 			'idGeralProduto' => $_POST['idGeralProduto'],
-			'valorCompra' => $_POST['valorCompra']
+			'valorCompra' => $_POST['valorCompra'],
+			'origem' => $_POST['origem'],
+			'cfop' => $_POST['cfop']
 		);
 		$fornecedor = chamaAPI(null, '/admin/geralfornecimento', json_encode($apiEntrada), 'PUT');
 		return $fornecedor;
@@ -212,7 +223,9 @@ if (isset($_GET['operacao'])) {
 			'Cnpj' => $_POST['Cnpj'],
 			'refProduto' => $_POST['refProduto'],
 			'idGeralProduto' => $_POST['idGeralProduto'],
-			'valorCompra' => $_POST['valorCompra']
+			'valorCompra' => $_POST['valorCompra'],
+			'origem' => $_POST['origem'],
+			'cfop' => $_POST['cfop']
 		);
 		$fornecedor = chamaAPI(null, '/admin/geralfornecimento', json_encode($apiEntrada), 'POST');
 		return $fornecedor;
@@ -220,11 +233,11 @@ if (isset($_GET['operacao'])) {
 	}
 
 	if ($operacao=="atualizar") {
-		$idGeralProduto = isset($_POST["idGeralProduto"]) && $_POST["idGeralProduto"] !== "null"  ? $_POST["idGeralProduto"]  : null;
+		$idFornecimento = isset($_POST["idFornecimento"]) && $_POST["idFornecimento"] !== "null"  ? $_POST["idFornecimento"]  : null;
 
 		$apiEntrada = array(
 			'idEmpresa' => $_SESSION['idEmpresa'],
-			'idGeralProduto' => $idGeralProduto
+			'idFornecimento' => $idFornecimento
 		);
 		$fornecedor = chamaAPI(null, '/impostos/imendes/saneamento', json_encode($apiEntrada), 'POST');
 		return $fornecedor;

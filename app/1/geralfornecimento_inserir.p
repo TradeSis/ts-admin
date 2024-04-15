@@ -14,6 +14,7 @@ def temp-table ttsaida  no-undo serialize-name "conteudoSaida"  /* JSON SAIDA CA
     field tstatus        as int serialize-name "status"
     field descricaoStatus      as char.
 
+def VAR vidfornecimento AS INT.    
 def var vmensagem as char.
 
 hEntrada = temp-table ttentrada:HANDLE.
@@ -22,6 +23,7 @@ find first ttentrada no-error.
 
 RUN admin/database/geralfornecimento.p (INPUT "PUT", 
                                            input table ttentrada, 
+                                           output vidfornecimento,
                                            output vmensagem).
 
 IF vmensagem <> ? 
@@ -39,7 +41,7 @@ END.
 
 create ttsaida.
 ttsaida.tstatus = 200.
-ttsaida.descricaoStatus = "Fornecimento cadastrado com sucesso".
+ttsaida.descricaoStatus = "Fornecimento " + string(vidfornecimento) + " cadastrado com sucesso".
 
 hsaida  = temp-table ttsaida:handle.
 
