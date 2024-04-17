@@ -243,5 +243,16 @@ if (isset($_GET['operacao'])) {
 		return $fornecedor;
 
 	}
+
+	if ($operacao=="atualizarGeralFornecimento") {
+		
+		$apiEntrada = array(
+			'idEmpresa' => $_SESSION['idEmpresa']
+			
+		);
+		$fornecedor = chamaAPI(null, '/impostos/imendes_saneamentoGeral', json_encode($apiEntrada), 'POST');
+		return $fornecedor;
+
+	}
 	
 }
