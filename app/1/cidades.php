@@ -78,8 +78,6 @@ if ($BANCO == "PROGRESS") {
 
   $progr = new chamaprogress();
   $progr->setsocket(true);
-  $progr->setendereco("localhost");
-  $progr->setporta(23402);
   $retorno = $progr->executarprogress("admin/app/1/cidades",json_encode($jsonEntrada));
   fwrite($arquivo,$identificacao."-RETORNO->".$retorno."\n");
   $cidades = json_decode($retorno,true);
