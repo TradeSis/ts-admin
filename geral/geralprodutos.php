@@ -33,12 +33,14 @@ $marcas = buscaMarcas();
             </div>
 
             <div class="col-3">
-                <form id="form-atualizarProdutos" method="post">
+                <form id="form-atualizaFornecimento" method="post">
                     <div class="col-md-3">
-                        <input type="hidden" class="form-control ts-input" name="idGeralProduto" id="idGeralProduto" value="null">
+                        <input type="hidden" class="form-control ts-input" name="idFornecimento"  value="null">
                     </div>
                     <div class="text-end">
-                        <button type="submit" class="btn btn-sm btn-warning">Atualizar</button>
+                        <button type="submit" class="btn btn-warning" id="atualizaFornecimento-btn">Atualizar
+                        <span class="spinner-border-sm span-load"  role="status" aria-hidden="true"></span>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -380,11 +382,18 @@ $marcas = buscaMarcas();
                 });
             });
 
-            $("#form-atualizarProdutos").submit(function(event) {
+            $("#form-atualizaFornecimento").submit(function(event) {
                 event.preventDefault();
                 var formData = new FormData(this);
                 $.ajax({
-                    url: "../database/geral.php?operacao=atualizar",
+                    url: "../database/geral.php?operacao=atualizarGeralFornecimento",
+                    beforeSend: function() {
+                        setTimeout(function(){
+                            $("#atualizaFornecimento-btn").prop('disabled', true);
+                            $(".span-load").addClass("spinner-border");
+                            
+                        },500);
+                    },
                     type: 'POST',
                     data: formData,
                     processData: false,
@@ -392,6 +401,7 @@ $marcas = buscaMarcas();
                     success: refreshPage,
                 });
             });
+
             $("#form-alterarFornecedor").submit(function(event) {
                 event.preventDefault();
                 var formData = new FormData(this);

@@ -24,8 +24,21 @@ include_once(__DIR__ . '/../header.php');
         </div>
         <div class="row d-flex align-items-center justify-content-center mt-1 pt-1 ">
 
-            <div class="col-4 col-lg-4">
+            <div class="col-1 col-lg-1">
                 <h2 class="ts-tituloPrincipal">Fornecimento</h2>
+            </div>
+
+            <div class="col-3">
+                <form id="form-atualizaFornecimento" method="post">
+                    <div class="col-md-3">
+                        <input type="hidden" class="form-control ts-input" name="idFornecimento"  value="null">
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-warning" id="atualizaFornecimento-btn">Atualizar
+                        <span class="spinner-border-sm span-load"  role="status" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </form>
             </div>
 
             <div class="col-2 pt-2">
@@ -290,7 +303,28 @@ e gás natural">7 - Estrangeira - Adquirida no mercado interno</option>
                 });
             });
 
+
+            $("#form-atualizaFornecimento").submit(function(event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    url: "../database/geral.php?operacao=atualizarGeralFornecimento",
+                    beforeSend: function() {
+                        setTimeout(function(){
+                            $("#atualizaFornecimento-btn").prop('disabled', true);
+                            $(".span-load").addClass("spinner-border");
+                            
+                        },500);
+                    },
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: refreshPage,
+                });
+            });
         });
+     
 
         function refreshPage() {
             window.location.reload();
