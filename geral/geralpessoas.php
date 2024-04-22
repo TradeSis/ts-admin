@@ -44,9 +44,12 @@ include_once(__DIR__ . '/../header.php');
                     <tr class="ts-headerTabelaLinhaCima">
                         <th>Cpf/Cnpj</th>
                         <th>Nome</th>
-                        <th>IE</th>
-                        <th>País</th>
-                        <th>Endereço</th>
+                        <th>Estado</th>
+                        <th>regimetrib</th>
+                        <th>CRT</th>
+                        <th>caractrib</th>
+                        <th>regime especial</th>
+                        <th>cnae</th>
                         <th colspan="2">Ação</th>
                     </tr>
                 </thead>
@@ -376,9 +379,12 @@ include_once(__DIR__ . '/../header.php');
                         linha = linha + "<td>" + object.cpfCnpj + "</td>";
                         linha = linha + "<td>" + vnomeFantasia + "</td>";
                         
-                        linha = linha + "<td>" + object.IE + "</td>";
-                        linha = linha + "<td>" + object.pais + "</td>";
-                        linha = linha + "<td>" + object.endereco + "</td>";
+                        linha = linha + "<td>" + object.codigoEstado + "</td>";
+                        linha = linha + "<td>" + object.regimeTrib + "</td>";
+                        linha = linha + "<td>" + object.crt + "</td>";
+                        linha = linha + "<td>" + object.caracTrib + "</td>";
+                        linha = linha + "<td>" + object.regimeEspecial + "</td>";
+                        linha = linha + "<td>" + object.cnae + "</td>";
 
                         linha = linha + "<td>" + "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarPessoaModal' data-cpfCnpj='" + object.cpfCnpj + "'><i class='bi bi-pencil-square'></i></button> "
                         linha = linha + "</tr>";
