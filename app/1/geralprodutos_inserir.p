@@ -117,7 +117,7 @@ do on error undo:
     geralprodutos.eanProduto   = ttentrada.eanProduto.
     geralprodutos.nomeProduto   = ttentrada.nomeProduto.
     geralprodutos.idMarca   = ttentrada.idMarca.
-    geralprodutos.dataAtualizacaoTributaria   = var_datetime.
+//    geralprodutos.dataAtualizacaoTributaria   = var_datetime.
     geralprodutos.codImendes   = ttentrada.codImendes.
     geralprodutos.idGrupo   = ttentrada.idGrupo.
     geralprodutos.prodZFM   = ttentrada.prodZFM.
