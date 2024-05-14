@@ -67,6 +67,7 @@ $marcas = buscaMarcas();
                         <th>idGrupo</th>
                         <th>nomeGrupo</th>
                         <th>prodZFM</th>
+                        <th>Att trib.</th>
                         <th colspan="2">Ação</th>
                     </tr>
                 </thead>
@@ -234,6 +235,7 @@ $marcas = buscaMarcas();
                         linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.idGrupo ? object.idGrupo : "--") + "</td>";
                         linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.nomeGrupo ? object.nomeGrupo : "--") + "</td>";
                         linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.prodZFM ? object.prodZFM : "--") + "</td>";
+                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.dataAtualizacaoTributaria ? formatarData(object.dataAtualizacaoTributaria) : "--") + "</td>";
                         linha = linha + "<td>" + "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarProdutoModal' data-idGeralProduto='" + object.idGeralProduto + "'><i class='bi bi-pencil-square'></i></button> "
                         linha = linha + "</tr>";
                     }

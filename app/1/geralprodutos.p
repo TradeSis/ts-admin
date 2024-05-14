@@ -14,7 +14,9 @@ def temp-table ttentrada no-undo serialize-name "dadosEntrada"   /* JSON ENTRADA
 
 def temp-table ttgeralprodutos  no-undo serialize-name "geralprodutos"  /* JSON SAIDA */
     like geralprodutos
-    FIELD nomeGrupo LIKE fiscalgrupo.nomeGrupo.
+    FIELD nomeGrupo LIKE fiscalgrupo.nomeGrupo
+    FIELD codigoGrupo LIKE fiscalgrupo.codigoGrupo
+    FIELD dataAtualizacaoTributaria  LIKE geralfornecimento.dataAtualizacaoTributaria.
 
 def temp-table ttsaida  no-undo serialize-name "conteudoSaida"  /* JSON SAIDA CASO ERRO */
     field tstatus        as int serialize-name "status"
@@ -23,6 +25,8 @@ def temp-table ttsaida  no-undo serialize-name "conteudoSaida"  /* JSON SAIDA CA
 def VAR vidGeralProduto like ttentrada.idGeralProduto.
 def VAR veanProduto AS INT64.
 DEF VAR vnomeGrupo AS CHAR.
+DEF VAR vcodigoGrupo AS CHAR.
+DEF VAR vdataAtualizacaoTributaria AS DATETIME.
 
 hEntrada = temp-table ttentrada:HANDLE.
 lokJSON = hentrada:READ-JSON("longchar",vlcentrada, "EMPTY") no-error.
@@ -86,15 +90,27 @@ put unformatted string(vlcSaida).
 
 PROCEDURE criaProdutos.
 
-vnomeGrupo = ?.
-FIND fiscalgrupo WHERE fiscalgrupo.idGrupo =  geralprodutos.idGrupo NO-ERROR.
-IF AVAIL fiscalgrupo
-THEN DO:
-  vnomeGrupo = fiscalGrupo.nomeGrupo.  
-END.
+    vnomeGrupo = ?.
+    vcodigoGrupo = ?.
+    vdataAtualizacaoTributaria = ?.
+    
+    FIND fiscalgrupo WHERE fiscalgrupo.idGrupo =  geralprodutos.idGrupo NO-ERROR.
+    IF AVAIL fiscalgrupo
+    THEN DO:
+      vnomeGrupo = fiscalGrupo.nomeGrupo.
+      vcodigoGrupo = fiscalGrupo.codigoGrupo.
+    END.
+    
+    FIND geralfornecimento WHERE geralfornecimento.idGeralProduto =  geralprodutos.idGeralProduto NO-LOCK NO-ERROR.
+    IF AVAIL geralfornecimento 
+    THEN DO:
+         vdataAtualizacaoTributaria = geralfornecimento.dataAtualizacaoTributaria.
+    END.
 
-    create ttgeralprodutos.
-    BUFFER-COPY geralprodutos TO ttgeralprodutos.
-    ttgeralprodutos.nomeGrupo = vnomeGrupo.
+        create ttgeralprodutos.
+        BUFFER-COPY geralprodutos TO ttgeralprodutos.
+        ttgeralprodutos.nomeGrupo = vnomeGrupo.
+        ttgeralprodutos.codigoGrupo = vcodigoGrupo.
+        ttgeralprodutos.dataAtualizacaoTributaria = vdataAtualizacaoTributaria.
 
 END.
