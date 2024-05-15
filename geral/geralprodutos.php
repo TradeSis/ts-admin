@@ -4,8 +4,12 @@
 //Lucas 04042023 criado
 include_once(__DIR__ . '/../header.php');
 include_once(ROOT . '/cadastros/database/marcas.php');
+include_once('../database/grupoproduto.php');
 $marcas = buscaMarcas();
-//echo json_encode($marcas);
+$buscagrupos = buscaCodigoGrupos(null,null,null);
+if(!isset($buscagrupos['status']) ){
+    $grupos = $buscagrupos;
+}
 
 ?>
 <!doctype html>
@@ -169,17 +173,23 @@ $marcas = buscaMarcas();
                                 </div>
                             </div>
                             <div class="row mt-2">
-                                <!-- <div class="col-md">
+                                <div class="col-md">
                                     <label class="form-label ts-label">dataAtualizacaoTributaria</label>
-                                    <input type="datetime-local" class="form-control ts-input" name="dataAtualizacaoTributaria" id="dataAtualizacaoTributaria">
-                                </div> -->
+                                    <input type="text" class="form-control ts-input" name="dataAtualizacaoTributaria" id="dataAtualizacaoTributaria" disabled>
+                                </div>
                                 <div class="col-md">
                                     <label class="form-label ts-label">codImendes</label>
                                     <input type="text" class="form-control ts-input" name="codImendes" id="codImendes">
                                 </div>
                                 <div class="col-md">
                                     <label class="form-label ts-label">codigoGrupo</label>
-                                    <input type="text" class="form-control ts-input" name="codigoGrupo" id="codigoGrupo">
+                                    <select class="form-select ts-input" name="idGrupo" id="idGrupo">
+                                        <?php
+                                        foreach ($grupos as $grupo) {
+                                        ?>
+                                            <option value="<?php echo $grupo['idGrupo'] ?>"><?php echo $grupo['codigoGrupo']  ?></option>
+                                        <?php  } ?>
+                                    </select>
                                 </div>
                                 <div class="col-md">
                                     <label class="form-label ts-label">prodZFM</label>
@@ -346,9 +356,11 @@ $marcas = buscaMarcas();
                     $('#eanProduto').val(data.eanProduto);
                     $('#nomeProduto').val(data.nomeProduto);
                     $('#idMarca').val(data.idMarca);
-                    $('#dataAtualizacaoTributaria').val(data.dataAtualizacaoTributaria);
+                    vdtatualizacao = (data.dataAtualizacaoTributaria ? formatarData(data.dataAtualizacaoTributaria) : "")
+                    $('#dataAtualizacaoTributaria').val(vdtatualizacao);
                     $('#codImendes').val(data.codImendes);
                     $('#codigoGrupo').val(data.codigoGrupo);
+                    $('#idGrupo').val(data.idGrupo);
                     $('#prodZFM').val(data.prodZFM);
 
                     $('#alterarProdutoModal').modal('show');

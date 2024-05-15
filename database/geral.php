@@ -162,7 +162,6 @@ if (isset($_GET['operacao'])) {
 			'idGeralProduto' => $_POST['idGeralProduto'],
 			'nomeProduto' => $_POST['nomeProduto'],
 			'idMarca' => $_POST['idMarca'],
-			'dataAtualizacaoTributaria' => $_POST['dataAtualizacaoTributaria'],
 			'idGrupo' => $_POST['idGrupo'],
 			'prodZFM' => $_POST['prodZFM']
 		);
