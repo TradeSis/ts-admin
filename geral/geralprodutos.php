@@ -6,8 +6,8 @@ include_once(__DIR__ . '/../header.php');
 include_once(ROOT . '/cadastros/database/marcas.php');
 include_once('../database/grupoproduto.php');
 $marcas = buscaMarcas();
-$buscagrupos = buscaCodigoGrupos(null,null,null);
-if(!isset($buscagrupos['status']) ){
+$buscagrupos = buscaCodigoGrupos(null, null, null);
+if (!isset($buscagrupos['status'])) {
     $grupos = $buscagrupos;
 }
 
@@ -39,11 +39,11 @@ if(!isset($buscagrupos['status']) ){
             <div class="col-3">
                 <form id="form-atualizaFornecimento" method="post">
                     <div class="col-md-3">
-                        <input type="hidden" class="form-control ts-input" name="idFornecimento"  value="null">
+                        <input type="hidden" class="form-control ts-input" name="idFornecimento" value="null">
                     </div>
                     <div class="text-end">
                         <button type="submit" class="btn btn-warning" id="atualizaFornecimento-btn">Atualizar Produtos
-                        <span class="spinner-border-sm span-load"  role="status" aria-hidden="true"></span>
+                            <span class="spinner-border-sm span-load" role="status" aria-hidden="true"></span>
                         </button>
                     </div>
                 </form>
@@ -156,10 +156,36 @@ if(!isset($buscagrupos['status']) ){
                                     <label class="form-label ts-label">eanProduto</label>
                                     <input type="text" class="form-control ts-input" name="eanProduto" id="eanProduto">
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md">
                                     <label class="form-label ts-label">nomeProduto</label>
                                     <input type="text" class="form-control ts-input" name="nomeProduto" id="nomeProduto">
                                     <input type="hidden" class="form-control ts-input" name="idGeralProduto" id="idGeralProduto">
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-md">
+                                    <label class="form-label ts-label">Grupo</label>
+                                    <select class="form-select ts-input" name="idGrupo" id="idGrupo">
+                                        <?php
+                                        foreach ($grupos as $grupo) {
+                                        ?>
+                                            <option value="<?php echo $grupo['idGrupo'] ?>"><?php echo $grupo['idGrupo'] . " - " . $grupo['nomeGrupo']  ?></option>
+                                        <?php  } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-md">
+                                    <label class="form-label ts-label">dataAtualizacaoTributaria</label>
+                                    <input type="text" class="form-control ts-input" name="dataAtualizacaoTributaria" id="dataAtualizacaoTributaria" disabled>
+                                </div>
+                                <div class="col-md">
+                                    <label class="form-label ts-label">codImendes</label>
+                                    <input type="text" class="form-control ts-input" name="codImendes" id="codImendes">
+                                </div>
+                                <div class="col-md">
+                                    <label class="form-label ts-label">prodZFM</label>
+                                    <input type="text" class="form-control ts-input" name="prodZFM" id="prodZFM">
                                 </div>
                                 <div class="col-md">
                                     <label class="form-label ts-label">Marca</label>
@@ -170,30 +196,6 @@ if(!isset($buscagrupos['status']) ){
                                             <option value="<?php echo $marca['idMarca'] ?>"><?php echo $marca['nomeMarca']  ?></option>
                                         <?php  } ?>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-md">
-                                    <label class="form-label ts-label">dataAtualizacaoTributaria</label>
-                                    <input type="text" class="form-control ts-input" name="dataAtualizacaoTributaria" id="dataAtualizacaoTributaria" disabled>
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">codImendes</label>
-                                    <input type="text" class="form-control ts-input" name="codImendes" id="codImendes">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">codigoGrupo</label>
-                                    <select class="form-select ts-input" name="idGrupo" id="idGrupo">
-                                        <?php
-                                        foreach ($grupos as $grupo) {
-                                        ?>
-                                            <option value="<?php echo $grupo['idGrupo'] ?>"><?php echo $grupo['codigoGrupo']  ?></option>
-                                        <?php  } ?>
-                                    </select>
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">prodZFM</label>
-                                    <input type="text" class="form-control ts-input" name="prodZFM" id="prodZFM">
                                 </div>
                             </div>
                     </div><!--body-->
@@ -217,7 +219,7 @@ if(!isset($buscagrupos['status']) ){
         buscar($("#buscaProduto").val());
 
         function buscar(buscaProduto) {
-            
+
             $.ajax({
                 type: 'POST',
                 dataType: 'html',
@@ -235,7 +237,7 @@ if(!isset($buscagrupos['status']) ){
                     var linha = "";
                     for (var $i = 0; $i < json.length; $i++) {
                         var object = json[$i];
-                        
+
                         linha = linha + "<tr>";
                         linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.idGeralProduto ? object.idGeralProduto : "--") + "</td>";
                         linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.eanProduto ? object.eanProduto : "--") + "</td>";
@@ -296,10 +298,10 @@ if(!isset($buscagrupos['status']) ){
                             var object = data[i];
 
                             vnomeFantasia = object.nomeFantasia
-                            if(object.nomeFantasia == null){
+                            if (object.nomeFantasia == null) {
                                 vnomeFantasia = object.nomePessoa
                             }
-                            
+
                             linha = linha + "<tr>";
                             linha = linha + "<td>" + object.Cnpj + "</td>";
                             linha = linha + "<td>" + vnomeFantasia + "</td>";
@@ -402,11 +404,11 @@ if(!isset($buscagrupos['status']) ){
                 $.ajax({
                     url: "../database/geral.php?operacao=atualizarGeralFornecimento",
                     beforeSend: function() {
-                        setTimeout(function(){
+                        setTimeout(function() {
                             $("#atualizaFornecimento-btn").prop('disabled', true);
                             $(".span-load").addClass("spinner-border");
-                            
-                        },500);
+
+                        }, 500);
                     },
                     type: 'POST',
                     data: formData,
@@ -431,7 +433,7 @@ if(!isset($buscagrupos['status']) ){
 
         });
 
-        $(document).on('click', 'button[data-bs-target="#alterarFornecedorModal"]', function () {
+        $(document).on('click', 'button[data-bs-target="#alterarFornecedorModal"]', function() {
             var idFornecimento = $(this).attr("data-idFornecimento");
             //alert(idFornecimento)
             $.ajax({
@@ -441,7 +443,7 @@ if(!isset($buscagrupos['status']) ){
                 data: {
                     idFornecimento: idFornecimento
                 },
-                success: function (data) {
+                success: function(data) {
                     $('#idFornecimento').val(data.idFornecimento);
                     $('#Cnpj').val(data.Cnpj);
                     $('#refProdutoFOR').val(data.refProduto);
@@ -449,7 +451,7 @@ if(!isset($buscagrupos['status']) ){
                     $('#valorCompra').val(data.valorCompra);
                     $('#nomePessoa').val(data.nomePessoa);
                     $('#nomeProdutoFOR').val(data.nomeProduto);
-                    $('#eanProdutoFOR').val(data.eanProduto); 
+                    $('#eanProdutoFOR').val(data.eanProduto);
                     $('#origem').val(data.origem);
                     $('#cfop').val(data.cfop);
                     vdataFormatada = (data.dataAtualizacaoTributaria ? formatarData(data.dataAtualizacaoTributaria) : "");
