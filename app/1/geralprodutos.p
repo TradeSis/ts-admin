@@ -15,8 +15,7 @@ def temp-table ttentrada no-undo serialize-name "dadosEntrada"   /* JSON ENTRADA
 def temp-table ttgeralprodutos  no-undo serialize-name "geralprodutos"  /* JSON SAIDA */
     like geralprodutos
     FIELD nomeGrupo LIKE fiscalgrupo.nomeGrupo
-    FIELD codigoGrupo LIKE fiscalgrupo.codigoGrupo
-    FIELD dataAtualizacaoTributaria  LIKE geralfornecimento.dataAtualizacaoTributaria.
+    FIELD codigoGrupo LIKE fiscalgrupo.codigoGrupo.
 
 def temp-table ttsaida  no-undo serialize-name "conteudoSaida"  /* JSON SAIDA CASO ERRO */
     field tstatus        as int serialize-name "status"
@@ -101,16 +100,10 @@ PROCEDURE criaProdutos.
       vcodigoGrupo = fiscalGrupo.codigoGrupo.
     END.
     
-    FIND geralfornecimento WHERE geralfornecimento.idGeralProduto =  geralprodutos.idGeralProduto NO-LOCK NO-ERROR.
-    IF AVAIL geralfornecimento 
-    THEN DO:
-         vdataAtualizacaoTributaria = geralfornecimento.dataAtualizacaoTributaria.
-    END.
 
         create ttgeralprodutos.
         BUFFER-COPY geralprodutos TO ttgeralprodutos.
         ttgeralprodutos.nomeGrupo = vnomeGrupo.
         ttgeralprodutos.codigoGrupo = vcodigoGrupo.
-        ttgeralprodutos.dataAtualizacaoTributaria = vdataAtualizacaoTributaria.
 
 END.

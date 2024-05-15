@@ -71,7 +71,6 @@ if (!isset($buscagrupos['status'])) {
                         <th>idGrupo</th>
                         <th>nomeGrupo</th>
                         <th>prodZFM</th>
-                        <th>Att trib.</th>
                         <th colspan="2">Ação</th>
                     </tr>
                 </thead>
@@ -176,10 +175,6 @@ if (!isset($buscagrupos['status'])) {
                             </div>
                             <div class="row mt-1">
                                 <div class="col-md">
-                                    <label class="form-label ts-label">dataAtualizacaoTributaria</label>
-                                    <input type="text" class="form-control ts-input" name="dataAtualizacaoTributaria" id="dataAtualizacaoTributaria" disabled>
-                                </div>
-                                <div class="col-md">
                                     <label class="form-label ts-label">codImendes</label>
                                     <input type="text" class="form-control ts-input" name="codImendes" id="codImendes">
                                 </div>
@@ -247,7 +242,6 @@ if (!isset($buscagrupos['status'])) {
                         linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.idGrupo ? object.idGrupo : "--") + "</td>";
                         linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.nomeGrupo ? object.nomeGrupo : "--") + "</td>";
                         linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.prodZFM ? object.prodZFM : "--") + "</td>";
-                        linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.dataAtualizacaoTributaria ? formatarData(object.dataAtualizacaoTributaria) : "--") + "</td>";
                         linha = linha + "<td>" + "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarProdutoModal' data-idGeralProduto='" + object.idGeralProduto + "'><i class='bi bi-pencil-square'></i></button> "
                         linha = linha + "</tr>";
                     }
@@ -358,8 +352,6 @@ if (!isset($buscagrupos['status'])) {
                     $('#eanProduto').val(data.eanProduto);
                     $('#nomeProduto').val(data.nomeProduto);
                     $('#idMarca').val(data.idMarca);
-                    vdtatualizacao = (data.dataAtualizacaoTributaria ? formatarData(data.dataAtualizacaoTributaria) : "")
-                    $('#dataAtualizacaoTributaria').val(vdtatualizacao);
                     $('#codImendes').val(data.codImendes);
                     $('#codigoGrupo').val(data.codigoGrupo);
                     $('#idGrupo').val(data.idGrupo);
