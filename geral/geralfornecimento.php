@@ -34,7 +34,7 @@ include_once(__DIR__ . '/../header.php');
                         <input type="hidden" class="form-control ts-input" name="idFornecimento"  value="null">
                     </div>
                     <div class="text-end">
-                        <button type="submit" class="btn btn-warning" id="atualizaFornecimento-btn">Atualizar
+                        <button type="submit" class="btn btn-warning" id="atualizaFornecimento-btn">Atualizar Produtos
                         <span class="spinner-border-sm span-load"  role="status" aria-hidden="true"></span>
                         </button>
                     </div>
