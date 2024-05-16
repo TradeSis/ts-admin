@@ -144,8 +144,10 @@ if (isset($_GET['operacao'])) {
 	
 	if ($operacao=="geralProdutosInserir") {
 
+		$eanProduto = isset($_POST["eanProduto"]) && $_POST["eanProduto"] !== "" ? $_POST["eanProduto"] : null;
+
 		$apiEntrada = array(
-			'eanProduto' => $_POST['eanProduto'],
+			'eanProduto' => $eanProduto,
 			'nomeProduto' => $_POST['nomeProduto'],
 			'idMarca' => $_POST['idMarca'],
 			'dataAtualizacaoTributaria' => $_POST['dataAtualizacaoTributaria'],

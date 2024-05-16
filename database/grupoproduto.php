@@ -3,13 +3,13 @@
 // lucas 08032024 - id876 passagem para progress
 include_once __DIR__ . "/../conexao.php";
 
-function buscaCodigoGrupos($codigoGrupo = null, $buscaGrupoProduto = null, $idGeralProduto = null)
+function buscaCodigoGrupos($idGrupo = null, $buscaGrupoProduto = null, $idGeralProduto = null)
 {
 
 	$grupos = array();
 
 	$apiEntrada = array(
-		'codigoGrupo' => $codigoGrupo,
+		'idGrupo' => $idGrupo,
 		'buscaGrupoProduto' => $buscaGrupoProduto,
 		'idGeralProduto' => $idGeralProduto
 	);

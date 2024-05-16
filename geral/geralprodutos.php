@@ -97,9 +97,31 @@ if (!isset($buscagrupos['status'])) {
                                     <label class="form-label ts-label">eanProduto</label>
                                     <input type="text" class="form-control ts-input" name="eanProduto">
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md">
                                     <label class="form-label ts-label">nomeProduto</label>
                                     <input type="text" class="form-control ts-input" name="nomeProduto">
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-md">
+                                    <label class="form-label ts-label">Grupo</label>
+                                    <select class="form-select ts-input" name="idGrupo">
+                                        <?php
+                                        foreach ($grupos as $grupo) {
+                                        ?>
+                                            <option value="<?php echo $grupo['idGrupo'] ?>"><?php echo $grupo['idGrupo'] . " - " . $grupo['nomeGrupo']  ?></option>
+                                        <?php  } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md">
+                                    <label class="form-label ts-label">codImendes</label>
+                                    <input type="text" class="form-control ts-input" name="codImendes">
+                                </div>
+                                <div class="col-md">
+                                    <label class="form-label ts-label">prodZFM</label>
+                                    <input type="text" class="form-control ts-input" name="prodZFM">
                                 </div>
                                 <div class="col-md">
                                     <label class="form-label ts-label">Marca</label>
@@ -110,24 +132,6 @@ if (!isset($buscagrupos['status'])) {
                                             <option value="<?php echo $marca['idMarca'] ?>"><?php echo $marca['nomeMarca']  ?></option>
                                         <?php  } ?>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-md">
-                                    <label class="form-label ts-label">dataAtualizacaoTributaria</label>
-                                    <input type="datetime-local" class="form-control ts-input" name="dataAtualizacaoTributaria">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">codImendes</label>
-                                    <input type="text" class="form-control ts-input" name="codImendes">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">idGrupo</label>
-                                    <input type="text" class="form-control ts-input" name="idGrupo">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">prodZFM</label>
-                                    <input type="text" class="form-control ts-input" name="prodZFM">
                                 </div>
                             </div>
                     </div><!--body-->
@@ -151,6 +155,10 @@ if (!isset($buscagrupos['status'])) {
                     <div class="modal-body">
                         <form method="post" id="form-alterarProdutos">
                             <div class="row">
+                                <div class="col-md-2">
+                                    <label class="form-label ts-label">idGeralProduto</label>
+                                    <input type="text" class="form-control ts-input" name="idGeralProduto" id="idGeralProduto" readonly>
+                                </div>
                                 <div class="col-md-3">
                                     <label class="form-label ts-label">eanProduto</label>
                                     <input type="text" class="form-control ts-input" name="eanProduto" id="eanProduto">
@@ -158,7 +166,6 @@ if (!isset($buscagrupos['status'])) {
                                 <div class="col-md">
                                     <label class="form-label ts-label">nomeProduto</label>
                                     <input type="text" class="form-control ts-input" name="nomeProduto" id="nomeProduto">
-                                    <input type="hidden" class="form-control ts-input" name="idGeralProduto" id="idGeralProduto">
                                 </div>
                             </div>
                             <div class="row mt-1">
