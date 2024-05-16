@@ -96,20 +96,22 @@ then do:
     ttentrada.prodZFM = "N".
 end.
 
+if ttentrada.eanProduto <> ? then do:
+    find geralprodutos where geralprodutos.eanProduto = ttentrada.eanProduto no-lock no-error.
+    if avail geralprodutos
+    then do:
+        create ttsaida.
+        ttsaida.tstatus = 400.
+        ttsaida.descricaoStatus = "Produto ja cadastrado".
 
-find geralprodutos where geralprodutos.eanProduto = ttentrada.eanProduto no-lock no-error.
-if avail geralprodutos
-then do:
-    create ttsaida.
-    ttsaida.tstatus = 400.
-    ttsaida.descricaoStatus = "Produto ja cadastrado".
+        hsaida  = temp-table ttsaida:handle.
 
-    hsaida  = temp-table ttsaida:handle.
-
-    lokJson = hsaida:WRITE-JSON("LONGCHAR", vlcSaida, TRUE).
-    message string(vlcSaida).
-    return.
+        lokJson = hsaida:WRITE-JSON("LONGCHAR", vlcSaida, TRUE).
+        message string(vlcSaida).
+        return.
+    end.    
 end.
+
 
 
 do on error undo:
