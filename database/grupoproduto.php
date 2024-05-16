@@ -81,11 +81,11 @@ if (isset($_GET['operacao'])) {
 	// lucas 08032024 - id876 união das operações filtrar e buscar
 	if ($operacao == "buscar") {
 		// lucas 08032024 - id876 alterado teste de entrada
-		$codigoGrupo = isset($_POST["codigoGrupo"])  && $_POST["codigoGrupo"] !== "" && $_POST["codigoGrupo"] !== "null" ? $_POST["codigoGrupo"]  : null;
+		$idGrupo = isset($_POST["idGrupo"])  && $_POST["idGrupo"] !== "" && $_POST["idGrupo"] !== "null" ? $_POST["idGrupo"]  : null;
 		$buscaGrupoProduto = isset($_POST["buscaGrupoProduto"])  && $_POST["buscaGrupoProduto"] !== "" && $_POST["buscaGrupoProduto"] !== "null" ? $_POST["buscaGrupoProduto"]  : null;
 
 		$apiEntrada = array(
-			'codigoGrupo' => $codigoGrupo,
+			'idGrupo' => $idGrupo,
 			'buscaGrupoProduto' => $buscaGrupoProduto,
 			'idGeralProduto' => null
 		);

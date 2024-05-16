@@ -21,26 +21,26 @@ def temp-table ttsaida  no-undo serialize-name "conteudoSaida"  /* JSON SAIDA CA
     field tstatus        as int serialize-name "status"
     field descricaoStatus      as char.
 
-def VAR vcodigoGrupo like ttentrada.codigoGrupo.
+def VAR vidGrupo like ttentrada.idGrupo.
 
 
 hEntrada = temp-table ttentrada:HANDLE.
 lokJSON = hentrada:READ-JSON("longchar",vlcentrada, "EMPTY") no-error.
 find first ttentrada no-error.
 
-vcodigoGrupo = "".
+vidGrupo = 0.
 if avail ttentrada
 then do:
-    vcodigoGrupo = ttentrada.codigoGrupo.  
-    if vcodigoGrupo = ? then vcodigoGrupo = "". 
+    vidGrupo = ttentrada.idGrupo.  
+    if vidGrupo = ? then vidGrupo = 0. 
 end.
  
-IF ttentrada.codigoGrupo <> ? OR (ttentrada.codigoGrupo = ? AND ttentrada.buscaGrupoProduto = ? AND ttentrada.idGeralProduto = ?)
+IF ttentrada.idGrupo <> ? OR (ttentrada.idGrupo = ? AND ttentrada.buscaGrupoProduto = ? AND ttentrada.idGeralProduto = ?)
 THEN DO:
       for EACH fiscalgrupo WHERE
-      (if vcodigoGrupo = ""
+      (if vidGrupo = 0
         then true /* TODOS */
-        ELSE fiscalgrupo.codigoGrupo = vcodigoGrupo) 
+        ELSE fiscalgrupo.idGrupo = vidGrupo) 
         no-lock.
         
         RUN criaGrupos.
