@@ -209,7 +209,11 @@ if (!isset($buscagrupos['status'])) {
             </div>
         </div>
 
-        <?php include 'modalFornecedor_Alterar.php'; ?>
+        <!-- Modal Fornecimento Inserir-->
+        <?php include 'modalFornecimento_inserir.php'; ?>
+
+        <!-- Modal Fornecimento Alterar-->
+        <?php include 'modalFornecimento_Alterar.php'; ?>
 
     </div><!--container-fluid-->
 
@@ -249,7 +253,7 @@ if (!isset($buscagrupos['status'])) {
                         linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.idGrupo ? object.idGrupo : "--") + "</td>";
                         linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.nomeGrupo ? object.nomeGrupo : "--") + "</td>";
                         linha = linha + "<td class='ts-click' data-idGeralProduto='" + object.idGeralProduto + "'>" + (object.prodZFM ? object.prodZFM : "--") + "</td>";
-                        linha = linha + "<td>" + "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarProdutoModal' data-idGeralProduto='" + object.idGeralProduto + "'><i class='bi bi-pencil-square'></i></button> "
+                        linha = linha + "<td>" + "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarProdutoModal' data-idGeralProduto='" + object.idGeralProduto + "'><i class='bi bi-pencil-square'></i></button> ";
                         linha = linha + "</tr>";
                     }
                     $("#dados").html(linha);
@@ -294,10 +298,14 @@ if (!isset($buscagrupos['status'])) {
                         idGeralProduto: idGeralProduto,
                     },
                     success: function(data) {
+                        //console.log(JSON.stringify(data, null, 2));
                         var linha = "";
+                        linha = linha + "<tr>";
+                        linha = linha + "<td colspan='9' class='text-end pe-1'>" + "<button type='button' class='btn btn-success btn-sm' title='Adicionar Fornecimento' data-bs-toggle='modal' data-bs-target='#inserirFornecedorModal' data-idGeralProduto='" + idGeralProduto + "'><i class='bi bi-plus-square'></i>&nbsp Novo Fornecimento</button> ";
+                        linha = linha + "</tr>";
+
                         for (var i = 0; i < data.length; i++) {
                             var object = data[i];
-
                             vnomeFantasia = object.nomeFantasia
                             if (object.nomeFantasia == null) {
                                 vnomeFantasia = object.nomePessoa
@@ -312,9 +320,10 @@ if (!isset($buscagrupos['status'])) {
                             linha = linha + "<td>" + object.cfop + "</td>";
                             linha = linha + "<td>" + object.origem + "</td>";
                             linha = linha + "<td>" + (object.dataAtualizacaoTributaria ? formatarData(object.dataAtualizacaoTributaria) : "--") + "</td>";
-                            linha = linha + "<td>" + "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarFornecedorModal' data-idFornecimento='" + object.idFornecimento + "'><i class='bi bi-pencil-square'></i></button> "
+                            linha = linha + "<td><button type='button' class='btn btn-warning btn-sm' title='Alterar Fornecimento' data-bs-toggle='modal' data-bs-target='#alterarFornecedorModal' data-idFornecimento='" + object.idFornecimento + "'><i class='bi bi-pencil-square'></i></button></td>";
                             linha = linha + "</tr>";
                         }
+
                         $("#produto_" + idGeralProduto).html(linha);
                     }
                 });
@@ -342,6 +351,14 @@ if (!isset($buscagrupos['status'])) {
             if (e.key === "Enter") {
                 buscar($("#buscaProduto").val());
             }
+        });
+
+        $(document).on('click', 'button[data-bs-target="#inserirFornecedorModal"]', function() {
+            var idGeralProduto = $(this).attr("data-idGeralProduto");
+
+            $('#fornecimento_idGeralProduto').val(idGeralProduto);
+            $('#inserirFornecedorModal').modal('show');
+
         });
 
         $(document).on('click', 'button[data-bs-target="#alterarProdutoModal"]', function() {
@@ -422,6 +439,19 @@ if (!isset($buscagrupos['status'])) {
                 var formData = new FormData(this);
                 $.ajax({
                     url: "../database/geral.php?operacao=geralFornecedorAlterar",
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: refreshPage,
+                });
+            });
+
+            $("#form-inserirFornecedor").submit(function(event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    url: "../database/geral.php?operacao=geralFornecedorInserir",
                     type: 'POST',
                     data: formData,
                     processData: false,
