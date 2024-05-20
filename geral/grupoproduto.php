@@ -47,7 +47,7 @@ include_once(__DIR__ . '/../header.php');
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Grupo - </h5>&nbsp;<h5 class="modal-title" id="textoCodigoGrupo"></h5>
+                        <h5 class="modal-title">Grupo </h5>&nbsp;<h5 class="modal-title" id="textoCodigoGrupo"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -252,7 +252,7 @@ include_once(__DIR__ . '/../header.php');
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Alterar Grupo - </h5>&nbsp;<h5 class="modal-title" id="textoAlterarCodigoGrupo"></h5>
+                        <h5 class="modal-title">Alterar Grupo </h5>&nbsp;<h5 class="modal-title" id="textoAlterarCodigoGrupo"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -419,8 +419,8 @@ include_once(__DIR__ . '/../header.php');
                         // Lucas 29022024 - condição Administradora 
                         <?php if ($_SESSION['administradora'] == 1) { ?>
                         linha = linha + "<td>"
-                        linha += "<button type='button' class='btn btn-info btn-sm' data-bs-toggle='modal' data-bs-target='#visualizarGrupoProdutoModal' data-codigoGrupo='" + object.codigoGrupo + "'><i class='bi bi-eye'></i></button> ";
-                        linha += "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarGrupoProdutoModal' data-codigoGrupo='" + object.codigoGrupo + "'><i class='bi bi-pencil-square'></i></button> ";
+                        linha += "<button type='button' class='btn btn-info btn-sm' data-bs-toggle='modal' data-bs-target='#visualizarGrupoProdutoModal' data-idGrupo='" + object.idGrupo + "'><i class='bi bi-eye'></i></button> ";
+                        linha += "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarGrupoProdutoModal' data-idGrupo='" + object.idGrupo + "'><i class='bi bi-pencil-square'></i></button> ";
                         linha = linha + "</td>"
                         <?php } ?>
                         linha = linha + "</tr>";
@@ -441,14 +441,14 @@ include_once(__DIR__ . '/../header.php');
         });
 
         $(document).on('click', 'button[data-bs-target="#visualizarGrupoProdutoModal"]', function() {
-            var codigoGrupo = $(this).attr("data-codigoGrupo");
+            var idGrupo = $(this).attr("data-idGrupo");
 
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
                 url: '<?php echo URLROOT ?>/admin/database/grupoproduto.php?operacao=buscar',
                 data: {
-                    codigoGrupo: codigoGrupo
+                    idGrupo: idGrupo
                 },
                 success: function(data) {
                     //alert(data)
@@ -484,14 +484,14 @@ include_once(__DIR__ . '/../header.php');
 
 
         $(document).on('click', 'button[data-bs-target="#alterarGrupoProdutoModal"]', function() {
-            var codigoGrupo = $(this).attr("data-codigoGrupo");
+            var idGrupo = $(this).attr("data-idGrupo");
 
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
                 url: '<?php echo URLROOT ?>/admin/database/grupoproduto.php?operacao=buscar',
                 data: {
-                    codigoGrupo: codigoGrupo
+                    idGrupo: idGrupo
                 },
                 success: function(data) {
                     //alert(data)

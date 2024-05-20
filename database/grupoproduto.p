@@ -25,10 +25,14 @@ end.
 
 IF vacao = "PUT"
 THEN DO:
+    if ttentrada.codigoGrupo = "" then do:
+        ttentrada.codigoGrupo = ?.
+    end.
     do on error undo:
         create fiscalgrupo.
         vidgrupo = fiscalgrupo.idgrupo.
         BUFFER-COPY ttentrada EXCEPT idGrupo TO fiscalgrupo.
     end. 
 END.
+
 

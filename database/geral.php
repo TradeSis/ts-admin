@@ -93,6 +93,8 @@ if (isset($_GET['operacao'])) {
 	}
 
 	if ($operacao=="geralpessoasAlterar") {
+		$telefone = isset($_POST["telefone"]) && $_POST["telefone"] !== "" ? $_POST["telefone"] : null;
+		$email = isset($_POST["email"]) && $_POST["email"] !== "" ? $_POST["email"] : null;
 
 		$apiEntrada = array(
 			'cpfCnpj' => $_POST['cpfCnpj'],
@@ -107,8 +109,8 @@ if (isset($_GET['operacao'])) {
 			'endereco' => $_POST['endereco'],
 			'endNumero' => $_POST['endNumero'],
 			'cep' => $_POST['cep'],
-			'email' => $_POST['email'],
-			'telefone' => $_POST['telefone'],
+			'email' => $email,
+			'telefone' => $telefone,
 			'crt' => $_POST['crt'],
 			'regimeTrib' => $_POST['regimeTrib'],
 			'cnae' => $_POST['cnae'],
@@ -142,8 +144,10 @@ if (isset($_GET['operacao'])) {
 	
 	if ($operacao=="geralProdutosInserir") {
 
+		$eanProduto = isset($_POST["eanProduto"]) && $_POST["eanProduto"] !== "" ? $_POST["eanProduto"] : null;
+
 		$apiEntrada = array(
-			'eanProduto' => $_POST['eanProduto'],
+			'eanProduto' => $eanProduto,
 			'nomeProduto' => $_POST['nomeProduto'],
 			'idMarca' => $_POST['idMarca'],
 			'dataAtualizacaoTributaria' => $_POST['dataAtualizacaoTributaria'],
@@ -162,7 +166,6 @@ if (isset($_GET['operacao'])) {
 			'idGeralProduto' => $_POST['idGeralProduto'],
 			'nomeProduto' => $_POST['nomeProduto'],
 			'idMarca' => $_POST['idMarca'],
-			'dataAtualizacaoTributaria' => $_POST['dataAtualizacaoTributaria'],
 			'idGrupo' => $_POST['idGrupo'],
 			'prodZFM' => $_POST['prodZFM']
 		);
