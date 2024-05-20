@@ -21,26 +21,26 @@ def temp-table ttsaida  no-undo serialize-name "conteudoSaida"  /* JSON SAIDA CA
     field tstatus        as int serialize-name "status"
     field descricaoStatus      as char.
 
-def VAR vcodigoGrupo like ttentrada.codigoGrupo.
+def VAR vidGrupo like ttentrada.idGrupo.
 
 
 hEntrada = temp-table ttentrada:HANDLE.
 lokJSON = hentrada:READ-JSON("longchar",vlcentrada, "EMPTY") no-error.
 find first ttentrada no-error.
 
-vcodigoGrupo = "".
+vidGrupo = 0.
 if avail ttentrada
 then do:
-    vcodigoGrupo = ttentrada.codigoGrupo.  
-    if vcodigoGrupo = ? then vcodigoGrupo = "". 
+    vidGrupo = ttentrada.idGrupo.  
+    if vidGrupo = ? then vidGrupo = 0. 
 end.
  
-IF ttentrada.codigoGrupo <> ? OR (ttentrada.codigoGrupo = ? AND ttentrada.buscaGrupoProduto = ? AND ttentrada.idGeralProduto = ?)
+IF ttentrada.idGrupo <> ? OR (ttentrada.idGrupo = ? AND ttentrada.buscaGrupoProduto = ? AND ttentrada.idGeralProduto = ?)
 THEN DO:
       for EACH fiscalgrupo WHERE
-      (if vcodigoGrupo = ""
+      (if vidGrupo = 0
         then true /* TODOS */
-        ELSE fiscalgrupo.codigoGrupo = vcodigoGrupo) 
+        ELSE fiscalgrupo.idGrupo = vidGrupo) 
         no-lock.
         
         RUN criaGrupos.
@@ -77,36 +77,12 @@ THEN DO:
         return.
     END.
             
-    FIND produtos WHERE produtos.idGeralProduto = ttentrada.idGeralProduto NO-LOCK no-error.
-    IF NOT AVAIL produtos
-    THEN DO:
-        create ttsaida.
-        ttsaida.tstatus = 400.
-        ttsaida.descricaoStatus = "produtos fiscal nao encontrado".
-
-        hsaida  = temp-table ttsaida:handle.
-
-        lokJson = hsaida:WRITE-JSON("LONGCHAR", vlcSaida, TRUE).
-        message string(vlcSaida).
-        return.
-    END.
-
     FIND fiscalgrupo WHERE fiscalgrupo.idGrupo = geralprodutos.idGrupo NO-LOCK NO-ERROR.
-    IF NOT AVAIL fiscalgrupo 
-    THEN DO:
-       create ttsaida.
-        ttsaida.tstatus = 400.
-        ttsaida.descricaoStatus = "fiscalgrupo fiscal nao encontrado".
-
-        hsaida  = temp-table ttsaida:handle.
-
-        lokJson = hsaida:WRITE-JSON("LONGCHAR", vlcSaida, TRUE).
-        message string(vlcSaida).
-        return.
-    END.
 
     create ttfiscalgrupo.
-    BUFFER-COPY fiscalgrupo TO ttfiscalgrupo.
+    if AVAIL fiscalgrupo then do:
+        BUFFER-COPY fiscalgrupo TO ttfiscalgrupo.
+    end.
     ttfiscalgrupo.idGeralProduto = geralprodutos.idGeralProduto.
             
 END. 
@@ -139,3 +115,4 @@ PROCEDURE criaGrupos.
     
 
 END.
+

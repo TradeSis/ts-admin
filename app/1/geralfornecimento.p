@@ -16,7 +16,6 @@ def temp-table ttentrada no-undo serialize-name "dadosEntrada"   /* JSON ENTRADA
 def temp-table ttgeralfornecimento  no-undo serialize-name "geralfornecimento"  /* JSON SAIDA */
     like geralfornecimento
     FIELD nomePessoa AS CHAR
-    FIELD nomeProduto AS CHAR
     FIELD eanProduto AS INT64
     FIELD nomeFantasia AS CHAR.
 
@@ -80,7 +79,7 @@ THEN DO:
      ttgeralfornecimento.origem = geralfornecimento.origem.
      ttgeralfornecimento.cfop = geralfornecimento.cfop.
      ttgeralfornecimento.nomePessoa = geralpessoas.nomePessoa.
-     ttgeralfornecimento.nomeProduto = geralprodutos.nomeProduto.
+     ttgeralfornecimento.nomeProduto = geralfornecimento.nomeProduto.
      ttgeralfornecimento.eanProduto = geralprodutos.eanProduto.
      ttgeralfornecimento.nomeFantasia = geralpessoas.nomeFantasia.
      ttgeralfornecimento.dataAtualizacaoTributaria = geralfornecimento.dataAtualizacaoTributaria.
@@ -206,5 +205,6 @@ procedure montasaida.
     put unformatted string(vlcSaida).
 
 END PROCEDURE.
+
 
 
