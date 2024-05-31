@@ -362,10 +362,7 @@ include_once(__DIR__ . '/../header.php');
                         <th>nomeGrupo</th>
                         <th>codigoNcm</th>
                         <th>codigoCest</th>
-                        <!-- Lucas 29022024 - condição Administradora -->
-                        <?php if ($_SESSION['administradora'] == 1) { ?>
                         <th></th>
-                        <?php } ?>
                     </tr>
                 </thead>
 
@@ -416,10 +413,10 @@ include_once(__DIR__ . '/../header.php');
                         linha = linha + "<td>" + object.nomeGrupo + "</td>";
                         linha = linha + "<td>" + object.codigoNcm + "</td>";
                         linha = linha + "<td>" + object.codigoCest + "</td>";
-                        // Lucas 29022024 - condição Administradora 
-                        <?php if ($_SESSION['administradora'] == 1) { ?>
                         linha = linha + "<td>"
                         linha += "<button type='button' class='btn btn-info btn-sm' data-bs-toggle='modal' data-bs-target='#visualizarGrupoProdutoModal' data-idGrupo='" + object.idGrupo + "'><i class='bi bi-eye'></i></button> ";
+                        // Lucas 31052024 - condição Administradora 
+                        <?php if ($_SESSION['administradora'] == 1) { ?>
                         linha += "<button type='button' class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#alterarGrupoProdutoModal' data-idGrupo='" + object.idGrupo + "'><i class='bi bi-pencil-square'></i></button> ";
                         linha = linha + "</td>"
                         <?php } ?>
