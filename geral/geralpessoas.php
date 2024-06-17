@@ -70,127 +70,158 @@ include_once(__DIR__ . '/../header.php');
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="post" id="form-inserirPessoas">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label class="form-label ts-label">Tipo de Pessoa</label>
-                                    <select class="form-select ts-input" name="tipoPessoa">
-                                        <option value="J">Jur√≠dica</option>
-                                        <option value="F">F√≠sica</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label ts-label">Cpf/Cnpj</label>
-                                    <input type="text" class="form-control ts-input" name="cpfCnpj" required>
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">Nome</label>
-                                    <input type="text" class="form-control ts-input" name="nomePessoa" required>
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">Nome Fantasia</label>
-                                    <input type="text" class="form-control ts-input" name="nomeFantasia" required>
-                                </div>
-                            </div><!--fim row 1-->
-                            <div class="row mt-3">
-                                <div class="col-md">
-                                    <label class="form-label ts-label">codigoCidade</label>
-                                    <input type="text" class="form-control ts-input" name="codigoCidade" required>
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">codigoEstado</label>
-                                    <input type="text" class="form-control ts-input" name="codigoEstado">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">CEP</label>
-                                    <input type="text" class="form-control ts-input" name="cep">
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md">
-                                    <label class="form-label ts-label">Bairro</label>
-                                    <input type="text" class="form-control ts-input" name="bairro">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">Endere√ßo</label>
-                                    <input type="text" class="form-control ts-input" name="endereco">
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="form-label ts-label">Numero</label>
-                                    <input type="text" class="form-control ts-input" name="endNumero">
-                                </div>
-                            </div><!--fim row 2-->
-                            <div class="row mt-3">
-                                <div class="col-md">
-                                    <label class="form-label ts-label">Munic√≠pio</label>
-                                    <input type="text" class="form-control ts-input" name="municipio">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">IE</label>
-                                    <input type="text" class="form-control ts-input" name="IE">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">Pa√≠s</label>
-                                    <input type="text" class="form-control ts-input" name="pais">
-                                </div>
-                            </div><!--fim row 3-->
-                            <div class="row mt-3">
-                                <div class="col-md">
-                                    <label class="form-label ts-label">Email</label>
-                                    <input type="text" class="form-control ts-input" name="email">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">Telefone</label>
-                                    <input type="text" class="form-control ts-input" name="telefone">
-                                </div>
-                            </div><!--fim row 4-->
-                            <div class="row mt-3">
-                                <!-- lucas 04042024 - Alterado para select: crt, regimeTrib e caracTrib -->
-                                <div class="col-md">
-                                    <label class="form-label ts-label">regimeTrib</label>
-                                    <select class="form-select ts-input" name="regimeTrib">
-                                        <option value="">Selecione</option>
-                                        <option value="SN" value="SN">SN - Simples Nacional</option>
-                                        <option value="LR">LR - Lucro Real</option>
-                                        <option value="LP">LP - Lucro Presumido</option>
-                                    </select>
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">crt</label>
-                                    <select class="form-select ts-input" name="crt">
-                                        <option value="">Selecione</option>
-                                        <option data-datacrt="SN" value="1">1 - Simples Nacional</option>
-                                        <option data-datacrt="SN" value="2">2 - SN com excesso sublimite de receita bruta</option>
 
-                                        <option data-datacrt="LR" value="3">3 - Regime Normal. (v2.0)</option>
-                                        <option data-datacrt="LP" value="3">3 - Regime Normal. (v2.0)</option>
-                                    </select>
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">caracTrib</label>
-                                    <select class="form-select ts-input" name="caracTrib">
-                                        <option value="0">0 - Industrial</option>
-                                        <option value="1">1 - Distribuidor</option>
-                                        <option value="2">2 - Atacadista</option>
-                                        <option value="3">3 - Varejista</option>
-                                        <option value="4">4 - Produtor Rural Fantasia Juridica</option>
-                                        <option value="6">6 - Produtor Rural Pessoa Fisica</option>
-                                        <option value="7">7 - Pessoa Juridica n„o Contribuinte do ICMS</option>
-                                        <option value="8">8 - Pessoa Fisica n„o Contribuinte do ICMS</option>
-                                        <option value="9">9 - ArmazÈm Geral</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md">
-                                    <label class="form-label ts-label">regimeEspecial</label>
-                                    <input type="text" class="form-control ts-input" name="regimeEspecial">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">cnae</label>
-                                    <input type="text" class="form-control ts-input" name="cnae">
-                                </div>
-                            </div><!--fim row 5-->
+                        <ul class="nav nav-tabs gap-1" id="tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link ts-tabModal active" id="tabInserir1-tab" data-bs-toggle="tab" href="#tabInserir1" role="tab" aria-controls="tabInserir1" aria-selected="true">Dados Pessoais</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link ts-tabModal" id="tabInserir2-tab" data-bs-toggle="tab" href="#tabInserir2" role="tab" aria-controls="tabInserir2" aria-selected="false">Endere√ßo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link ts-tabModal" id="tabInserir3-tab" data-bs-toggle="tab" href="#tabInserir3" role="tab" aria-controls="tabInserir3" aria-selected="false">Dados Tributarios</a>
+                            </li>
+                        </ul>
+                        <form method="post" id="form-inserirPessoas">
+                            <div class="tab-content" id="myTabsContent">
+                                <div class="tab-pane fade show active" id="tabInserir1" role="tabpanel" aria-labelledby="tabInserir1-tab">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label class="form-label ts-label">Tipo Pessoa<span class="text-danger"> * </span></label>
+                                                <select class="form-select ts-input" name="tipoPessoa" required>
+                                                    <option value="J">Jur√≠dica</option>
+                                                    <option value="F">F√≠sica</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label ts-label">Cpf/Cnpj<span class="text-danger"> * </span></label>
+                                                <input type="text" class="form-control ts-input" name="cpfCnpj" required>
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">Nome<span class="text-danger"> * </span></label>
+                                                <input type="text" class="form-control ts-input" name="nomePessoa" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">Nome Fantasia<span class="text-danger"> * </span></label>
+                                                <input type="text" class="form-control ts-input" name="nomeFantasia" required>
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">Email</label>
+                                                <input type="text" class="form-control ts-input" name="email">
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">Telefone</label>
+                                                <input type="text" class="form-control ts-input" name="telefone">
+                                            </div>
+                                        </div>
+                                    </div><!-- container 1 -->
+                                </div><!-- tab-pane 1 -->
+
+                                <div class="tab-pane fade" id="tabInserir2" role="tabpanel" aria-labelledby="tabInserir2-tab">
+                                    <div class="container">
+                                        <div class="row mt-3">
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">codigoCidade<span class="text-danger"> * </span></label>
+                                                <input type="text" class="form-control ts-input" name="codigoCidade" required>
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">codigoEstado<span class="text-danger"> * </span></label>
+                                                <input type="text" class="form-control ts-input" name="codigoEstado" required>
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">CEP</label>
+                                                <input type="text" class="form-control ts-input" name="cep">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">Bairro</label>
+                                                <input type="text" class="form-control ts-input" name="bairro">
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">Endere√ßo</label>
+                                                <input type="text" class="form-control ts-input" name="endereco">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-label ts-label">Numero</label>
+                                                <input type="text" class="form-control ts-input" name="endNumero">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">Munic√≠pio</label>
+                                                <input type="text" class="form-control ts-input" name="municipio">
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">IE</label>
+                                                <input type="text" class="form-control ts-input" name="IE">
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">Pa√≠s</label>
+                                                <input type="text" class="form-control ts-input" name="pais">
+                                            </div>
+                                        </div>
+                                    </div><!-- container 2 -->
+                                </div><!-- tab-pane3 -->
+
+                                <div class="tab-pane fade" id="tabInserir3" role="tabpanel" aria-labelledby="tabInserir3-tab">
+                                    <div class="container">
+                                        <div class="row mt-3">
+                                            <!-- lucas 04042024 - Alterado para select: crt, regimeTrib e caracTrib -->
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">regimeTrib<span class="text-danger"> * </span></label>
+                                                <select class="form-select ts-input" name="regimeTrib" required>
+                                                    <option value="">Selecione</option>
+                                                    <option value="SN" value="SN">SN - Simples Nacional</option>
+                                                    <option value="LR">LR - Lucro Real</option>
+                                                    <option value="LP">LP - Lucro Presumido</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">crt<span class="text-danger"> * </span></label>
+                                                <select class="form-select ts-input" name="crt" required>
+                                                    <option value="">Selecione</option>
+                                                    <option data-datacrt="SN" value="1">1 - Simples Nacional</option>
+                                                    <option data-datacrt="SN" value="2">2 - SN com excesso sublimite de receita bruta</option>
+
+                                                    <option data-datacrt="LR" value="3">3 - Regime Normal. (v2.0)</option>
+                                                    <option data-datacrt="LP" value="3">3 - Regime Normal. (v2.0)</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">caracTrib<span class="text-danger"> * </span></label>
+                                                <select class="form-select ts-input" name="caracTrib" required>
+                                                    <option value="0">0 - Industrial</option>
+                                                    <option value="1">1 - Distribuidor</option>
+                                                    <option value="2">2 - Atacadista</option>
+                                                    <option value="3">3 - Varejista</option>
+                                                    <option value="4">4 - Produtor Rural Fantasia Juridica</option>
+                                                    <option value="6">6 - Produtor Rural Pessoa Fisica</option>
+                                                    <option value="7">7 - Pessoa Juridica n„o Contribuinte do ICMS</option>
+                                                    <option value="8">8 - Pessoa Fisica n„o Contribuinte do ICMS</option>
+                                                    <option value="9">9 - ArmazÈm Geral</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">regimeEspecial</label>
+                                                <input type="text" class="form-control ts-input" name="regimeEspecial">
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">cnae</label>
+                                                <input type="text" class="form-control ts-input" name="cnae">
+                                            </div>
+                                        </div>
+                                    </div><!-- container 3 -->
+
+                                </div><!-- tab-pane3 -->
+
+                            </div><!-- tab-content -->
+
                     </div><!--body-->
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success" id="btn-formInserir">Cadastrar</button>
@@ -205,131 +236,163 @@ include_once(__DIR__ . '/../header.php');
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Alterar Pessoa</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Alterar Pessoa: </h5>
+                        <h5 class="modal-title" id="titulomodalalterar"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="post" id="form-alterarPessoas">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label class="form-label ts-label">Tipo de Pessoa</label>
-                                    <select class="form-select ts-input" name="tipoPessoa" id="tipoPessoa">
-                                        <option value="J">Jur√≠dica</option>
-                                        <option value="F">F√≠sica</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="form-label ts-label">Cpf/Cnpj</label>
-                                    <input type="text" class="form-control ts-input" id="cpfCnpj" name="cpfCnpj">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">Nome</label>
-                                    <input type="text" class="form-control ts-input" name="nomePessoa" id="nomePessoa">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">Nome Fantasia</label>
-                                    <input type="text" class="form-control ts-input" name="nomeFantasia" id="nomeFantasia">
-                                </div>
-                            </div><!--fim row 1-->
-                            <div class="row mt-3">
-                                <div class="col-md">
-                                    <label class="form-label ts-label">codigoCidade</label>
-                                    <input type="text" class="form-control ts-input" id="codigoCidade" name="codigoCidade">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">codigoEstado</label>
-                                    <input type="text" class="form-control ts-input" id="codigoEstado" name="codigoEstado">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">CEP</label>
-                                    <input type="text" class="form-control ts-input" id="cep" name="cep">
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md">
-                                    <label class="form-label ts-label">Bairro</label>
-                                    <input type="text" class="form-control ts-input" id="bairro" name="bairro">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">Endere√ßo</label>
-                                    <input type="text" class="form-control ts-input" id="endereco" name="endereco">
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="form-label ts-label">Numero</label>
-                                    <input type="text" class="form-control ts-input" id="endNumero" name="endNumero">
-                                </div>
-                            </div><!--fim row 2-->
-                            <div class="row mt-3">
-                                <div class="col-md">
-                                    <label class="form-label ts-label">Munic√≠pio</label>
-                                    <input type="text" class="form-control ts-input" id="municipio" name="municipio">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">IE</label>
-                                    <input type="text" class="form-control ts-input" id="IE" name="IE">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">Pa√≠s</label>
-                                    <input type="text" class="form-control ts-input" id="pais" name="pais">
-                                </div>
-                            </div><!--fim row 3-->
-                            <div class="row mt-3">
-                                <div class="col-md">
-                                    <label class="form-label ts-label">Email</label>
-                                    <input type="text" class="form-control ts-input" id="email" name="email">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">Telefone</label>
-                                    <input type="text" class="form-control ts-input" id="telefone" name="telefone">
-                                </div>
-                            </div><!--fim row 4-->
-                            <div class="row mt-3">
-                                <!-- lucas 04042024 - Alterado para select: crt, regimeTrib e caracTrib -->
-                                <div class="col-md">
-                                    <label class="form-label ts-label">regimeTrib</label>
-                                    <select class="form-select ts-input" name="regimeTrib" id="regimeTrib">
-                                        <option value="">Selecione</option>
-                                        <option value="SN" value="SN">SN - Simples Nacional</option>
-                                        <option value="LR">LR - Lucro Real</option>
-                                        <option value="LP">LP - Lucro Presumido</option>
-                                    </select>
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">crt</label>
-                                    <select class="form-select ts-input" name="crt" id="crt">
-                                        <option value="">Selecione</option>
-                                        <option value="1">1 - Simples Nacional</option>
-                                        <option value="2">2 - SN com excesso sublimite de receita bruta</option>
 
-                                        <option value="3">3 - Regime Normal. (v2.0)</option>
-                                        <option value="3">3 - Regime Normal. (v2.0)</option>
-                                    </select>
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">caracTrib</label>
-                                    <select class="form-select ts-input" name="caracTrib" id="caracTrib">
-                                        <option value="0">0 - Industrial</option>
-                                        <option value="1">1 - Distribuidor</option>
-                                        <option value="2">2 - Atacadista</option>
-                                        <option value="3">3 - Varejista</option>
-                                        <option value="4">4 - Produtor Rural Pessoa Juridica</option>
-                                        <option value="6">6 - Produtor Rural Pessoa Fisica</option>
-                                        <option value="7">7 - Pessoa Juridica n„o Contribuinte do ICMS</option>
-                                        <option value="8">8 - Pessoa Fisica n„o Contribuinte do ICMS</option>
-                                        <option value="9">9 - ArmazÈm Geral</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md">
-                                    <label class="form-label ts-label">regimeEspecial</label>
-                                    <input type="text" class="form-control ts-input" id="regimeEspecial" name="regimeEspecial">
-                                </div>
-                                <div class="col-md">
-                                    <label class="form-label ts-label">cnae</label>
-                                    <input type="text" class="form-control ts-input" id="cnae" name="cnae">
-                                </div>
-                            </div><!--fim row 5-->
+                        <ul class="nav nav-tabs gap-1" id="tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link ts-tabModal active" id="tabAlterar1-tab" data-bs-toggle="tab" href="#tabAlterar1" role="tab" aria-controls="tabAlterar1" aria-selected="true">Dados Pessoais</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link ts-tabModal" id="tabAlterar2-tab" data-bs-toggle="tab" href="#tabAlterar2" role="tab" aria-controls="tabAlterar2" aria-selected="false">Endere√ßo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link ts-tabModal" id="tabAlterar3-tab" data-bs-toggle="tab" href="#tabAlterar3" role="tab" aria-controls="tabAlterar3" aria-selected="false">Dados Tributarios</a>
+                            </li>
+                        </ul>
+                        <form method="post" id="form-alterarPessoas">
+                            <div class="tab-content" id="myTabsContent">
+                                <div class="tab-pane fade show active" id="tabAlterar1" role="tabpanel" aria-labelledby="tabAlterar1-tab">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label class="form-label ts-label">Tipo Pessoa<span class="text-danger"> * </span></label>
+                                                <select class="form-select ts-input" name="tipoPessoa" id="tipoPessoa" required>
+                                                    <option value="J">Jur√≠dica</option>
+                                                    <option value="F">F√≠sica</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="form-label ts-label">Cpf/Cnpj<span class="text-danger"> * </span></label>
+                                                <input type="text" class="form-control ts-input" id="cpfCnpj" name="cpfCnpj" required>
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">Nome<span class="text-danger"> * </span></label>
+                                                <input type="text" class="form-control ts-input" name="nomePessoa" id="nomePessoa" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">Nome Fantasia<span class="text-danger"> * </span></label>
+                                                <input type="text" class="form-control ts-input" name="nomeFantasia" id="nomeFantasia" required>
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">Email</label>
+                                                <input type="text" class="form-control ts-input" id="email" name="email">
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">Telefone</label>
+                                                <input type="text" class="form-control ts-input" id="telefone" name="telefone">
+                                            </div>
+                                        </div>
+                                    </div><!-- container 1 -->
+                                </div><!-- tab-pane 1 -->
+
+                                <div class="tab-pane fade" id="tabAlterar2" role="tabpanel" aria-labelledby="tabAlterar2-tab">
+                                    <div class="container">
+                                        <div class="row mt-3">
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">codigoCidade<span class="text-danger"> * </span></label>
+                                                <input type="text" class="form-control ts-input" id="codigoCidade" name="codigoCidade" required>
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">codigoEstado<span class="text-danger"> * </span></label>
+                                                <input type="text" class="form-control ts-input" id="codigoEstado" name="codigoEstado" required>
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">CEP</label>
+                                                <input type="text" class="form-control ts-input" id="cep" name="cep">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">Bairro</label>
+                                                <input type="text" class="form-control ts-input" id="bairro" name="bairro">
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">Endere√ßo</label>
+                                                <input type="text" class="form-control ts-input" id="endereco" name="endereco">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-label ts-label">Numero</label>
+                                                <input type="text" class="form-control ts-input" id="endNumero" name="endNumero">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">Munic√≠pio</label>
+                                                <input type="text" class="form-control ts-input" id="municipio" name="municipio">
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">IE</label>
+                                                <input type="text" class="form-control ts-input" id="IE" name="IE">
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">Pa√≠s</label>
+                                                <input type="text" class="form-control ts-input" id="pais" name="pais">
+                                            </div>
+                                        </div>
+                                    </div><!-- container 2 -->
+                                </div><!-- tab-pane3 -->
+
+                                <div class="tab-pane fade" id="tabAlterar3" role="tabpanel" aria-labelledby="tabAlterar3-tab">
+                                    <div class="container">
+                                        <div class="row mt-3">
+                                            <!-- lucas 04042024 - Alterado para select: crt, regimeTrib e caracTrib -->
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">regimeTrib<span class="text-danger"> * </span></label>
+                                                <select class="form-select ts-input" name="regimeTrib" id="regimeTrib" required>
+                                                    <option value="">Selecione</option>
+                                                    <option value="SN" value="SN">SN - Simples Nacional</option>
+                                                    <option value="LR">LR - Lucro Real</option>
+                                                    <option value="LP">LP - Lucro Presumido</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">crt<span class="text-danger"> * </span></label>
+                                                <select class="form-select ts-input" name="crt" id="crt" required>
+                                                    <option value="">Selecione</option>
+                                                    <option value="1">1 - Simples Nacional</option>
+                                                    <option value="2">2 - SN com excesso sublimite de receita bruta</option>
+
+                                                    <option value="3">3 - Regime Normal. (v2.0)</option>
+                                                    <option value="3">3 - Regime Normal. (v2.0)</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">caracTrib<span class="text-danger"> * </span></label>
+                                                <select class="form-select ts-input" name="caracTrib" id="caracTrib" required>
+                                                    <option value="0">0 - Industrial</option>
+                                                    <option value="1">1 - Distribuidor</option>
+                                                    <option value="2">2 - Atacadista</option>
+                                                    <option value="3">3 - Varejista</option>
+                                                    <option value="4">4 - Produtor Rural Pessoa Juridica</option>
+                                                    <option value="6">6 - Produtor Rural Pessoa Fisica</option>
+                                                    <option value="7">7 - Pessoa Juridica n„o Contribuinte do ICMS</option>
+                                                    <option value="8">8 - Pessoa Fisica n„o Contribuinte do ICMS</option>
+                                                    <option value="9">9 - ArmazÈm Geral</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">regimeEspecial</label>
+                                                <input type="text" class="form-control ts-input" id="regimeEspecial" name="regimeEspecial">
+                                            </div>
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">cnae</label>
+                                                <input type="text" class="form-control ts-input" id="cnae" name="cnae">
+                                            </div>
+                                        </div>
+                                    </div><!-- container 3 -->
+
+                                </div><!-- tab-pane3 -->
+
+                            </div><!-- tab-content -->
+
                     </div><!--body-->
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success">Salvar</button>
@@ -369,16 +432,16 @@ include_once(__DIR__ . '/../header.php');
                     var linha = "";
                     for (var $i = 0; $i < json.length; $i++) {
                         var object = json[$i];
-                        
+
                         vnomeFantasia = object.nomeFantasia
-                        if(object.nomeFantasia == null){
+                        if (object.nomeFantasia == null) {
                             vnomeFantasia = object.nomePessoa
                         }
 
                         linha = linha + "<tr>";
                         linha = linha + "<td>" + object.cpfCnpj + "</td>";
                         linha = linha + "<td>" + vnomeFantasia + "</td>";
-                        
+
                         linha = linha + "<td>" + object.codigoEstado + "</td>";
                         linha = linha + "<td>" + object.regimeTrib + "</td>";
                         linha = linha + "<td>" + object.crt + "</td>";
@@ -419,6 +482,9 @@ include_once(__DIR__ . '/../header.php');
                     $('#tipoPessoa').val(data.tipoPessoa);
                     $('#nomePessoa').val(data.nomePessoa);
                     $('#nomeFantasia').val(data.nomeFantasia);
+                    //titulo modal alterar
+                    var texto = $("#titulomodalalterar");
+                    texto.html(' &nbsp ' + data.nomeFantasia);
                     $('#IE').val(data.IE);
                     $('#municipio').val(data.municipio);
                     $('#pais').val(data.pais);
