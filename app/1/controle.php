@@ -41,6 +41,10 @@ if ($metodo == "GET") {
       include 'grupoproduto.php';
       break;
 
+    case "consulta_cnpj":
+      include 'consulta_cnpj.php';
+      break;
+
     default:
       $jsonSaida = json_decode(
         json_encode(
@@ -80,7 +84,7 @@ if ($metodo == "PUT") {
 
     case "grupoproduto":
       include 'grupoproduto_inserir.php';
-      break;      
+      break;  
       
     default:
       $jsonSaida = json_decode(
@@ -128,7 +132,10 @@ if ($metodo == "POST") {
       include 'grupoproduto_alterar.php';
       break;
 
-
+    case "bearer":
+      include 'bearer.php';
+      break;
+        
     default:
       $jsonSaida = json_decode(
         json_encode(
