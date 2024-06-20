@@ -131,10 +131,6 @@ if ($metodo == "POST") {
     case "grupoproduto":
       include 'grupoproduto_alterar.php';
       break;
-
-    case "bearer":
-      include 'bearer.php';
-      break;
         
     default:
       $jsonSaida = json_decode(
