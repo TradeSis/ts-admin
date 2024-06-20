@@ -89,14 +89,14 @@ include_once(__DIR__ . '/../header.php');
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <label class="form-label ts-label">Tipo Pessoa<span class="text-danger"> * </span></label>
-                                                <select class="form-select ts-input" name="tipoPessoa" required>
+                                                <select class="form-select ts-input" name="tipoPessoa" id="tipoPessoa_inserir" required>
                                                     <option value="J">Jurídica</option>
                                                     <option value="F">Física</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
                                                 <label class="form-label ts-label">Cpf/Cnpj<span class="text-danger"> * </span></label>
-                                                <input type="text" class="form-control ts-input" name="cpfCnpj" required>
+                                                <input type="text" class="form-control ts-input" name="cpfCnpj" id="cnpj_formEntrada" required>
                                             </div>
                                             <div class="col-md">
                                                 <label class="form-label ts-label">Nome<span class="text-danger"> * </span></label>
@@ -173,7 +173,7 @@ include_once(__DIR__ . '/../header.php');
                                             <!-- lucas 04042024 - Alterado para select: crt, regimeTrib e caracTrib -->
                                             <div class="col-md">
                                                 <label class="form-label ts-label">regimeTrib<span class="text-danger"> * </span></label>
-                                                <select class="form-select ts-input" name="regimeTrib" required>
+                                                <select class="form-select ts-input" name="regimeTrib" id="regimeTrib_inserir" required>
                                                     <option value="">Selecione</option>
                                                     <option value="SN" value="SN">SN - Simples Nacional</option>
                                                     <option value="LR">LR - Lucro Real</option>
@@ -182,7 +182,7 @@ include_once(__DIR__ . '/../header.php');
                                             </div>
                                             <div class="col-md">
                                                 <label class="form-label ts-label">crt<span class="text-danger"> * </span></label>
-                                                <select class="form-select ts-input" name="crt" required>
+                                                <select class="form-select ts-input" name="crt" id="crt_inserir" required>
                                                     <option value="">Selecione</option>
                                                     <option data-datacrt="SN" value="1">1 - Simples Nacional</option>
                                                     <option data-datacrt="SN" value="2">2 - SN com excesso sublimite de receita bruta</option>
@@ -192,8 +192,24 @@ include_once(__DIR__ . '/../header.php');
                                                 </select>
                                             </div>
                                             <div class="col-md">
+                                                <label class="form-label ts-label">regimeEspecial</label>
+                                                <input type="text" class="form-control ts-input" name="regimeEspecial">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">      
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">cnae</label>
+                                                <div class="input-group" style="margin-top: -6px;">
+                                                    <input type="text" class="form-control ts-input" name="cnae" id="cnae_inserirgeral" style="height: 35px; margin-top:1px">
+                                                    <button class="btn btn-outline-secondary" type="button" onclick="consultaCnpj()" title="Consultar Cnae">
+                                                        <i class="bi bi-search" id="lupaCnae"></i>
+                                                        <span class="spinner-border-sm span-load" role="status" aria-hidden="true"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md">
                                                 <label class="form-label ts-label">caracTrib<span class="text-danger"> * </span></label>
-                                                <select class="form-select ts-input" name="caracTrib" required>
+                                                <select class="form-select ts-input" name="caracTrib" id="caracTrib_inserir" required>
                                                     <option value="0">0 - Industrial</option>
                                                     <option value="1">1 - Distribuidor</option>
                                                     <option value="2">2 - Atacadista</option>
@@ -206,16 +222,6 @@ include_once(__DIR__ . '/../header.php');
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="row mt-3">
-                                            <div class="col-md">
-                                                <label class="form-label ts-label">regimeEspecial</label>
-                                                <input type="text" class="form-control ts-input" name="regimeEspecial">
-                                            </div>
-                                            <div class="col-md">
-                                                <label class="form-label ts-label">cnae</label>
-                                                <input type="text" class="form-control ts-input" name="cnae">
-                                            </div>
-                                        </div>
                                     </div><!-- container 3 -->
 
                                 </div><!-- tab-pane3 -->
@@ -224,7 +230,7 @@ include_once(__DIR__ . '/../header.php');
 
                     </div><!--body-->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" id="btn-formInserir">Cadastrar</button>
+                        <button type="submit" class="btn btn-success" id="btn_formInserir">Cadastrar</button>
                     </div>
                     </form>
                 </div>
@@ -271,7 +277,7 @@ include_once(__DIR__ . '/../header.php');
                                             </div>
                                             <div class="col-md">
                                                 <label class="form-label ts-label">Nome<span class="text-danger"> * </span></label>
-                                                <input type="text" class="form-control ts-input" name="nomePessoa" id="nomePessoa" required>
+                                                <input type="text" class="form-control ts-input" name="nomePessoa" id="nomePessoa" required readonly>
                                             </div>
                                         </div>
                                         <div class="row mt-3">
@@ -363,6 +369,22 @@ include_once(__DIR__ . '/../header.php');
                                                 </select>
                                             </div>
                                             <div class="col-md">
+                                                <label class="form-label ts-label">regimeEspecial</label>
+                                                <input type="text" class="form-control ts-input" id="regimeEspecial" name="regimeEspecial">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md">
+                                                <label class="form-label ts-label">cnae</label>
+                                                <div class="input-group" style="margin-top: -6px;">
+                                                    <input type="text" class="form-control ts-input" name="cnae" id="cnae" style="height: 35px; margin-top:1px">
+                                                    <button class="btn btn-outline-secondary" type="button" onclick="consultaCnpjAlterar()" title="Consultar Cnae">
+                                                        <i class="bi bi-search" id="lupaCnaeAlterar"></i>
+                                                        <span class="spinner-border-sm span-load" role="status" aria-hidden="true"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md">
                                                 <label class="form-label ts-label">caracTrib<span class="text-danger"> * </span></label>
                                                 <select class="form-select ts-input" name="caracTrib" id="caracTrib" required>
                                                     <option value="0">0 - Industrial</option>
@@ -377,16 +399,6 @@ include_once(__DIR__ . '/../header.php');
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="row mt-3">
-                                            <div class="col-md">
-                                                <label class="form-label ts-label">regimeEspecial</label>
-                                                <input type="text" class="form-control ts-input" id="regimeEspecial" name="regimeEspecial">
-                                            </div>
-                                            <div class="col-md">
-                                                <label class="form-label ts-label">cnae</label>
-                                                <input type="text" class="form-control ts-input" id="cnae" name="cnae">
-                                            </div>
-                                        </div>
                                     </div><!-- container 3 -->
 
                                 </div><!-- tab-pane3 -->
@@ -395,7 +407,7 @@ include_once(__DIR__ . '/../header.php');
 
                     </div><!--body-->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Salvar</button>
+                        <button type="submit" class="btn btn-success" id="btn_formAlterar">Salvar</button>
                     </div>
                     </form>
                 </div>
@@ -511,6 +523,66 @@ include_once(__DIR__ . '/../header.php');
             });
         });
 
+        function consultaCnpj() {
+            cpfCnpj_formEntrada = $("#cnpj_formEntrada").val();
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'html',
+                url: '<?php echo URLROOT ?>/admin/database/consulta_cnpj.php?operacao=buscar',
+                beforeSend: function() {
+                    setTimeout(function() {
+                        $(".span-load").addClass(" spinner-border");
+                        $("#lupaCnae").hide();
+                        $('#btn_formInserir').hide();
+                    }, 300);
+                },
+                data: {
+                    cnpj: cpfCnpj_formEntrada
+                },
+                success: function(msg) {
+                    $(".span-load").removeClass("spinner-border");
+                    $("#lupaCnae").show();
+                    $('#btn_formInserir').show();
+                    var json = JSON.parse(msg);
+
+                    $('#cnae_inserirgeral').val(json.cnae);
+                    $('#cnae_inserirgeral').prop('readonly', true);
+
+                }
+            });
+        }
+
+        function consultaCnpjAlterar() {
+            cpfCnpj_formEntrada = $("#cpfCnpj").val();
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'html',
+                url: '<?php echo URLROOT ?>/admin/database/consulta_cnpj.php?operacao=buscar',
+                beforeSend: function() {
+                    setTimeout(function() {
+                        $(".span-load").addClass(" spinner-border");
+                        $("#lupaCnaeAlterar").hide();
+                        $('#btn_formAlterar').hide();
+                    }, 300);
+                },
+                data: {
+                    cnpj: cpfCnpj_formEntrada
+                },
+                success: function(msg) {
+                    $(".span-load").removeClass("spinner-border");
+                    $("#lupaCnaeAlterar").show();
+                    $('#btn_formAlterar').show();
+                    var json = JSON.parse(msg);
+
+                    $('#cnae').val(json.cnae);
+                    $('#cnae').prop('readonly', true);
+
+                }
+            });
+        }
+
         $(document).ready(function() {
             $("#form-inserirPessoas").submit(function(event) {
                 event.preventDefault();
@@ -580,6 +652,27 @@ include_once(__DIR__ . '/../header.php');
             });
             $('select[name="crt"]').html(novoSelect);
         });
+
+        // SELECT TIPOPESSOA INSERIR
+        var select_inserir = document.getElementById('tipoPessoa_inserir')
+        select_inserir.addEventListener('change', function(){
+            if (select_inserir.value == "F"){
+                    $('#tabInserir3-tab').addClass('d-none');
+                    $('#tabInserir3').addClass('d-none');
+
+                    $("#regimeTrib_inserir").prop('required', false);
+                    $("#crt_inserir").prop('required', false);
+                    $("#caracTrib_inserir").prop('required', false);
+            }else{
+                $('#tabInserir3-tab').removeClass('d-none');
+                $('#tabInserir3').removeClass('d-none');
+
+                $("#regimeTrib_inserir").prop('required', true);
+                $("#crt_inserir").prop('required', true);
+                $("#caracTrib_inserir").prop('required', true);
+            }
+        })
+
     </script>
 
     <!-- LOCAL PARA COLOCAR OS JS -FIM -->
