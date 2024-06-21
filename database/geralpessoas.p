@@ -35,7 +35,12 @@ THEN DO:
     end.
     do on error undo:
         create geralpessoas.
+      
         BUFFER-COPY ttentrada TO geralpessoas.
+        
+        if ttentrada.nomeFantasia = ? or ttentrada.nomeFantasia = ""
+        then geralpessoas.nomeFantasia = entry(1,ttentrada.nomePessoa," ").
+        
     end.
 END.
 IF vAcao = "POST" 
@@ -51,6 +56,9 @@ THEN DO:
     do on error undo:   
         find geralpessoas where geralpessoas.cpfCnpj = ttentrada.cpfCnpj EXCLUSIVE .
         BUFFER-COPY ttentrada EXCEPT ttentrada.cpfCnpj TO geralpessoas .
+        
+        if ttentrada.nomeFantasia = ? or ttentrada.nomeFantasia = ""
+        then geralpessoas.nomeFantasia = entry(1,ttentrada.nomePessoa," ").
     end.
     
 END.

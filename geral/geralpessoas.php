@@ -105,8 +105,8 @@ include_once(__DIR__ . '/../header.php');
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-md">
-                                                <label class="form-label ts-label">Nome Fantasia<span class="text-danger"> * </span></label>
-                                                <input type="text" class="form-control ts-input" name="nomeFantasia" required>
+                                                <label class="form-label ts-label">Nome Fantasia</label>
+                                                <input type="text" class="form-control ts-input" name="nomeFantasia">
                                             </div>
                                             <div class="col-md">
                                                 <label class="form-label ts-label">Email</label>
@@ -124,12 +124,12 @@ include_once(__DIR__ . '/../header.php');
                                     <div class="container">
                                         <div class="row mt-3">
                                             <div class="col-md">
-                                                <label class="form-label ts-label">codigoCidade<span class="text-danger"> * </span></label>
-                                                <input type="text" class="form-control ts-input" name="codigoCidade" required>
+                                                <label class="form-label ts-label">codigoCidade</label>
+                                                <input type="text" class="form-control ts-input" name="codigoCidade">
                                             </div>
                                             <div class="col-md">
-                                                <label class="form-label ts-label">codigoEstado<span class="text-danger"> * </span></label>
-                                                <input type="text" class="form-control ts-input" name="codigoEstado" required>
+                                                <label class="form-label ts-label">codigoEstado</label>
+                                                <input type="text" class="form-control ts-input" name="codigoEstado">
                                             </div>
                                             <div class="col-md">
                                                 <label class="form-label ts-label">CEP</label>
@@ -172,8 +172,8 @@ include_once(__DIR__ . '/../header.php');
                                         <div class="row mt-3">
                                             <!-- lucas 04042024 - Alterado para select: crt, regimeTrib e caracTrib -->
                                             <div class="col-md">
-                                                <label class="form-label ts-label">regimeTrib<span class="text-danger"> * </span></label>
-                                                <select class="form-select ts-input" name="regimeTrib" id="regimeTrib_inserir" required>
+                                                <label class="form-label ts-label">regimeTrib</label>
+                                                <select class="form-select ts-input" name="regimeTrib" id="regimeTrib_inserir">
                                                     <option value="">Selecione</option>
                                                     <option value="SN" value="SN">SN - Simples Nacional</option>
                                                     <option value="LR">LR - Lucro Real</option>
@@ -181,8 +181,8 @@ include_once(__DIR__ . '/../header.php');
                                                 </select>
                                             </div>
                                             <div class="col-md">
-                                                <label class="form-label ts-label">crt<span class="text-danger"> * </span></label>
-                                                <select class="form-select ts-input" name="crt" id="crt_inserir" required>
+                                                <label class="form-label ts-label">crt</label>
+                                                <select class="form-select ts-input" name="crt" id="crt_inserir">
                                                     <option value="">Selecione</option>
                                                     <option data-datacrt="SN" value="1">1 - Simples Nacional</option>
                                                     <option data-datacrt="SN" value="2">2 - SN com excesso sublimite de receita bruta</option>
@@ -208,8 +208,9 @@ include_once(__DIR__ . '/../header.php');
                                                 </div>
                                             </div>
                                             <div class="col-md">
-                                                <label class="form-label ts-label">caracTrib<span class="text-danger"> * </span></label>
-                                                <select class="form-select ts-input" name="caracTrib" id="caracTrib_inserir" required>
+                                                <label class="form-label ts-label">caracTrib</label>
+                                                <select class="form-select ts-input" name="caracTrib" id="caracTrib_inserir">
+                                                    <option value="<?php echo null ?>"><?php echo "Selecione" ?></option>    
                                                     <option value="0">0 - Industrial</option>
                                                     <option value="1">1 - Distribuidor</option>
                                                     <option value="2">2 - Atacadista</option>
@@ -273,17 +274,17 @@ include_once(__DIR__ . '/../header.php');
                                             </div>
                                             <div class="col-md-3">
                                                 <label class="form-label ts-label">Cpf/Cnpj<span class="text-danger"> * </span></label>
-                                                <input type="text" class="form-control ts-input" id="cpfCnpj" name="cpfCnpj" required>
+                                                <input type="text" class="form-control ts-input" id="cpfCnpj" name="cpfCnpj" required readonly>
                                             </div>
                                             <div class="col-md">
                                                 <label class="form-label ts-label">Nome<span class="text-danger"> * </span></label>
-                                                <input type="text" class="form-control ts-input" name="nomePessoa" id="nomePessoa" required readonly>
+                                                <input type="text" class="form-control ts-input" name="nomePessoa" id="nomePessoa" required>
                                             </div>
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-md">
-                                                <label class="form-label ts-label">Nome Fantasia<span class="text-danger"> * </span></label>
-                                                <input type="text" class="form-control ts-input" name="nomeFantasia" id="nomeFantasia" required>
+                                                <label class="form-label ts-label">Nome Fantasia</label>
+                                                <input type="text" class="form-control ts-input" name="nomeFantasia" id="nomeFantasia">
                                             </div>
                                             <div class="col-md">
                                                 <label class="form-label ts-label">Email</label>
@@ -301,12 +302,12 @@ include_once(__DIR__ . '/../header.php');
                                     <div class="container">
                                         <div class="row mt-3">
                                             <div class="col-md">
-                                                <label class="form-label ts-label">codigoCidade<span class="text-danger"> * </span></label>
-                                                <input type="text" class="form-control ts-input" id="codigoCidade" name="codigoCidade" required>
+                                                <label class="form-label ts-label">codigoCidade</label>
+                                                <input type="text" class="form-control ts-input" id="codigoCidade" name="codigoCidade">
                                             </div>
                                             <div class="col-md">
-                                                <label class="form-label ts-label">codigoEstado<span class="text-danger"> * </span></label>
-                                                <input type="text" class="form-control ts-input" id="codigoEstado" name="codigoEstado" required>
+                                                <label class="form-label ts-label">codigoEstado</label>
+                                                <input type="text" class="form-control ts-input" id="codigoEstado" name="codigoEstado">
                                             </div>
                                             <div class="col-md">
                                                 <label class="form-label ts-label">CEP</label>
@@ -349,8 +350,8 @@ include_once(__DIR__ . '/../header.php');
                                         <div class="row mt-3">
                                             <!-- lucas 04042024 - Alterado para select: crt, regimeTrib e caracTrib -->
                                             <div class="col-md">
-                                                <label class="form-label ts-label">regimeTrib<span class="text-danger"> * </span></label>
-                                                <select class="form-select ts-input" name="regimeTrib" id="regimeTrib" required>
+                                                <label class="form-label ts-label">regimeTrib</label>
+                                                <select class="form-select ts-input" name="regimeTrib" id="regimeTrib">
                                                     <option value="">Selecione</option>
                                                     <option value="SN" value="SN">SN - Simples Nacional</option>
                                                     <option value="LR">LR - Lucro Real</option>
@@ -358,8 +359,8 @@ include_once(__DIR__ . '/../header.php');
                                                 </select>
                                             </div>
                                             <div class="col-md">
-                                                <label class="form-label ts-label">crt<span class="text-danger"> * </span></label>
-                                                <select class="form-select ts-input" name="crt" id="crt" required>
+                                                <label class="form-label ts-label">crt</label>
+                                                <select class="form-select ts-input" name="crt" id="crt">
                                                     <option value="">Selecione</option>
                                                     <option value="1">1 - Simples Nacional</option>
                                                     <option value="2">2 - SN com excesso sublimite de receita bruta</option>
@@ -385,8 +386,9 @@ include_once(__DIR__ . '/../header.php');
                                                 </div>
                                             </div>
                                             <div class="col-md">
-                                                <label class="form-label ts-label">caracTrib<span class="text-danger"> * </span></label>
-                                                <select class="form-select ts-input" name="caracTrib" id="caracTrib" required>
+                                                <label class="form-label ts-label">caracTrib</label>
+                                                <select class="form-select ts-input" name="caracTrib" id="caracTrib">
+                                                    <option value="<?php echo null ?>"><?php echo "Selecione" ?></option>
                                                     <option value="0">0 - Industrial</option>
                                                     <option value="1">1 - Distribuidor</option>
                                                     <option value="2">2 - Atacadista</option>
@@ -492,6 +494,13 @@ include_once(__DIR__ . '/../header.php');
                 success: function(data) {
                     $('#cpfCnpj').val(data.cpfCnpj);
                     $('#tipoPessoa').val(data.tipoPessoa);
+                    if(data.tipoPessoa == "F"){
+                        $('#tabAlterar3-tab').addClass('d-none');
+                        $('#tabAlterar3').addClass('d-none');
+                    }else{
+                        $('#tabAlterar3-tab').removeClass('d-none');
+                        $('#tabAlterar3').removeClass('d-none'); 
+                    }
                     $('#nomePessoa').val(data.nomePessoa);
                     $('#nomeFantasia').val(data.nomeFantasia);
                     //titulo modal alterar
@@ -670,6 +679,18 @@ include_once(__DIR__ . '/../header.php');
                 $("#regimeTrib_inserir").prop('required', true);
                 $("#crt_inserir").prop('required', true);
                 $("#caracTrib_inserir").prop('required', true);
+            }
+        })
+
+        // SELECT TIPOPESSOA INSERIR
+        var select_alterar = document.getElementById('tipoPessoa')
+        select_alterar.addEventListener('change', function(){
+            if (select_alterar.value == "F"){
+                    $('#tabAlterar3-tab').addClass('d-none');
+                    $('#tabAlterar3').addClass('d-none');
+            }else{
+                $('#tabAlterar3-tab').removeClass('d-none');
+                $('#tabAlterar3').removeClass('d-none');
             }
         })
 

@@ -64,10 +64,13 @@ if (isset($_GET['operacao'])) {
 	}
 	if ($operacao=="geralpessoasInserir") {
 
+		$caracTrib = isset($_POST["caracTrib"]) && $_POST["caracTrib"] !== "" ? $_POST["caracTrib"] : null;
+
 		$apiEntrada = array(
 			'cpfCnpj' => $_POST['cpfCnpj'],
 			'tipoPessoa' => $_POST['tipoPessoa'],
 			'nomePessoa' => $_POST['nomePessoa'],
+			'nomeFantasia' => $_POST['nomeFantasia'],
 			'IE' => $_POST['IE'],
 			'municipio' => $_POST['municipio'],
 			'codigoCidade' => $_POST['codigoCidade'],
@@ -83,9 +86,9 @@ if (isset($_GET['operacao'])) {
 			'regimeTrib' => $_POST['regimeTrib'],
 			'cnae' => $_POST['cnae'],
 			'regimeEspecial' => $_POST['regimeEspecial'],
-			'caracTrib' => $_POST['caracTrib'],
-			'origem' => $_POST['origem'],
-			'nomeFantasia' => $_POST['nomeFantasia']
+			'caracTrib' =>  $caracTrib,
+			'origem' => $_POST['origem']
+			
 		);
 		$pessoas = chamaAPI(null, '/admin/geralpessoas', json_encode($apiEntrada), 'PUT');
 		return $pessoas;
@@ -95,11 +98,13 @@ if (isset($_GET['operacao'])) {
 	if ($operacao=="geralpessoasAlterar") {
 		$telefone = isset($_POST["telefone"]) && $_POST["telefone"] !== "" ? $_POST["telefone"] : null;
 		$email = isset($_POST["email"]) && $_POST["email"] !== "" ? $_POST["email"] : null;
+		$caracTrib = isset($_POST["caracTrib"]) && $_POST["caracTrib"] !== "" ? $_POST["caracTrib"] : null;
 
 		$apiEntrada = array(
 			'cpfCnpj' => $_POST['cpfCnpj'],
 			'tipoPessoa' => $_POST['tipoPessoa'],
 			'nomePessoa' => $_POST['nomePessoa'],
+			'nomeFantasia' => $_POST['nomeFantasia'],
 			'IE' => $_POST['IE'],
 			'municipio' => $_POST['municipio'],
 			'codigoCidade' => $_POST['codigoCidade'],
@@ -115,9 +120,8 @@ if (isset($_GET['operacao'])) {
 			'regimeTrib' => $_POST['regimeTrib'],
 			'cnae' => $_POST['cnae'],
 			'regimeEspecial' => $_POST['regimeEspecial'],
-			'caracTrib' => $_POST['caracTrib'],
-			'origem' => $_POST['origem'],
-			'nomeFantasia' => $_POST['nomeFantasia']
+			'caracTrib' => $caracTrib,
+			'origem' => $_POST['origem']
 		);
 		$pessoas = chamaAPI(null, '/admin/geralpessoas', json_encode($apiEntrada), 'POST');
 		return $pessoas;
