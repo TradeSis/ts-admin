@@ -27,8 +27,16 @@ DEF VAR lcJsonResponse   AS LONGCHAR NO-UNDO.
 DEFINE VARIABLE joToken         AS JsonObject NO-UNDO.
 
 
-
+DEF INPUT PARAM idEmpresa AS INT.
 DEF OUTPUT PARAM token AS CHAR.
+
+/* APIFISCAL */
+FIND apifiscal WHERE apifiscal.idEmpresa = idEmpresa NO-LOCK NO-ERROR. 
+IF NOT AVAIL apifiscal 
+THEN DO:
+    RUN montasaida (400,"Apifiscal não cadastrada para empresa!").
+    RETURN.
+END.
 
 oLib = ClientLibraryBuilder:Build()
                            :sslVerifyHost(NO)
@@ -45,7 +53,7 @@ ASSIGN netClient   = ClientBuilder:Build():UsingLibrary(oLib):Client
 //FAZ A REQUISIÇÃO
 netRequest = RequestBuilder:POST (netUri)
                      :AcceptJson()
-                     :AddHeader("Authorization", "Basic SGNja1lqNnQyb2pmV3pvSjZYVUJzelIxd0ZjYTpFdlRCMGtzODhnSjNSOXl3Zks0dm5vc1FScUVh")
+                     :AddHeader("Authorization", apifiscal.chavesDeAcesso)
                      :AddHeader("Content-Type", "application/x-www-form-urlencoded")
                      :REQUEST.
 

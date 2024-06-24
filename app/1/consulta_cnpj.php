@@ -26,6 +26,10 @@ $operacao = array();
 
 $progr = new chamaprogress();
 
+// PASSANDO idEmpresa PARA PROGRESS
+if (isset($jsonEntrada['idEmpresa'])) {
+  $progr->setempresa($jsonEntrada['idEmpresa']);
+}
 
 $retorno = $progr->executarprogress("admin/app/1/consulta_cnpj",json_encode($jsonEntrada));
 fwrite($arquivo,$identificacao."-RETORNO->".$retorno."\n");

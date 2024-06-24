@@ -11,6 +11,7 @@ if (isset($_GET['operacao'])) {
 		
 		
 		$apiEntrada = array(
+			'idEmpresa' => $_SESSION['idEmpresa'],
 			'cnpj' => $_POST["cnpj"]
 		);
 

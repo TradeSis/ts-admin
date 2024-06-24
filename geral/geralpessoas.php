@@ -212,7 +212,7 @@ $caracTribs = buscaCaracTrib();
                                             </div>
                                             <div class="col-md">
                                                 <label class="form-label ts-label">caracTrib</label>
-                                                <select class="form-select ts-input" name="caracTrib">
+                                                <select class="form-select ts-input" name="caracTrib" id="caracTrib_inserirgeral">
                                                     <option value="<?php echo null ?>"><?php echo "Selecione" ?></option>
                                                     <?php foreach ($caracTribs as $caracTrib) { ?>
                                                     <option value="<?php echo $caracTrib['caracTrib'] ?>"><?php echo $caracTrib['caracTrib'] ?> - <?php echo $caracTrib['descricaoCaracTrib'] ?></option>
@@ -550,6 +550,23 @@ $caracTribs = buscaCaracTrib();
                     $('#cnae_inserirgeral').val(json.cnae);
                     $('#cnae_inserirgeral').prop('readonly', true);
 
+                    // CHAMA API DE CNAE CLASSE
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'html',
+                        url: '<?php echo URLROOT ?>/impostos/database/cnae.php?operacao=buscaClasse',
+                        data: {
+                            cnaeID: json.cnae
+                        },
+                        success: function(msg) {
+                            var json = JSON.parse(msg);
+
+                            $('#caracTrib_inserirgeral').val(json.caracTrib);
+                            $('#caracTrib_inserirgeral').addClass('ts-displayDisable');
+
+                        }
+                    });
+
                 }
             });
         }
@@ -579,6 +596,23 @@ $caracTribs = buscaCaracTrib();
 
                     $('#cnae').val(json.cnae);
                     $('#cnae').prop('readonly', true);
+
+                    // CHAMA API DE CNAE CLASSE
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'html',
+                        url: '<?php echo URLROOT ?>/impostos/database/cnae.php?operacao=buscaClasse',
+                        data: {
+                            cnaeID: json.cnae
+                        },
+                        success: function(msg) {
+                            var json = JSON.parse(msg);
+
+                            $('#caracTrib').val(json.caracTrib);
+                            $('#caracTrib').addClass('ts-displayDisable');
+
+                        }
+                    });
 
                 }
             });

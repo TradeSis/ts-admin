@@ -41,6 +41,7 @@ def var hbearer as handle.
 def var hsaida   as handle.             /* HANDLE SAIDA */
 
 def TEMP-TABLE ttentrada NO-UNDO serialize-name "dadosEntrada"  /* JSON ENTRADA */
+    FIELD idEmpresa AS INT
     field cnpj  AS CHAR.
 
 def temp-table ttconsultaCnpj  NO-UNDO serialize-name "consultaCnpj"  /* JSON SAIDA */
@@ -75,7 +76,8 @@ ASSIGN netClient   = ClientBuilder:Build()
        netUri:Path = "/consulta-cnpj-df/v2/basica/" + STRING(ttentrada.cnpj).    
 
 
-RUN admin/database/bearer.p (OUTPUT token).
+RUN admin/database/bearer.p (   INPUT ttentrada.idEmpresa,
+                                OUTPUT token).
 
 
 //FAZ A REQUISIÇÃO
