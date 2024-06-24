@@ -28,47 +28,44 @@ DEFINE VARIABLE joToken         AS JsonObject NO-UNDO.
 
 
 DEF INPUT PARAM idEmpresa AS INT.
+DEF INPUT PARAM fornecedor AS CHAR.
 DEF OUTPUT PARAM token AS CHAR.
 
 /* APIFISCAL */
-FIND apifiscal WHERE apifiscal.idEmpresa = idEmpresa NO-LOCK NO-ERROR. 
-IF NOT AVAIL apifiscal 
-THEN DO:
-    RUN montasaida (400,"Apifiscal não cadastrada para empresa!").
-    RETURN.
-END.
+FOR EACH apifiscal WHERE apifiscal.idEmpresa = idEmpresa AND apifiscal.fornecedor = fornecedor NO-LOCK. 
 
-oLib = ClientLibraryBuilder:Build()
-                           :sslVerifyHost(NO)
-                           :ServerNameIndicator('gateway.apiserpro.serpro.gov.br') 
-                           :library.
-                                      
-/* INI - requisicao web */
-ASSIGN netClient   = ClientBuilder:Build():UsingLibrary(oLib):Client 
-       netUri      = new URI("https", "gateway.apiserpro.serpro.gov.br") 
-       netUri:Path = "/token?grant_type=client_credentials".
- 
+    oLib = ClientLibraryBuilder:Build()
+                               :sslVerifyHost(NO)
+                               :ServerNameIndicator('gateway.apiserpro.serpro.gov.br') 
+                               :library.
+                                          
+    /* INI - requisicao web */
+    ASSIGN netClient   = ClientBuilder:Build():UsingLibrary(oLib):Client 
+           netUri      = new URI("https", "gateway.apiserpro.serpro.gov.br") 
+           netUri:Path = "/token?grant_type=client_credentials".
+     
 
 
-//FAZ A REQUISIÇÃO
-netRequest = RequestBuilder:POST (netUri)
-                     :AcceptJson()
-                     :AddHeader("Authorization", apifiscal.chavesDeAcesso)
-                     :AddHeader("Content-Type", "application/x-www-form-urlencoded")
-                     :REQUEST.
+    //FAZ A REQUISIÇÃO
+    netRequest = RequestBuilder:POST (netUri)
+                         :AcceptJson()
+                         :AddHeader("Authorization", apifiscal.chavesDeAcesso)
+                         :AddHeader("Content-Type", "application/x-www-form-urlencoded")
+                         :REQUEST.
 
-netResponse = netClient:EXECUTE(netRequest).
+    netResponse = netClient:EXECUTE(netRequest).
 
-//TRATA RETORNO
-if type-of(netResponse:Entity, JsonObject) then do:
-    joResponse = CAST(netResponse:Entity, JsonObject).
-    joResponse:Write(lcJsonResponse).
-    //RUN LOG("RETORNO Token BEARER " + STRING(lcJsonResponse)).
-    
-    joToken = joResponse.
-   
-    token = joToken:GetCharacter("access_token").
+    //TRATA RETORNO
+    if type-of(netResponse:Entity, JsonObject) then do:
+        joResponse = CAST(netResponse:Entity, JsonObject).
+        joResponse:Write(lcJsonResponse).
+        //RUN LOG("RETORNO Token BEARER " + STRING(lcJsonResponse)).
+        
+        joToken = joResponse.
+       
+        token = joToken:GetCharacter("access_token").
 
+    END.
 END.
 
 

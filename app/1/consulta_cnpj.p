@@ -42,6 +42,7 @@ def var hsaida   as handle.             /* HANDLE SAIDA */
 
 def TEMP-TABLE ttentrada NO-UNDO serialize-name "dadosEntrada"  /* JSON ENTRADA */
     FIELD idEmpresa AS INT
+    FIELD fornecedor LIKE apifiscal.fornecedor
     field cnpj  AS CHAR.
 
 def temp-table ttconsultaCnpj  NO-UNDO serialize-name "consultaCnpj"  /* JSON SAIDA */
@@ -77,6 +78,7 @@ ASSIGN netClient   = ClientBuilder:Build()
 
 
 RUN admin/database/bearer.p (   INPUT ttentrada.idEmpresa,
+                                INPUT ttentrada.fornecedor,
                                 OUTPUT token).
 
 
