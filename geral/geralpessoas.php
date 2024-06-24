@@ -2,6 +2,9 @@
 //Helio 05102023 padrao novo
 //Lucas 04042023 criado
 include_once(__DIR__ . '/../header.php');
+include_once(ROOT . '/impostos/database/caracTrib.php');
+
+$caracTribs = buscaCaracTrib();
 
 ?>
 <!doctype html>
@@ -173,7 +176,7 @@ include_once(__DIR__ . '/../header.php');
                                             <!-- lucas 04042024 - Alterado para select: crt, regimeTrib e caracTrib -->
                                             <div class="col-md">
                                                 <label class="form-label ts-label">regimeTrib</label>
-                                                <select class="form-select ts-input" name="regimeTrib" id="regimeTrib_inserir">
+                                                <select class="form-select ts-input" name="regimeTrib">
                                                     <option value="">Selecione</option>
                                                     <option value="SN" value="SN">SN - Simples Nacional</option>
                                                     <option value="LR">LR - Lucro Real</option>
@@ -182,7 +185,7 @@ include_once(__DIR__ . '/../header.php');
                                             </div>
                                             <div class="col-md">
                                                 <label class="form-label ts-label">crt</label>
-                                                <select class="form-select ts-input" name="crt" id="crt_inserir">
+                                                <select class="form-select ts-input" name="crt">
                                                     <option value="">Selecione</option>
                                                     <option data-datacrt="SN" value="1">1 - Simples Nacional</option>
                                                     <option data-datacrt="SN" value="2">2 - SN com excesso sublimite de receita bruta</option>
@@ -209,17 +212,11 @@ include_once(__DIR__ . '/../header.php');
                                             </div>
                                             <div class="col-md">
                                                 <label class="form-label ts-label">caracTrib</label>
-                                                <select class="form-select ts-input" name="caracTrib" id="caracTrib_inserir">
-                                                    <option value="<?php echo null ?>"><?php echo "Selecione" ?></option>    
-                                                    <option value="0">0 - Industrial</option>
-                                                    <option value="1">1 - Distribuidor</option>
-                                                    <option value="2">2 - Atacadista</option>
-                                                    <option value="3">3 - Varejista</option>
-                                                    <option value="4">4 - Produtor Rural Fantasia Juridica</option>
-                                                    <option value="6">6 - Produtor Rural Pessoa Fisica</option>
-                                                    <option value="7">7 - Pessoa Juridica não Contribuinte do ICMS</option>
-                                                    <option value="8">8 - Pessoa Fisica não Contribuinte do ICMS</option>
-                                                    <option value="9">9 - Armazém Geral</option>
+                                                <select class="form-select ts-input" name="caracTrib">
+                                                    <option value="<?php echo null ?>"><?php echo "Selecione" ?></option>
+                                                    <?php foreach ($caracTribs as $caracTrib) { ?>
+                                                    <option value="<?php echo $caracTrib['caracTrib'] ?>"><?php echo $caracTrib['caracTrib'] ?> - <?php echo $caracTrib['descricaoCaracTrib'] ?></option>
+                                                    <?php } ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -389,16 +386,11 @@ include_once(__DIR__ . '/../header.php');
                                                 <label class="form-label ts-label">caracTrib</label>
                                                 <select class="form-select ts-input" name="caracTrib" id="caracTrib">
                                                     <option value="<?php echo null ?>"><?php echo "Selecione" ?></option>
-                                                    <option value="0">0 - Industrial</option>
-                                                    <option value="1">1 - Distribuidor</option>
-                                                    <option value="2">2 - Atacadista</option>
-                                                    <option value="3">3 - Varejista</option>
-                                                    <option value="4">4 - Produtor Rural Pessoa Juridica</option>
-                                                    <option value="6">6 - Produtor Rural Pessoa Fisica</option>
-                                                    <option value="7">7 - Pessoa Juridica não Contribuinte do ICMS</option>
-                                                    <option value="8">8 - Pessoa Fisica não Contribuinte do ICMS</option>
-                                                    <option value="9">9 - Armazém Geral</option>
+                                                    <?php foreach ($caracTribs as $caracTrib) { ?>
+                                                    <option value="<?php echo $caracTrib['caracTrib'] ?>"><?php echo $caracTrib['caracTrib'] ?> - <?php echo $caracTrib['descricaoCaracTrib'] ?></option>
+                                                    <?php } ?>
                                                 </select>
+
                                             </div>
                                         </div>
                                     </div><!-- container 3 -->
@@ -668,17 +660,9 @@ include_once(__DIR__ . '/../header.php');
             if (select_inserir.value == "F"){
                     $('#tabInserir3-tab').addClass('d-none');
                     $('#tabInserir3').addClass('d-none');
-
-                    $("#regimeTrib_inserir").prop('required', false);
-                    $("#crt_inserir").prop('required', false);
-                    $("#caracTrib_inserir").prop('required', false);
             }else{
                 $('#tabInserir3-tab').removeClass('d-none');
                 $('#tabInserir3').removeClass('d-none');
-
-                $("#regimeTrib_inserir").prop('required', true);
-                $("#crt_inserir").prop('required', true);
-                $("#caracTrib_inserir").prop('required', true);
             }
         })
 
