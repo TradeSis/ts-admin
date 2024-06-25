@@ -1,31 +1,4 @@
-/** Carrega bibliotecas necessarias **/
-using OpenEdge.Net.HTTP.IHttpClientLibrary.
-using OpenEdge.Net.HTTP.ConfigBuilder.
-using OpenEdge.Net.HTTP.ClientBuilder.
-using OpenEdge.Net.HTTP.Credentials.
-using OpenEdge.Net.HTTP.IHttpClient.
-using OpenEdge.Net.HTTP.IHttpRequest.
-using OpenEdge.Net.HTTP.RequestBuilder.
-using OpenEdge.Net.URI.
-using OpenEdge.Net.HTTP.IHttpResponse.
-using Progress.Json.ObjectModel.JsonObject.
-using Progress.Json.ObjectModel.JsonArray.
-using Progress.Json.ObjectModel.ObjectModelParser.
-USING OpenEdge.Net.HTTP.Lib.ClientLibraryBuilder.
 
-DEFINE VARIABLE oLib AS IHttpClientLibrary NO-UNDO.
-
-def VAR netClient        AS IHttpClient        no-undo.
-def VAR netUri           as URI                no-undo.
-def VAR netRequest       as IHttpRequest       no-undo.
-def VAR netResponse      as IHttpResponse      no-undo.
-
-DEF VAR joResponse       AS JsonObject NO-UNDO.
-DEF VAR lcJsonRequest    AS LONGCHAR NO-UNDO.
-DEF VAR lcJsonResponse   AS LONGCHAR NO-UNDO.
-  
-DEFINE VARIABLE joCNPJ         AS JsonObject NO-UNDO.
-DEFINE VARIABLE joCNAE         AS JsonObject NO-UNDO.
 
 def input param vlcentrada as longchar. /* JSON ENTRADA */
 def input param vtmp       as char.     /* CAMINHO PROGRESS_TMP */
@@ -52,6 +25,7 @@ def temp-table ttsaida  no-undo serialize-name "conteudoSaida"  /* JSON SAIDA CA
     field descricaoStatus      as CHAR.
 
 DEF VAR token AS CHAR. 
+def var vmensagem as char.
 
 hEntrada = temp-table ttentrada:HANDLE.
 lokJSON = hentrada:READ-JSON("longchar",vlcentrada, "EMPTY") no-error.
@@ -63,45 +37,10 @@ THEN DO:
     RETURN.
 END.
 
- oLib = ClientLibraryBuilder:Build()
-                            :sslVerifyHost(NO)
-                            :ServerNameIndicator('gateway.apiserpro.serpro.gov.br')
-                            :library.
-                                      
-/* INI - requisicao web */
-ASSIGN netClient   = ClientBuilder:Build()
-                                  :UsingLibrary(oLib)
-                                  :Client       
-       netUri      = new URI("https", "gateway.apiserpro.serpro.gov.br") /* URI("metodo", "dominio", "porta") */
-       netUri:Path = "/consulta-cnpj-df/v2/basica/" + STRING(ttentrada.cnpj).    
+RUN admin/database/consulta_cnpj.p (  input table ttentrada,
+                                      INPUT-OUTPUT table ttconsultaCnpj, 
+                                      output vmensagem).
 
-
-RUN admin/database/bearer_serpro.p ( INPUT ttentrada.idEmpresa,
-                                     OUTPUT token).
-
-
-//FAZ A REQUISIÇÃO
-netRequest = RequestBuilder:GET (netUri)
-                     :AcceptJson()
-                     :AddHeader("Accept", "application/json")
-                     :AddHeader("Authorization", "Bearer " + token)
-                     :REQUEST.
-
-netResponse = netClient:EXECUTE(netRequest).
-
-//TRATA RETORNO
-if type-of(netResponse:Entity, JsonObject) then do:
-    joResponse = CAST(netResponse:Entity, JsonObject).
-    joResponse:Write(lcJsonResponse).
-    RUN LOG("RETORNO CNPJ " + STRING(lcJsonResponse)).
-    
-    joCNPJ = joResponse.
-    joCNAE = joCNPJ:GetJsonObject("cnaePrincipal").
-
-   CREATE ttconsultaCnpj.
-   ttconsultaCnpj.cnae = joCNAE:GetCharacter("codigo").
-
-END.
 
 
 find first ttconsultaCnpj no-error.
