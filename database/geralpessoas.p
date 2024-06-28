@@ -1,4 +1,4 @@
-
+RUN LOG("INICIO DATABASE GERALPESSOAS").
 // Programa especializado em CRAR a tabela geralpessoas
 def temp-table ttentrada no-undo serialize-name "geralpessoas"   /* JSON ENTRADA */
     LIKE geralpessoas
@@ -29,9 +29,10 @@ def temp-table ttcnaeClasse  no-undo serialize-name "cnaeClasse"  /* JSON SAIDA 
     field descricaoCaracTrib    as CHAR.
     
     
-def input param vAcao as char.
+def input param vAcao as char.         
 DEF INPUT PARAM TABLE FOR ttentrada.
-def output param vmensagem as char.
+def input param vtmp as char. 
+DEF OUTPUT param vmensagem as char.
 
 vmensagem = ?.
 
@@ -72,9 +73,10 @@ THEN DO:
             CREATE ttentradaConsulta.
             ttentradaConsulta.idEmpresa = ttentrada.idEmpresa. 
             ttentradaConsulta.cnpj = geralpessoas.cpfCnpj.
-            
+            RUN LOG("Cria ttentradaConsulta: idEmpresa: " + string(ttentradaConsulta.idEmpresa) + " - CNPJ: " + ttentradaConsulta.cnpj).
             RUN admin/database/consulta_cnpj.p (  input table ttentradaConsulta,
                                                   INPUT-OUTPUT table ttconsultaCnpj, 
+                                                  INPUT vtmp,
                                                   output vmensagem). 
             
             find first ttconsultaCnpj no-error.
@@ -88,9 +90,10 @@ THEN DO:
             
             CREATE ttentradaCnae.
             ttentradaCnae.cnaeID = int(SUBSTRING(geralpessoas.cnae, 1, 5)).
-            
+            RUN LOG("Cria ttentradaCnae: CNAE: " + string(ttentradaCnae.cnaeID)).
             RUN impostos/database/cnaeClasse.p (  input table ttentradaCnae,
                                                   INPUT-OUTPUT table ttcnaeClasse, 
+                                                  INPUT vtmp,
                                                   output vmensagem).
             find first ttcnaeClasse no-error.
             if not avail ttcnaeClasse
@@ -123,5 +126,17 @@ THEN DO:
     end.
     
 END.
-   
 
+
+procedure LOG.
+    DEF INPUT PARAM vmensagem AS CHAR.    
+    OUTPUT TO VALUE(vtmp + "/fisnota_importar_" + string(today,"99999999") + ".log") APPEND.
+        PUT UNFORMATTED 
+            STRING (TIME,"HH:MM:SS")
+            " progress -> " vmensagem
+            SKIP.
+    OUTPUT CLOSE.
+    
+END PROCEDURE.
+   
+ 

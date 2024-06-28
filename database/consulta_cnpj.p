@@ -26,7 +26,7 @@ DEF VAR lcJsonResponse   AS LONGCHAR NO-UNDO.
   
 DEFINE VARIABLE joCNPJ         AS JsonObject NO-UNDO.
 DEFINE VARIABLE joCNAE         AS JsonObject NO-UNDO.
-
+RUN LOG("INICIO DATABASE CONSULTA_CNPJ").
 
 def TEMP-TABLE ttentrada NO-UNDO serialize-name "dadosEntrada"  /* JSON ENTRADA */
     FIELD idEmpresa AS INT
@@ -43,6 +43,7 @@ DEF VAR token AS CHAR.
 
 DEF INPUT PARAM TABLE FOR ttentrada.
 DEF INPUT-OUTPUT PARAM TABLE FOR ttconsultaCnpj.
+def input param vtmp as char.
 def output param vmensagem as char.
 
 vmensagem = ?.
@@ -91,6 +92,17 @@ if type-of(netResponse:Entity, JsonObject) then do:
 
    CREATE ttconsultaCnpj.
    ttconsultaCnpj.cnae = joCNAE:GetCharacter("codigo").
-
+   RUN LOG("Criou ttconsultaCnpj: " + ttconsultaCnpj.cnae).
 END.
+
+procedure LOG.
+    DEF INPUT PARAM vmensagem AS CHAR.    
+    OUTPUT TO VALUE(vtmp + "/fisnota_importar_" + string(today,"99999999") + ".log") APPEND.
+        PUT UNFORMATTED 
+            STRING (TIME,"HH:MM:SS")
+            " progress -> " vmensagem
+            SKIP.
+    OUTPUT CLOSE.
+    
+END PROCEDURE.
 
