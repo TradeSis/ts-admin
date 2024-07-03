@@ -130,7 +130,7 @@ END.
 
 procedure LOG.
     DEF INPUT PARAM vmensagem AS CHAR.    
-    OUTPUT TO VALUE(vtmp + "/fisnota_importar_" + string(today,"99999999") + ".log") APPEND.
+    OUTPUT TO VALUE(vtmp + "/fisnota_processar_" + string(today,"99999999") + ".log") APPEND.
         PUT UNFORMATTED 
             STRING (TIME,"HH:MM:SS")
             " progress -> " vmensagem
