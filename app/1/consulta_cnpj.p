@@ -39,6 +39,7 @@ END.
 
 RUN admin/database/consulta_cnpj.p (  input table ttentrada,
                                       INPUT-OUTPUT table ttconsultaCnpj, 
+                                      INPUT vtmp,
                                       output vmensagem).
 
 

@@ -102,6 +102,7 @@ if (isset($_GET['operacao'])) {
 		$caracTrib = isset($_POST["caracTrib"]) && $_POST["caracTrib"] !== "" ? $_POST["caracTrib"] : null;
 
 		$apiEntrada = array(
+			'idEmpresa' => $_SESSION['idEmpresa'],
 			'cpfCnpj' => $_POST['cpfCnpj'],
 			'tipoPessoa' => $_POST['tipoPessoa'],
 			'nomePessoa' => $_POST['nomePessoa'],

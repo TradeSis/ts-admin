@@ -22,7 +22,8 @@ lokJSON = hentrada:READ-JSON("longchar",vlcentrada, "EMPTY") no-error.
 find first ttentrada no-error.
 
 RUN admin/database/geralpessoas.p (INPUT "PUT", 
-                                      input table ttentrada, 
+                                      input table ttentrada,
+                                      input vtmp, 
                                        output vmensagem).
 
 IF vmensagem <> ? 

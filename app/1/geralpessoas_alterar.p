@@ -8,7 +8,8 @@ def var hentrada as handle.             /* HANDLE ENTRADA */
 def var hsaida   as handle.             /* HANDLE SAIDA */
 
 def temp-table ttentrada no-undo serialize-name "geralpessoas"   /* JSON ENTRADA */
-    like geralpessoas.
+    LIKE geralpessoas
+    FIELD idEmpresa AS INT.
 
 def temp-table ttsaida  no-undo serialize-name "conteudoSaida"  /* JSON SAIDA CASO ERRO */
     field tstatus        as int serialize-name "status"
@@ -22,6 +23,7 @@ find first ttentrada no-error.
 
 RUN admin/database/geralpessoas.p (INPUT "POST", 
                                            input table ttentrada, 
+                                           input vtmp,
                                            output vmensagem).
 
 IF vmensagem <> ? 
